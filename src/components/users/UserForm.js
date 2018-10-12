@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, Radio } from "antd";
 
 import { addUser } from "../actions/actions";
 
 const FormItem = Form.Item;
-const Option = Select.Option;
+// const Option = Select.Option;
 
 class UserForm extends Component {
   state = {
@@ -111,34 +111,38 @@ class UserForm extends Component {
               placeholder="Select Company Type"
               onChange={this.handleSelectChange}
             >
-              <Option value="brand">Brand</Option>
-              <Option value="supplier">Supplier</Option>
+              <Select.Option value="brand">Brand</Select.Option>
+              <Select.Option value="supplier">Supplier</Select.Option>
             </Select>
           </FormItem>
 
-          {/* Fix after create Brands/Suppliers models: after select the organizationable_type, form shows options of organization names for that type. Conditional render the brands/suppliers names. Set state for organizationable_id on select on that brand/suppliers*/}
-          <FormItem
-            label="Company Name"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Select
-              placeholder="Select Your Company"
-              onChange={this.handleSelectChange}
-            />
-            {/* {this.props.suppliers
-              ? this.props.suppliers.map(supplier => (
-                  <Option value="supplier">{supplier.name}</Option>
+          <FormItem>
+            {this.state.organizationable_type === "brand" ?
+            this.props.brands
+              ? this.props.brands.map(brand => (
+                  <FormItem>
+                    <Radio.Group>
+                      <Radio value={brand.name}>{brand.name}</Radio>
+                    </Radio.Group>
+                  </FormItem>
                 ))
-              : null} */}
+                :
+                this.props.suppliers
+                ? this.props.suppliers.map(brand => (
+                    <FormItem>
+                      <Radio.Group>
+                        <Radio value={supplier.name}>{supplier.name}</Radio>
+                      </Radio.Group>
+                    </FormItem>
+                  ))
+                }}
           </FormItem>
+
           <FormItem wrapperCol={{ span: 12, offset: 5 }}>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </FormItem>
-
-          {/* <input type="submit" onSubmit={event => this.handleOnSubmit(event)} /> */}
         </form>
       </div>
     );

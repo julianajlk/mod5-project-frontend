@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import UserForm from "../components/users/UserForm";
 
-import { fetchBrands } from "../components/actions/actions";
+import { fetchBrands, fetchSuppliers } from "../components/actions/actions";
 
-class BrandsContainer extends Component {
+class OrganizationsContainer extends Component {
   componentDidMount() {
     this.props.fetchBrands();
+    this.props.fetchSuppliers();
   }
 
   render() {
     return (
       <div>
-        <UserForm brands={this.props.brands} />
+        <UserForm brands={this.props.brands} suppliers={this.props.suppliers} />
       </div>
     );
   }
@@ -21,11 +22,15 @@ class BrandsContainer extends Component {
 //add state from store to props, but still need to pass in props to <UserForm/>
 const mapStateToProps = state => {
   return {
-    brands: state.brands
+    brands: state.brands,
+    suppliers: state.suppliers
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchBrands }
-)(BrandsContainer);
+  {
+    fetchBrands,
+    fetchSuppliers
+  }
+)(OrganizationsContainer);

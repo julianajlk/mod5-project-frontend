@@ -13,7 +13,7 @@ class UsersContainer extends Component {
   render() {
     return (
       <div>
-        <UserForm />
+        {/* <UserForm /> */}
         <Users users={this.props.users} loading={this.props.loading} />
       </div>
     );

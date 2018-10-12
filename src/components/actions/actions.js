@@ -3,13 +3,8 @@ export function fetchedSuppliers(suppliers) {
   return { type: "FETCHED_SUPPLIERS", suppliers };
 }
 
-export function fetchingSuppliers() {
-  return { type: "FETCHING_SUPPLIERS" };
-}
-
 export function fetchSuppliers() {
   return dispatch => {
-    dispatch(fetchingUsers());
     fetch(`http://localhost:3000/suppliers`)
       .then(response => response.json())
       .then(suppliers => dispatch(fetchedSuppliers(suppliers)));
@@ -21,13 +16,8 @@ export function fetchedBrands(brands) {
   return { type: "FETCHED_BRANDS", brands };
 }
 
-export function fetchingBrands() {
-  return { type: "FETCHING_BRANDS" };
-}
-
 export function fetchBrands() {
   return dispatch => {
-    dispatch(fetchingUsers());
     fetch(`http://localhost:3000/brands`)
       .then(response => response.json())
       .then(brands => dispatch(fetchedBrands(brands)));
