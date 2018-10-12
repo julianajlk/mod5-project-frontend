@@ -3,7 +3,8 @@ import React, { Component } from "react";
 
 class User extends Component {
   render() {
-    // console.log(this.props.user);
+    // console.log("this.props", this.props);
+    // console.log("this.props.user", this.props.user);
     // console.log(this.props.user.organizationable);
 
     const { user } = this.props;

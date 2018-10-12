@@ -15,15 +15,40 @@ class UserForm extends Component {
     organization: ""
   };
 
+  // handleOnSubmit = event => {
+  //   // console.log("hit submit", this.props);
+  //   event.preventDefault();
+  //   this.props.addUser({
+  //     name: this.state.name,
+  //     email: this.state.email,
+  //     organizationable_id: 1,
+  //     organizationable_type: this.state.organizationable_type
+  //   });
+  //   this.setState({
+  //     name: "",
+  //     email: "",
+  //     organizationable_type: "",
+  //     organization: ""
+  //   });
+  // };
+
   handleOnSubmit = event => {
-    console.log("hit submit", this.props);
-    event.preventDefault();
-    this.props.addUser({
-      name: this.state.name,
-      email: this.state.email,
-      organizationable_id: 1,
-      organizationable_type: this.state.organizationable_type
-    });
+    // event.preventDefault();
+    // this.props.addUser(
+    //   this.state.organizationable_type === "brand" ?
+    //   {
+    //   name: this.state.name,
+    //   email: this.state.email,
+    //   organizationable: {
+    //     type: this.state.organizationable_type,
+    //     brand: {
+    //       id:
+    //       name:
+    //     }
+    //
+    //   }
+    //
+    // });
     this.setState({
       name: "",
       email: "",
@@ -33,8 +58,6 @@ class UserForm extends Component {
   };
 
   handleSelectChange = value => {
-    console.log(value);
-
     this.setState({
       organizationable_type: value
     });
@@ -48,6 +71,7 @@ class UserForm extends Component {
   };
 
   render() {
+    console.log(this.props.brands);
     return (
       <div>
         <h3>Create User</h3>
@@ -92,8 +116,8 @@ class UserForm extends Component {
             </Select>
           </FormItem>
 
-          {/* Fix after create Brands/Suppliers models: after select the organizationable_type, form shows options of organization names for that type. Set state for organizationable_id */}
-          {/* <FormItem
+          {/* Fix after create Brands/Suppliers models: after select the organizationable_type, form shows options of organization names for that type. Conditional render the brands/suppliers names. Set state for organizationable_id on select on that brand/suppliers*/}
+          <FormItem
             label="Company Name"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 12 }}
@@ -101,11 +125,13 @@ class UserForm extends Component {
             <Select
               placeholder="Select Your Company"
               onChange={this.handleSelectChange}
-            >
-            <Option value="brand">Brand</Option>
-            <Option value="supplier">Supplier</Option>
-            </Select>
-          </FormItem> */}
+            />
+            {/* {this.props.suppliers
+              ? this.props.suppliers.map(supplier => (
+                  <Option value="supplier">{supplier.name}</Option>
+                ))
+              : null} */}
+          </FormItem>
           <FormItem wrapperCol={{ span: 12, offset: 5 }}>
             <Button type="primary" htmlType="submit">
               Submit
