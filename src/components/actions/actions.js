@@ -1,5 +1,5 @@
-export function addUser(text) {
-  return { type: "ADD_USER", text: text };
+export function addUser(user) {
+  return { type: "ADD_USER", user: user };
 }
 
 export function fetchedUsers(users) {

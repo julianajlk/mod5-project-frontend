@@ -4,7 +4,15 @@ const usersReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_USERS":
       return action.users;
+    case "ADD_USER":
+      console.log("add_user", action.user);
+      const user = action.user;
 
+      console.log("reducer", user, state, state.users);
+      return {
+        ...state,
+        users: [...state, user]
+      };
     default:
       return state;
   }
