@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import UserForm from "../components/users/UserForm";
-import Users from "../components/users/Users";
 
 import { fetchUsers } from "../components/actions/actions";
+
+import Users from "../components/users/Users";
+// import UserProfile from "../components/users/UserProfile";
 
 class UsersContainer extends Component {
   componentDidMount() {
@@ -13,7 +14,6 @@ class UsersContainer extends Component {
   render() {
     return (
       <div>
-        {/* <UserForm /> */}
         <Users users={this.props.users} loading={this.props.loading} />
       </div>
     );

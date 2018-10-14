@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-// import { connect } from "react-redux";
+import React from "react";
+import { Link } from "react-router-dom";
 
-class User extends Component {
-  render() {
-    // console.log("this.props", this.props);
-    // console.log("this.props.user", this.props.user);
-    // console.log(this.props.user.organizationable);
+const User = props => {
+  // console.log("this.props", this.props);
+  // console.log("this.props.user", this.props.user);
+  // console.log(this.props.user.organizationable);
 
-    const { user } = this.props;
+  const { user } = props;
 
-    return (
+  return (
+    <Link className="item" to={`/users/${user.id}`}>
       <div>
         <h3>Name: {user.name}</h3>
         {user.organizationable.type === "brand" ? (
-          <p>Company: {this.props.user.organizationable.brand.name}</p>
+          <p>Company: {props.user.organizationable.brand.name}</p>
         ) : (
-          <p>Company: {this.props.user.organizationable.supplier.name}</p>
+          <p>Company: {props.user.organizationable.supplier.name}</p>
         )}
       </div>
-    );
-  }
-}
+    </Link>
+  );
+};
 
 export default User;
 // export default connect(

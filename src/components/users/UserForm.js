@@ -147,7 +147,7 @@ class UserForm extends Component {
 
           <FormItem wrapperCol={{ span: 12, offset: 5 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Sign Up
             </Button>
           </FormItem>
         </form>
