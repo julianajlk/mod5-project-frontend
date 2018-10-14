@@ -25,8 +25,27 @@ export function fetchBrands() {
 }
 
 // USERS
+export function createUser(user) {
+  return function(dispatch, getState) {
+    fetch(`http://localhost:3000/users`, {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(user => dispatch(addUser(user)));
+    // .then(user => {
+    //   this.setState({ currentUser: user });
+    //   this.props.history.push(`/users/${user.id}`);
+    // });
+  };
+}
+
 export function addUser(user) {
-  console.log(user);
+  console.log("actions", user);
   return { type: "ADD_USER", user };
 }
 

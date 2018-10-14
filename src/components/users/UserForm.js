@@ -5,54 +5,52 @@ import { Form, Input, Button, Select, Radio } from "antd";
 import { addUser } from "../actions/actions";
 
 const FormItem = Form.Item;
-// const Option = Select.Option;
+const RadioGroup = Radio.Group;
+const RadioButton = Radio.Button;
 
 class UserForm extends Component {
   state = {
     name: "",
     email: "",
     organizationable_type: "",
+    radio_id: "",
     organization: ""
   };
 
-  // handleOnSubmit = event => {
-  //   // console.log("hit submit", this.props);
-  //   event.preventDefault();
-  //   this.props.addUser({
-  //     name: this.state.name,
-  //     email: this.state.email,
-  //     organizationable_id: 1,
-  //     organizationable_type: this.state.organizationable_type
-  //   });
-  //   this.setState({
-  //     name: "",
-  //     email: "",
-  //     organizationable_type: "",
-  //     organization: ""
-  //   });
-  // };
-
   handleOnSubmit = event => {
-    // event.preventDefault();
-    // this.props.addUser(
-    //   this.state.organizationable_type === "brand" ?
-    //   {
-    //   name: this.state.name,
-    //   email: this.state.email,
-    //   organizationable: {
-    //     type: this.state.organizationable_type,
-    //     brand: {
-    //       id:
-    //       name:
-    //     }
-    //
-    //   }
-    //
-    // });
+    event.preventDefault();
+    console.log(this.state.radio_id, this.state.organization);
+    if (this.state.organizationable_type === "brand") {
+      this.props.addUser({
+        name: this.state.name,
+        email: this.state.email,
+        organizationable: {
+          type: this.state.organizationable_type,
+          brand: {
+            id: this.state.radio_id,
+            name: this.state.organization
+          }
+        }
+      });
+    } else if (this.state.organizationable_type === "supplier") {
+      this.props.addUser({
+        name: this.state.name,
+        email: this.state.email,
+        organizationable: {
+          type: this.state.organizationable_type,
+          supplier: {
+            id: this.state.radio_id,
+            name: this.state.organization
+          }
+        }
+      });
+    }
+
     this.setState({
       name: "",
       email: "",
       organizationable_type: "",
+      radio_id: "",
       organization: ""
     });
   };
@@ -70,8 +68,21 @@ class UserForm extends Component {
     });
   };
 
+  handleRadioChange = event => {
+    console.log("radio", event.target.value[0], event.target.value[1]);
+    this.setState({
+      radio_id: event.target.value[0],
+      organization: event.target.value[1]
+    });
+  };
+
   render() {
-    console.log(this.props.brands);
+    const radioStyle = {
+      display: "block",
+      height: "30px",
+      lineHeight: "30px"
+    };
+
     return (
       <div>
         <h3>Create User</h3>
@@ -116,27 +127,23 @@ class UserForm extends Component {
             </Select>
           </FormItem>
 
-          <FormItem>
-            {this.state.organizationable_type === "brand" ?
-            this.props.brands
-              ? this.props.brands.map(brand => (
-                  <FormItem>
-                    <Radio.Group>
-                      <Radio value={brand.name}>{brand.name}</Radio>
-                    </Radio.Group>
-                  </FormItem>
+          <RadioGroup onChange={this.handleRadioChange} defaultValue={null}>
+            {this.state.organizationable_type === "brand"
+              ? this.props.brands &&
+                this.props.brands.map(brand => (
+                  <RadioButton value={[brand.id, brand.name]}>
+                    {brand.name}
+                  </RadioButton>
                 ))
-                :
-                this.props.suppliers
-                ? this.props.suppliers.map(brand => (
-                    <FormItem>
-                      <Radio.Group>
-                        <Radio value={supplier.name}>{supplier.name}</Radio>
-                      </Radio.Group>
-                    </FormItem>
+              : this.state.organizationable_type === "supplier"
+                ? this.props.suppliers &&
+                  this.props.suppliers.map(supplier => (
+                    <RadioButton value={[supplier.id, supplier.name]}>
+                      {supplier.name}
+                    </RadioButton>
                   ))
-                }}
-          </FormItem>
+                : null}
+          </RadioGroup>
 
           <FormItem wrapperCol={{ span: 12, offset: 5 }}>
             <Button type="primary" htmlType="submit">
