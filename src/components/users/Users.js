@@ -9,7 +9,7 @@ class Users extends Component {
     //condition to allow for fetch
     return (
       <Switch>
-        <Route exact path="/users/">
+        <Route exact path="/users">
           <ul>
             {this.props.loading ? "Loading, please wait..." : null}
             {this.props.users
@@ -17,22 +17,7 @@ class Users extends Component {
               : null}
           </ul>
         </Route>
-        {/* <Route
-          path="/users/1"
-          render={users => {
-            let selectedUser = this.state.users.find(user => user.id === 1);
-            return <UserProfile user={selectedUser} />;
-          }}
-        /> */}
-        {/* <Route exact path="/users/1">
-          <ul>
-            {this.props.users
-              ? this.props.users.map(user => (
-                  <UserProfile user={user} key={user.id} />
-                ))
-              : null}
-          </ul>
-        </Route> */}
+        <Route path="/users/:userId" component={UserProfile} />
       </Switch>
     );
   }

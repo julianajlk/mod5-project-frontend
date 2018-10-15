@@ -1,29 +1,28 @@
 import React from "react";
+// import { connect } from "react-redux";
+import { Card } from "antd";
 import { Link } from "react-router-dom";
 
-const User = props => {
-  // console.log("this.props", this.props);
-  // console.log("this.props.user", this.props.user);
-  // console.log(this.props.user.organizationable);
+// import UserProfile from "./UserProfile";
 
+const User = props => {
   const { user } = props;
 
   return (
     <Link className="item" to={`/users/${user.id}`}>
-      <div>
-        <h3>Name: {user.name}</h3>
+      <Card
+        title={user.name}
+        extra={<a href="#">Edit</a>}
+        style={{ width: 300 }}
+      >
         {user.organizationable.type === "brand" ? (
-          <p>Company: {props.user.organizationable.brand.name}</p>
+          <p>Company: {user.organizationable.brand.name}</p>
         ) : (
-          <p>Company: {props.user.organizationable.supplier.name}</p>
+          <p>Company: {user.organizationable.supplier.name}</p>
         )}
-      </div>
+      </Card>
     </Link>
   );
 };
 
 export default User;
-// export default connect(
-//   null,
-//   { deleteUser }
-// )(User);

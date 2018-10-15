@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { fetchUsers } from "../components/actions/actions";
 
 import Users from "../components/users/Users";
-// import UserProfile from "../components/users/UserProfile";
 
 class UsersContainer extends Component {
   componentDidMount() {

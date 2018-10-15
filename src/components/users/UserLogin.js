@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 
 // import { connect } from "react-redux";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Icon, Checkbox } from "antd";
 
 const FormItem = Form.Item;
 
 class UserLogin extends Component {
   state = {
     name: "",
-    email: ""
+    password: ""
   };
 
   handleOnSubmit = event => {
     event.preventDefault();
-    console.log(this.state.radio_id, this.state.organization);
+
     this.setState({
       name: "",
-      email: ""
+      password: ""
     });
   };
 
@@ -31,13 +31,17 @@ class UserLogin extends Component {
     return (
       <div>
         <h3>Login</h3>
-        <form onSubmit={event => this.handleOnSubmit(event)}>
+        <Form
+          onSubmit={event => this.handleOnSubmit(event)}
+          className="login-form"
+        >
           <FormItem
             label="Name"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 12 }}
           >
             <Input
+              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Name"
               type="text"
               name="name"
@@ -46,25 +50,38 @@ class UserLogin extends Component {
             />
           </FormItem>
           <FormItem
-            label="Email"
+            label="Password"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Email"
+              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Password"
               type="text"
-              name="email"
+              name="password"
               value={this.state.email}
               onChange={event => this.handleOnChange(event)}
             />
           </FormItem>
 
+          <FormItem>
+            <Checkbox>Remember me</Checkbox>
+            <a className="login-form-forgot" href="">
+              Forgot password
+            </a>
+          </FormItem>
+
           <FormItem wrapperCol={{ span: 12, offset: 5 }}>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
               Login
             </Button>
+            Or <a href="/signup">register now!</a>
           </FormItem>
-        </form>
+        </Form>
       </div>
     );
   }
