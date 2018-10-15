@@ -17,7 +17,12 @@ class Users extends Component {
               : null}
           </ul>
         </Route>
-        <Route path="/users/:userId" component={UserProfile} />
+        <Route
+          path="/users/:userId"
+          render={data => {
+            return <UserProfile userId={data.match.params.userId} />;
+          }}
+        />
       </Switch>
     );
   }

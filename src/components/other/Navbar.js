@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
-import { Layout, Menu, Icon } from "antd";
-
-const { Header } = Layout;
-const MenuItemGroup = Menu.ItemGroup;
+import { Menu, Icon } from "antd";
 
 class Navbar extends React.Component {
+  //use NavLink vs. Link to have "active" instead of setting the key to state
+  //<Link/> must be inside a <Menu.Item />
   state = {
     current: ""
   };
@@ -24,12 +23,12 @@ class Navbar extends React.Component {
           selectedKeys={[this.state.current]}
           mode="horizontal"
         >
-          <Link exact to="/" className="logo">
-            APParel
-          </Link>
-          <Link exact to="/users">
-            All Users
-          </Link>
+          <Menu.Item>
+            <Link to="/users" className="logo">
+              APParel
+            </Link>
+          </Menu.Item>
+
           <Menu.Item key="signup">
             <NavLink to="/signup">
               <Icon type="form" theme="outlined" />

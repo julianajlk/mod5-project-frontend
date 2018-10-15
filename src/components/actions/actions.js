@@ -39,14 +39,14 @@ export function createUser(newUser) {
       }
     })
       .then(response => response.json())
-      .then(user => console.log(user));
+      .then(user => addUser(user));
   };
 }
 
-// export function addUser(user) {
-//   console.log("actions", user);
-//   return { type: "ADD_USER", user };
-// }
+export function addUser(user) {
+  console.log("actions", user);
+  return { type: "ADD_USER", user };
+}
 
 export function fetchedUsers(users) {
   return { type: "FETCHED_USERS", users };

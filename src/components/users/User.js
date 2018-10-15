@@ -1,9 +1,7 @@
 import React from "react";
-// import { connect } from "react-redux";
+
 import { Card } from "antd";
 import { Link } from "react-router-dom";
-
-// import UserProfile from "./UserProfile";
 
 const User = props => {
   const { user } = props;
@@ -12,7 +10,7 @@ const User = props => {
     <Link className="item" to={`/users/${user.id}`}>
       <Card
         title={user.name}
-        extra={<a href="#">Edit</a>}
+        // extra={<a href="/signup">Edit</a>} <Link/> is an "a" tag, cannot have "a" tag inside another "a" tag
         style={{ width: 300 }}
       >
         {user.organizationable.type === "brand" ? (

@@ -8,7 +8,6 @@ import OrganizationsContainer from "./containers/OrganizationsContainer";
 import Navbar from "./components/other/Navbar";
 import Home from "./components/other/Home";
 import UserLogin from "./components/users/UserLogin";
-import UserProfile from "./components/users/UserProfile";
 
 const { Content } = Layout;
 
@@ -23,8 +22,6 @@ class App extends Component {
             <Route path="/signup" component={OrganizationsContainer} />
             <Route path="/login" component={UserLogin} />
             <Route path="/users" component={UsersContainer} />
-            {/* <Route exact path="/users/:userId" render={() => <UserProfile />} /> */}
-            {/* <Route exact path="/users/1" component={UserProfile} /> */}
           </Switch>
         </Content>
       </div>

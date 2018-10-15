@@ -24,7 +24,7 @@ class UserForm extends Component {
       organizationable_type: this.state.organizationable_type,
       organizationable_id: this.state.radio_id
     });
-
+    this.props.history.push("/users/" + this.props.user.id);
     this.setState({
       name: "",
       email: "",
@@ -48,7 +48,8 @@ class UserForm extends Component {
   };
 
   handleRadioChange = event => {
-    console.log("radio", event.target.value[0], event.target.value[1]);
+    console.log(`radio checked:${event.target.value}`);
+    // console.log("radio", event.target.value[0], event.target.value[1]);
     this.setState({
       radio_id: event.target.value[0],
       organization: event.target.value[1]
@@ -56,12 +57,6 @@ class UserForm extends Component {
   };
 
   render() {
-    const radioStyle = {
-      display: "block",
-      height: "30px",
-      lineHeight: "30px"
-    };
-
     return (
       <div>
         <h3>Create User</h3>
@@ -106,23 +101,25 @@ class UserForm extends Component {
             </Select>
           </FormItem>
 
-          <RadioGroup onChange={this.handleRadioChange} defaultValue={null}>
-            {this.state.organizationable_type === "Brand"
-              ? this.props.brands &&
-                this.props.brands.map(brand => (
-                  <RadioButton value={[brand.id, brand.name]}>
-                    {brand.name}
-                  </RadioButton>
-                ))
-              : this.state.organizationable_type === "Supplier"
-                ? this.props.suppliers &&
-                  this.props.suppliers.map(supplier => (
-                    <RadioButton value={[supplier.id, supplier.name]}>
-                      {supplier.name}
+          <div>
+            <RadioGroup onChange={this.handleRadioChange} defaultValue="">
+              {this.state.organizationable_type === "Brand"
+                ? this.props.brands &&
+                  this.props.brands.map(brand => (
+                    <RadioButton value={[brand.id, brand.name]}>
+                      {brand.name}
                     </RadioButton>
                   ))
-                : null}
-          </RadioGroup>
+                : this.state.organizationable_type === "Supplier"
+                  ? this.props.suppliers &&
+                    this.props.suppliers.map(supplier => (
+                      <RadioButton value={[supplier.id, supplier.name]}>
+                        {supplier.name}
+                      </RadioButton>
+                    ))
+                  : null}
+            </RadioGroup>
+          </div>
 
           <FormItem wrapperCol={{ span: 12, offset: 5 }}>
             <Button type="primary" htmlType="submit">

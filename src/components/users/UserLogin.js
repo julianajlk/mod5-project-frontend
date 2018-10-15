@@ -66,7 +66,7 @@ class UserLogin extends Component {
 
           <FormItem>
             <Checkbox>Remember me</Checkbox>
-            <a className="login-form-forgot" href="">
+            <a className="login-form-forgot" href="/">
               Forgot password
             </a>
           </FormItem>

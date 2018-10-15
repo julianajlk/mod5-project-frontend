@@ -1,47 +1,45 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
 
 import { Card } from "antd";
 
 const UserProfile = props => {
-  // console.log(
-  //   "UserProfile",
-  //   props,
-  //   props.match.params,
-  //   props.match.params.userId
-  // );
-  const { user } = props;
-  // let selectedUserId = props.match.params.userId
-  // let selectedUser
   return (
     <div>
       <Card
-        title="Card title"
-        extra={<a href="#">Edit</a>}
+        title="User Profile"
+        extra={<a href="/">Edit</a>}
         style={{ width: 300 }}
       >
-        <h3> Name: </h3>
-        <p> Compant </p>
-        {/* <h3>Name: {user.name}</h3> */}
-        {/* {user.organizationable.type === "brand" ? (
-          <p>Company: {props.user.organizationable.brand.name}</p>
-        ) : (
-          <p>Company: {props.user.organizationable.supplier.name}</p>
-        )} */}
+        {props.selectedUser ? (
+          <React.Fragment>
+            <h3>Name: {props.selectedUser.name}</h3>
+            {props.selectedUser &&
+            props.selectedUser.organizationable.type === "brand" ? (
+              <p>Company: {props.selectedUser.organizationable.brand.name}</p>
+            ) : (
+              <p>
+                Company: {props.selectedUser.organizationable.supplier.name}
+              </p>
+            )}
+          </React.Fragment>
+        ) : null}
       </Card>
     </div>
   );
 };
 
-// const mapStateToProps = state => {
-//   let user = state.users.find(u => u.id === props.match.params.userId);
-//   return {
-//     user: user
-//   };
-// };
+//ownProps are props from parent. The parent (<Users/>) needs to pass in props in a render function - render={data => {return <UserProfile userId={data.match.params.userId} />;}} - here the props passed is the userId, from data(route). Need to do this here and not on the component because by the time it gets to the component state.users is undefined (lifecycle).
+const mapStateToProps = (state, ownProps) => {
+  // console.log(ownProps);
+  // console.log(state, state.users, ownProps.userId);
+  let selectedUser = state.users.find(
+    user => user.id === parseInt(ownProps.userId)
+  );
+  // console.log("selectedUser", selectedUser);
+  return {
+    selectedUser: selectedUser
+  };
+};
 
-export default UserProfile;
-// const UserProfileWithRouter = withRouter(UserProfile);
-//
-// export default connect(mapStateToProps)(UserProfileWithRouter);
+export default connect(mapStateToProps)(UserProfile);
