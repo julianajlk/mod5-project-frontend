@@ -3,10 +3,11 @@ import { Route, Switch } from "react-router-dom";
 
 import User from "./User";
 import UserProfile from "./UserProfile";
+// import UserForm from "./UserForm";
 
 class Users extends Component {
   render() {
-    //condition to allow for fetch
+    //data comes from route, need a render function to pass in userId as props to UserProfile.
     return (
       <Switch>
         <Route exact path="/users">
@@ -23,6 +24,12 @@ class Users extends Component {
             return <UserProfile userId={data.match.params.userId} />;
           }}
         />
+        {/* <Route
+          path="/signup"
+          render={data => {
+            return <UserForm userId={data.match.params.userId} />;
+          }}
+        /> */}
       </Switch>
     );
   }

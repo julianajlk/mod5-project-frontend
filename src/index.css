@@ -18,8 +18,10 @@ code {
 .logo {
   font-family: "Nunito", sans-serif;
   font-weight: 800;
-  letter-spacing: 0.15em;
-  color: #ffa154;
+  letter-spacing: 0.1em;
+  color: #ffa154 !important;
+  /* color: #d49696; */
+  text-decoration: none;
   font-size: 1.5em;
   float: left;
   margin-left: 1em;

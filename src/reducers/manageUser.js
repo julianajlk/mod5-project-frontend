@@ -19,7 +19,18 @@ const suppliersReducer = (state = [], action) => {
 };
 
 const usersReducer = (state = [], action) => {
+  console.log("reducer", action.user);
   switch (action.type) {
+    case "UPDATE_USER":
+      return action.user;
+    // case "UPDATE_USER":
+    //   return state.map(user => {
+    //     if (user.id === action.user.id) {
+    //       return action.user;
+    //     } else {
+    //       return user;
+    //     }
+    //   });
     case "FETCHED_USERS":
       return action.users;
     case "ADD_USER":

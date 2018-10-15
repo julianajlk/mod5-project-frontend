@@ -4,7 +4,7 @@ import { Menu, Icon } from "antd";
 
 class Navbar extends React.Component {
   //use NavLink vs. Link to have "active" instead of setting the key to state
-  //<Link/> must be inside a <Menu.Item />
+  //<Link/> must be inside a <Menu.Item /> (inheritance issue with non-nested component)
   state = {
     current: ""
   };

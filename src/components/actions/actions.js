@@ -25,6 +25,29 @@ export function fetchBrands() {
 }
 
 // USERS
+export function updateUser(user) {
+  console.log(user);
+  return dispatch => {
+    fetch(`http://localhost:3000/users/${user.userId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        name: user.name,
+        email: user.email
+      }),
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(user => addUser(user));
+  };
+}
+
+// export function updateUser(user) {
+//   return { type: "UPDATE_USER", user };
+// }
+
 export function createUser(newUser) {
   console.log(newUser);
   return dispatch => {
@@ -44,7 +67,7 @@ export function createUser(newUser) {
 }
 
 export function addUser(user) {
-  console.log("actions", user);
+  // console.log("actions", user);
   return { type: "ADD_USER", user };
 }
 

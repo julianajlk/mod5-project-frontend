@@ -18,13 +18,14 @@ class UserForm extends Component {
   };
 
   handleOnSubmit = event => {
+    event.preventDefault();
     this.props.createUser({
       name: this.state.name,
       email: this.state.email,
       organizationable_type: this.state.organizationable_type,
       organizationable_id: this.state.radio_id
     });
-    this.props.history.push("/users/" + this.props.user.id);
+    // this.props.history.push("/users/" + this.props.user.id);
     this.setState({
       name: "",
       email: "",
