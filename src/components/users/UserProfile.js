@@ -1,16 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { Card } from "antd";
 
 const UserProfile = props => {
-  console.log(
-    "UserProfile",
-    props,
-    props.match.params,
-    props.match.params.userId
-  );
+  // console.log(
+  //   "UserProfile",
+  //   props,
+  //   props.match.params,
+  //   props.match.params.userId
+  // );
   const { user } = props;
   // let selectedUserId = props.match.params.userId
   // let selectedUser
@@ -34,13 +34,14 @@ const UserProfile = props => {
   );
 };
 
-// export default UserProfile;
+// const mapStateToProps = state => {
+//   let user = state.users.find(u => u.id === props.match.params.userId);
+//   return {
+//     user: user
+//   };
+// };
 
-const mapStateToProps = (state, props) => {
-  let user = state.users.find(u => u.id === props.match.params.userId);
-  return {
-    user: user
-  };
-};
-
-export default connect(mapStateToProps)(UserProfile);
+export default UserProfile;
+// const UserProfileWithRouter = withRouter(UserProfile);
+//
+// export default connect(mapStateToProps)(UserProfileWithRouter);

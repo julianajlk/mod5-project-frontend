@@ -28,7 +28,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "less": "3.8.1",
-    "webpack": "^4.20.2"
+    "less": "3.8.1"
   }
 }

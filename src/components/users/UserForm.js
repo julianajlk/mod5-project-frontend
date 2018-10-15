@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Input, Button, Select, Radio } from "antd";
 
-import { addUser } from "../actions/actions";
+import { createUser } from "../actions/actions";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -18,33 +18,12 @@ class UserForm extends Component {
   };
 
   handleOnSubmit = event => {
-    event.preventDefault();
-    console.log(this.state.radio_id, this.state.organization);
-    if (this.state.organizationable_type === "brand") {
-      this.props.addUser({
-        name: this.state.name,
-        email: this.state.email,
-        organizationable: {
-          type: this.state.organizationable_type,
-          brand: {
-            id: this.state.radio_id,
-            name: this.state.organization
-          }
-        }
-      });
-    } else if (this.state.organizationable_type === "supplier") {
-      this.props.addUser({
-        name: this.state.name,
-        email: this.state.email,
-        organizationable: {
-          type: this.state.organizationable_type,
-          supplier: {
-            id: this.state.radio_id,
-            name: this.state.organization
-          }
-        }
-      });
-    }
+    this.props.createUser({
+      name: this.state.name,
+      email: this.state.email,
+      organizationable_type: this.state.organizationable_type,
+      organizationable_id: this.state.radio_id
+    });
 
     this.setState({
       name: "",
@@ -122,20 +101,20 @@ class UserForm extends Component {
               placeholder="Select Company Type"
               onChange={this.handleSelectChange}
             >
-              <Select.Option value="brand">Brand</Select.Option>
-              <Select.Option value="supplier">Supplier</Select.Option>
+              <Select.Option value="Brand">Brand</Select.Option>
+              <Select.Option value="Supplier">Supplier</Select.Option>
             </Select>
           </FormItem>
 
           <RadioGroup onChange={this.handleRadioChange} defaultValue={null}>
-            {this.state.organizationable_type === "brand"
+            {this.state.organizationable_type === "Brand"
               ? this.props.brands &&
                 this.props.brands.map(brand => (
                   <RadioButton value={[brand.id, brand.name]}>
                     {brand.name}
                   </RadioButton>
                 ))
-              : this.state.organizationable_type === "supplier"
+              : this.state.organizationable_type === "Supplier"
                 ? this.props.suppliers &&
                   this.props.suppliers.map(supplier => (
                     <RadioButton value={[supplier.id, supplier.name]}>
@@ -158,5 +137,5 @@ class UserForm extends Component {
 
 export default connect(
   null,
-  { addUser }
+  { createUser }
 )(UserForm);
