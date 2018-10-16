@@ -1,5 +1,31 @@
 @import "~antd/dist/antd.css";
 
 .App {
+  /* text-align: center; */
+}
+
+.logo {
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #ffa154 !important;
+  /* color: #d49696; */
+  text-decoration: none;
+  font-size: 1.5em;
+  float: left;
+  margin-left: 1em;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  float: left;
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+  margin-bottom: 1.5em;
+}
+
+.page-title {
   text-align: center;
+  display: inline-block;
 }

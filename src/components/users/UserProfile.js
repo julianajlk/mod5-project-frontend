@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Card, Input, Form, Button, Icon, Row, Col, Divider } from "antd";
+import UserForm from "./UserForm";
+
+import { Input, Form, Button, Icon, Row, Col, Divider } from "antd";
 
 import { updateUser } from "../actions/actions";
 
@@ -47,7 +49,7 @@ class UserProfile extends Component {
       fontSize: 16,
       color: "rgba(0,0,0,0.85)",
       lineHeight: "24px",
-      display: "block",
+      display: "inline-block",
       marginBottom: 16
     };
 
@@ -58,6 +60,7 @@ class UserProfile extends Component {
           lineHeight: "22px",
           marginBottom: 7,
           color: "rgba(0,0,0,0.65)"
+          // textAlign: "center"
         }}
       >
         <p
@@ -75,89 +78,9 @@ class UserProfile extends Component {
 
     return (
       <div>
-        {this.props.selectedUser ? (
-          <React.Fragment>
-            <p style={{ ...pStyle, marginBottom: 24 }}>USER PROFILE</p>
-            <p style={pStyle}>Personal</p>
-            <Row>
-              <Col span={12}>
-                <DescriptionItem
-                  title="Name"
-                  content={this.props.selectedUser.name}
-                />
-              </Col>
-              <Col span={12}>
-                <DescriptionItem
-                  title="Email"
-                  content={this.props.selectedUser.email}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <DescriptionItem title="Birthday" content="February 2, 1988" />
-              </Col>
-              <Col span={12}>
-                <DescriptionItem title="Country" content="USA" />
-              </Col>
-            </Row>
-            <Divider />
-            <p style={pStyle}>Company</p>
-            <Row>
-              <Col span={12}>
-                <DescriptionItem
-                  title="Position"
-                  content="Technical Designer"
-                />
-              </Col>
-              <Col span={12}>
-                <DescriptionItem
-                  title="Department"
-                  content="Product Development"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <DescriptionItem
-                  title="Company Type"
-                  content={this.props.selectedUser.organizationable.type}
-                />
-              </Col>
-              {this.props.selectedUser &&
-              this.props.selectedUser.organizationable.type === "brand" ? (
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Company Name"
-                    content={
-                      this.props.selectedUser.organizationable.brand.name
-                    }
-                  />
-                </Col>
-              ) : (
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Company Name"
-                    content={
-                      this.props.selectedUser.organizationable.supplier.name
-                    }
-                  />
-                </Col>
-              )}
-            </Row>
-          </React.Fragment>
-        ) : null}
-
-        <Card
-          title="User Profile"
-          extra={
-            <a onClick={this.toggleEditing}>
-              <Icon type="edit" theme="outlined" />
-            </a>
-          }
-          style={{ width: 300 }}
-        >
+        <React.Fragment>
           {this.state.isEditing ? (
+            // WIP make <UserFormEdit />
             <Form onSubmit={event => this.handleOnSubmit(event)}>
               <FormItem label="Name">
                 <Input
@@ -183,22 +106,97 @@ class UserProfile extends Component {
             </Form>
           ) : this.props.selectedUser ? (
             <React.Fragment>
-              <h3>Name: {this.props.selectedUser.name}</h3>
-              <p>Email: {this.props.selectedUser.email}</p>
-              {this.props.selectedUser &&
-              this.props.selectedUser.organizationable.type === "brand" ? (
-                <p>
-                  Company: {this.props.selectedUser.organizationable.brand.name}
-                </p>
-              ) : (
-                <p>
-                  Company:{" "}
-                  {this.props.selectedUser.organizationable.supplier.name}
-                </p>
-              )}
+              <Row>
+                <Col span={8}>
+                  <img
+                    className="profile-picture"
+                    alt="Profile Picture"
+                    src={this.props.selectedUser.picture}
+                  />
+                </Col>
+                <Col span={16}>
+                  <h2 className="page-title">User Profile</h2>
+                  {/* <h2
+                    className="page-title"
+                    style={{ ...pStyle, marginBottom: 24 }}
+                  >
+                    User Profile
+                  </h2> */}
+                  <a onClick={this.toggleEditing}>
+                    {" "}
+                    <Icon type="edit" theme="outlined" />
+                  </a>
+                  <h3>Name: {this.props.selectedUser.name}</h3>
+                </Col>
+              </Row>
+              <Divider />
+              <p style={pStyle}>Personal Info</p>
+              <Row>
+                <Col span={12}>
+                  <DescriptionItem
+                    title="Location"
+                    content={this.props.selectedUser.location}
+                  />
+                  <DescriptionItem
+                    title="Birthday"
+                    content={this.props.selectedUser.dob}
+                  />
+                </Col>
+                <Col span={12}>
+                  <DescriptionItem
+                    title="Email"
+                    content={this.props.selectedUser.email}
+                  />
+                </Col>
+              </Row>
+
+              <Divider />
+              <p style={pStyle}>Company</p>
+              <Row>
+                <Col span={12}>
+                  <DescriptionItem
+                    title="Position"
+                    content={this.props.selectedUser.position}
+                  />
+                </Col>
+                <Col span={12}>
+                  <DescriptionItem
+                    title="Department"
+                    content={this.props.selectedUser.department}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={12}>
+                  <DescriptionItem
+                    title="Company Type"
+                    content={this.props.selectedUser.organizationable.type}
+                  />
+                </Col>
+                {this.props.selectedUser &&
+                this.props.selectedUser.organizationable.type === "brand" ? (
+                  <Col span={12}>
+                    <DescriptionItem
+                      title="Company Name"
+                      content={
+                        this.props.selectedUser.organizationable.brand.name
+                      }
+                    />
+                  </Col>
+                ) : (
+                  <Col span={12}>
+                    <DescriptionItem
+                      title="Company Name"
+                      content={
+                        this.props.selectedUser.organizationable.supplier.name
+                      }
+                    />
+                  </Col>
+                )}
+              </Row>
             </React.Fragment>
           ) : null}
-        </Card>
+        </React.Fragment>
       </div>
     );
   }

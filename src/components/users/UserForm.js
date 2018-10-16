@@ -1,17 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button, Select, Radio } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  Radio,
+  DatePicker,
+  Upload,
+  message,
+  Icon
+} from "antd";
 
 import { createUser } from "../actions/actions";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
+const { MonthPicker, RangePicker } = DatePicker;
 
 class UserForm extends Component {
   state = {
     name: "",
     email: "",
+    picture: "",
+    dob: "",
+    phone: "",
+    location: "",
+    position: "",
+    department: "",
     organizationable_type: "",
     radio_id: "",
     organization: ""
@@ -22,6 +39,12 @@ class UserForm extends Component {
     this.props.createUser({
       name: this.state.name,
       email: this.state.email,
+      picture: this.state.picture,
+      dob: this.state.dob,
+      phone: this.state.phone,
+      location: this.state.location,
+      position: this.state.position,
+      department: this.state.department,
       organizationable_type: this.state.organizationable_type,
       organizationable_id: this.state.radio_id
     });
@@ -29,6 +52,11 @@ class UserForm extends Component {
     this.setState({
       name: "",
       email: "",
+      dob: "",
+      phone: "",
+      location: "",
+      position: "",
+      deparment: "",
       organizationable_type: "",
       radio_id: "",
       organization: ""
@@ -57,10 +85,43 @@ class UserForm extends Component {
     });
   };
 
+  handleDateChange = (date, dateString) => {
+    console.log(date, dateString);
+    this.setState({
+      dob: dateString
+    });
+  };
+
+  handlePictureUpload = info => {
+    // console.log("Upload", info, info.file.name);
+    this.setState({
+      picture: info.file.name
+    });
+  };
+
   render() {
+    //picture upload
+    const props = {
+      name: "file",
+      action: "//jsonplaceholder.typicode.com/posts/",
+      headers: {
+        authorization: "authorization-text"
+      },
+      onChange(info) {
+        if (info.file.status !== "uploading") {
+          console.log(info.file, info.file.name, info.fileList);
+        }
+        if (info.file.status === "done") {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === "error") {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      }
+    };
+
     return (
       <div>
-        <h3>Create User</h3>
+        <h3>Sign Up</h3>
         <form onSubmit={event => this.handleOnSubmit(event)}>
           <FormItem
             label="Name"
@@ -88,7 +149,76 @@ class UserForm extends Component {
               onChange={event => this.handleOnChange(event)}
             />
           </FormItem>
-
+          <FormItem
+            label="Profile Picture"
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 12 }}
+          >
+            <Upload {...props} onChange={this.handlePictureUpload}>
+              <Button>
+                <Icon type="upload" /> Click to Upload
+              </Button>
+            </Upload>
+          </FormItem>
+          <FormItem
+            label="DOB"
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 12 }}
+          >
+            <DatePicker onChange={this.handleDateChange} />
+          </FormItem>
+          <FormItem
+            label="Phone"
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 12 }}
+          >
+            <Input
+              placeholder="Phone"
+              type="text"
+              name="phone"
+              value={this.state.phone}
+              onChange={event => this.handleOnChange(event)}
+            />
+          </FormItem>
+          <FormItem
+            label="Location"
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 12 }}
+          >
+            <Input
+              placeholder="Location"
+              type="text"
+              name="location"
+              value={this.state.location}
+              onChange={event => this.handleOnChange(event)}
+            />
+          </FormItem>
+          <FormItem
+            label="Position"
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 12 }}
+          >
+            <Input
+              placeholder="Position"
+              type="text"
+              name="position"
+              value={this.state.position}
+              onChange={event => this.handleOnChange(event)}
+            />
+          </FormItem>
+          <FormItem
+            label="Department"
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 12 }}
+          >
+            <Input
+              placeholder="Department"
+              type="text"
+              name="department"
+              value={this.state.department}
+              onChange={event => this.handleOnChange(event)}
+            />
+          </FormItem>
           <FormItem
             label="Company Type"
             labelCol={{ span: 5 }}

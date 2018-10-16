@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
-import { Card, Divider, Tabs, Collapse, Drawer, Button } from "antd";
+import { Divider, Tabs, Collapse, Drawer, Button } from "antd";
 
 // const { Meta } = Card;
 const TabPane = Tabs.TabPane;
