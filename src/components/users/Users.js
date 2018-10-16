@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import { Icon } from "antd";
 
 import User from "./User";
 import UserProfile from "./UserProfile";
@@ -12,7 +13,9 @@ class Users extends Component {
       <Switch>
         <Route exact path="/users">
           <ul>
-            {this.props.loading ? "Loading, please wait..." : null}
+            {this.props.loading ? (
+              <Icon type="loading" theme="outlined" />
+            ) : null}
             {this.props.users
               ? this.props.users.map(user => <User user={user} key={user.id} />)
               : null}

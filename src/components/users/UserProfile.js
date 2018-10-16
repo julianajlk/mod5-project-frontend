@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Card, Input, Form, Button } from "antd";
+import { Card, Input, Form, Button, Icon } from "antd";
 
 import { updateUser } from "../actions/actions";
 
@@ -47,7 +47,11 @@ class UserProfile extends Component {
       <div>
         <Card
           title="User Profile"
-          extra={<a onClick={this.toggleEditing}>Edit</a>}
+          extra={
+            <a onClick={this.toggleEditing}>
+              <Icon type="edit" theme="outlined" />
+            </a>
+          }
           style={{ width: 300 }}
         >
           {this.state.isEditing ? (

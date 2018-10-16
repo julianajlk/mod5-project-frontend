@@ -29,6 +29,12 @@ class Navbar extends React.Component {
             </Link>
           </Menu.Item>
 
+          <Menu.Item key="garments">
+            <NavLink to={`/garments`}>
+              <Icon type="skin" theme="outlined" />
+              Garments
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="signup">
             <NavLink to="/signup">
               <Icon type="form" theme="outlined" />
@@ -43,8 +49,8 @@ class Navbar extends React.Component {
           </Menu.Item>
           <Menu.Item key="user">
             <NavLink to={`/users/1`}>
-              <Icon type="smile" theme="outlined" />
-              User
+              <Icon type="smile" theme="twoTone" twoToneColor="#ffa154" />
+              User 1
             </NavLink>
           </Menu.Item>
         </Menu>

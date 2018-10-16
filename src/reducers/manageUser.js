@@ -1,5 +1,14 @@
 import { combineReducers } from "redux";
 
+const garmentsReducer = (state = [], action) => {
+  switch (action.type) {
+    case "FETCHED_GARMENTS":
+      return action.garments;
+    default:
+      return state;
+  }
+};
+
 const brandsReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_BRANDS":
@@ -23,14 +32,6 @@ const usersReducer = (state = [], action) => {
   switch (action.type) {
     case "UPDATE_USER":
       return action.user;
-    // case "UPDATE_USER":
-    //   return state.map(user => {
-    //     if (user.id === action.user.id) {
-    //       return action.user;
-    //     } else {
-    //       return user;
-    //     }
-    //   });
     case "FETCHED_USERS":
       return action.users;
     case "ADD_USER":
@@ -63,7 +64,8 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   users: usersReducer,
   brands: brandsReducer,
-  suppliers: suppliersReducer
+  suppliers: suppliersReducer,
+  garments: garmentsReducer
 });
 
 export default rootReducer;

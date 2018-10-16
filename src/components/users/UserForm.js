@@ -120,13 +120,19 @@ class UserForm extends Component {
                     ))
                   : null}
             </RadioGroup>
-          </div>
 
-          <FormItem wrapperCol={{ span: 12, offset: 5 }}>
-            <Button type="primary" htmlType="submit">
-              Sign Up
-            </Button>
-          </FormItem>
+            <RadioGroup defaultValue="a">
+              <RadioButton value="a">Hello</RadioButton>
+              <RadioButton value="b">Goodbye</RadioButton>
+            </RadioGroup>
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <FormItem wrapperCol={{ span: 12, offset: 5 }}>
+              <Button type="primary" htmlType="submit">
+                Sign Up
+              </Button>
+            </FormItem>
+          </div>
         </form>
       </div>
     );

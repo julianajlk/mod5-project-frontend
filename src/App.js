@@ -5,6 +5,7 @@ import { Layout } from "antd";
 import "./App.css";
 import UsersContainer from "./containers/UsersContainer";
 import OrganizationsContainer from "./containers/OrganizationsContainer";
+import GarmentsContainer from "./containers/GarmentsContainer";
 import Navbar from "./components/other/Navbar";
 import Home from "./components/other/Home";
 import UserLogin from "./components/users/UserLogin";
@@ -22,6 +23,7 @@ class App extends Component {
             <Route path="/signup" component={OrganizationsContainer} />
             <Route path="/login" component={UserLogin} />
             <Route path="/users" component={UsersContainer} />
+            <Route path="/garments" component={GarmentsContainer} />
           </Switch>
         </Content>
       </div>

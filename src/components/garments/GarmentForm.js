@@ -5,3 +5,5 @@ class UserForm extends Component {
     return <div />;
   }
 }
+
+// :name, :image_url, :category, :season, :location, :status, :fabrication, :trim, :sizing, :measurement, :fit_comment, :comment, :brand_id

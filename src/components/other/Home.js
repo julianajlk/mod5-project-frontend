@@ -1,7 +1,12 @@
 import React from "react";
+import { Icon } from "antd";
 
 const Home = () => {
-  return <div>Home Page</div>;
+  return (
+    <div>
+      Future Home Page <Icon type="car" theme="outlined" />
+    </div>
+  );
 };
 
 export default Home;

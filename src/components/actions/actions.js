@@ -1,3 +1,16 @@
+//GARMENTS
+export function fetchedGarments(garments) {
+  return { type: "FETCHED_GARMENTS", garments };
+}
+
+export function fetchGarments() {
+  return dispatch => {
+    fetch(`http://localhost:3000/garments`)
+      .then(response => response.json())
+      .then(garments => dispatch(fetchedGarments(garments)));
+  };
+}
+
 // SUPPLIERS
 export function fetchedSuppliers(suppliers) {
   return { type: "FETCHED_SUPPLIERS", suppliers };
@@ -43,10 +56,6 @@ export function updateUser(user) {
       .then(user => addUser(user));
   };
 }
-
-// export function updateUser(user) {
-//   return { type: "UPDATE_USER", user };
-// }
 
 export function createUser(newUser) {
   console.log(newUser);
