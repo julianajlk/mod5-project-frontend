@@ -23,7 +23,12 @@ class Garments extends Component {
         <Route
           path="/garments/:garmentId"
           render={data => {
-            return <Garment garmentId={data.match.params.garmentId} />;
+            return (
+              <Garment
+                garmentId={data.match.params.garmentId}
+                garments={this.props.garments}
+              />
+            );
           }}
         />
       </Switch>

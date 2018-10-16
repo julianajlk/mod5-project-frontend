@@ -88,6 +88,7 @@ class UserForm extends Component {
               onChange={event => this.handleOnChange(event)}
             />
           </FormItem>
+
           <FormItem
             label="Company Type"
             labelCol={{ span: 5 }}
