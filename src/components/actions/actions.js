@@ -1,4 +1,27 @@
 //GARMENTS
+export function createGarment(newGarment) {
+  console.log(newGarment);
+  return dispatch => {
+    fetch(`http://localhost:3000/garments`, {
+      method: "POST",
+      body: JSON.stringify({
+        garment: newGarment
+      }),
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(garment => addGarment(garment));
+  };
+}
+
+export function addGarment(garment) {
+  console.log("addGarment", garment);
+  return { type: "ADD_GARMENT", garment };
+}
+
 export function fetchedGarments(garments) {
   return { type: "FETCHED_GARMENTS", garments };
 }

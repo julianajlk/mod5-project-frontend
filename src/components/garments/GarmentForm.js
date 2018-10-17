@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+import { createGarment } from "../actions/actions";
+
 import {
   Form,
   Input,
@@ -22,71 +25,164 @@ class GarmentForm extends Component {
     name: "",
     image_url: "",
     category: "",
-    season: "",
+    season: "Spring",
+    year: "2019",
     location: "",
     status: "",
     fabrication: "",
-    trim_button: "",
-    trim_label: "",
-    trim_zipper: "",
-    trim_hangtag: "",
-    sizing: "",
+    trim_button: 1,
+    trim_label: 1,
+    trim_zipper: 1,
+    trim_hangtag: 1,
+    sizing: "XS",
     measurement: "",
     fit_comment: "",
     comment: ""
   };
 
   handleOnSubmit = event => {
+    console.log("submit", this.state.sizing);
     event.preventDefault();
-    // this.props.createGarment({
-    //   name: this.state.name,
-    //   image_url: this.state.image_url,
-    //   category: this.state.category,
-    //   season: this.state.season,
-    //   location: this.state.location,
-    //   status: this.state.status,
-    //   fabrication: this.state.fabrication,
-    //   trim_button: this.state.trim_button,
-    //   trim_label: this.state.trim_label,
-    //   trim_zipper: this.state.trim_zipper,
-    //   trim_hangtag: this.state.trim_hangtag,
-    //   sizing: this.state.sizing,
-    //   measurement: this.state.measurement,
-    //   fit_comment: this.state.fit_comment,
-    //   comment: this.state.comment
-    // });
+    this.props.createGarment({
+      brand_id: 1,
+      name: this.state.name,
+      image_url: this.state.image_url,
+      category: this.state.category,
+      season: this.state.season + " " + this.state.year,
+      location: this.state.location,
+      status: this.state.status,
+      fabrication: this.state.fabrication,
+      trim_button: this.state.trim_button,
+      trim_label: this.state.trim_label,
+      trim_zipper: this.state.trim_zipper,
+      trim_hangtag: this.state.trim_hangtag,
+      sizing: this.state.sizing,
+      measurement: this.state.measurement,
+      fit_comment: this.state.fit_comment,
+      comment: this.state.comment
+    });
     // // this.props.history.push("/garments/" + this.props.garment.id);
-    // this.setState({
-    //   name: "",
-    //   image_url: "",
-    //   category: "",
-    //   season: "",
-    //   location: "",
-    //   status: "",
-    //   fabrication: "",
-    //   trim_button: "",
-    //   trim_label: "",
-    //   trim_zipper: "",
-    //   trim_hangtag: "",
-    //   sizing: "",
-    //   measurement: "",
-    //   fit_comment: "",
-    //   comment: ""
-    // });
+    this.setState({
+      name: "",
+      image_url: "",
+      category: "",
+      season: "Spring",
+      year: "2019",
+      location: "",
+      status: "",
+      fabrication: "",
+      trim_button: "",
+      trim_label: "",
+      trim_zipper: "",
+      trim_hangtag: "",
+      sizing: "",
+      measurement: "",
+      fit_comment: "",
+      comment: ""
+    });
   };
 
-  //not working yet
-  handleNumberInput = event => {
-    console.log(event.target);
+  //InputNumber doesn't take a name= so need a separate function for each number input
+  handleTrimButton = value => {
+    this.setState({
+      trim_button: value
+    });
+  };
+
+  handleTrimLabel = value => {
+    this.setState({
+      trim_label: value
+    });
+  };
+
+  handleTrimZipper = value => {
+    this.setState({
+      trim_zipper: value
+    });
+  };
+
+  handleTrimHangtag = value => {
+    this.setState({
+      trim_hangtag: value
+    });
+  };
+
+  handleSliderSizing = marks => {
+    console.log(marks);
     // this.setState({
-    //   [event.target.name]: event.target.value
+    //   sizing: marks
     // });
+    if (marks === [0, 0]) {
+      this.setState({
+        sizing: "XS"
+      });
+    } else if (marks === [25, 25]) {
+      this.setState({
+        sizing: "S"
+      });
+    } else if (marks === [50, 50]) {
+      this.setState({
+        sizing: "M"
+      });
+    } else if (marks === [75, 75]) {
+      this.setState({
+        sizing: "L"
+      });
+    } else if (marks === [100, 100]) {
+      this.setState({
+        sizing: "XL"
+      });
+    } else if (marks === [0, 25]) {
+      this.setState({
+        sizing: "XS-S"
+      });
+    } else if (marks === [0, 50]) {
+      this.setState({
+        sizing: "XS-M"
+      });
+    } else if (marks === [0, 75]) {
+      this.setState({
+        sizing: "XS-L"
+      });
+    } else if (marks === [0, 100]) {
+      this.setState({
+        sizing: "SX-XL"
+      });
+    } else if (marks === [25, 50]) {
+      this.setState({
+        sizing: "S-M"
+      });
+    } else if (marks === [25, 75]) {
+      this.setState({
+        sizing: "S-L"
+      });
+    } else if (marks === [25, 100]) {
+      this.setState({
+        sizing: "S-XL"
+      });
+    } else if (marks === [50, 75]) {
+      this.setState({
+        sizing: "M-L"
+      });
+    } else if (marks === [50, 100]) {
+      this.setState({
+        sizing: "M-XL"
+      });
+    } else if (marks === [75, 100]) {
+      this.setState({
+        sizing: "L-XL"
+      });
+    } else {
+      this.setState({
+        sizing: "XS-XL"
+      });
+    }
   };
 
   handlePictureUpload = info => {
     console.log("Upload", info, info.file.name);
     this.setState({
-      picture: info.file.name
+      image_url: info.file.name
     });
   };
 
@@ -97,19 +193,15 @@ class GarmentForm extends Component {
     });
   };
 
-  //not working yet
-  handleSelectChange = value => {
-    console.log("garment form", value);
+  handleSelectSeason = value => {
     this.setState({
       season: value
     });
   };
 
-  //not working yet
-  handleSliderSizing = value => {
-    console.log(value);
+  handleSelectYear = value => {
     this.setState({
-      sizing: value
+      year: value
     });
   };
 
@@ -154,16 +246,24 @@ class GarmentForm extends Component {
             style={pStyle}
             onChange={event => this.handleOnChange(event)}
           />
-          <FormItem label="Season" name="season">
-            <InputGroup onChange={this.handleSelectChange} compact>
-              <Select defaultValue="Spring">
+          <FormItem label="Season">
+            <InputGroup compact>
+              <Select
+                name="season"
+                defaultValue="Spring"
+                onChange={this.handleSelectSeason}
+              >
                 <Option value="Spring">Spring</Option>
                 <Option value="Summer">Summer</Option>
                 <Option value="Fall">Fall</Option>
                 <Option value="Winter">Winter</Option>
                 <Option value="Cruise">Cruise</Option>
               </Select>
-              <Select defaultValue="2019">
+              <Select
+                name="year"
+                defaultValue="2019"
+                onChange={this.handleSelectYear}
+              >
                 <Option value="2019">2019</Option>
                 <Option value="2020">2020</Option>
                 <Option value="2021">2021</Option>
@@ -201,48 +301,47 @@ class GarmentForm extends Component {
           </FormItem>
           <FormItem label="Trims">
             <InputNumber
-              name="trim_button"
               min={1}
               max={15}
               defaultValue={1}
-              onChange={this.handleNumberInput}
+              onChange={this.handleTrimButton}
             />
             <span className="ant-form-text"> buttons</span>
             <InputNumber
-              name="trim_label"
               min={1}
               max={15}
               defaultValue={1}
-              onChange={this.handleNumberInput}
+              onChange={this.handleTrimLabel}
             />
             <span className="ant-form-text"> labels</span>
             <InputNumber
-              name="trim_zipper"
               min={1}
               max={15}
               defaultValue={1}
-              onChange={this.handleNumberInput}
+              onChange={this.handleTrimZipper}
             />
             <span className="ant-form-text"> zippers</span>
             <InputNumber
-              name="trim_hangtag"
               min={1}
               max={15}
               defaultValue={1}
-              onChange={this.handleNumberInput}
+              onChange={this.handleTrimHangtag}
             />
             <span className="ant-form-text"> hangtags</span>
           </FormItem>
-          <FormItem label="Sizing" onChange={this.handleSliderSizing}>
+          <FormItem label="Sizing">
             <Slider
+              range
               marks={{
                 0: "XS",
-                20: "S",
-                40: "M",
-                60: "L",
-                80: "XL",
-                100: "XXL"
+                25: "S",
+                50: "M",
+                75: "L",
+                100: "XL"
               }}
+              step={25}
+              // value={value}
+              onChange={this.handleSliderSizing}
             />
           </FormItem>
           <TextArea
@@ -280,5 +379,7 @@ class GarmentForm extends Component {
   }
 }
 
-// :name, :image_url, :category, :season, :location, :status, :fabrication, :trim, :sizing, :measurement, :fit_comment, :comment, :brand_id
-export default GarmentForm;
+export default connect(
+  null,
+  { createGarment }
+)(GarmentForm);

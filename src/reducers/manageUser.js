@@ -4,6 +4,10 @@ const garmentsReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_GARMENTS":
       return action.garments;
+    case "ADD_GARMENT":
+      const garment = action.garment;
+      console.log(action, action.garment);
+      return [...state, garment];
     default:
       return state;
   }
