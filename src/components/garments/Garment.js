@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Divider, Tabs, Collapse, Drawer, Button } from "antd";
 
+import GarmentForm from "./GarmentForm";
+
 // const { Meta } = Card;
 const TabPane = Tabs.TabPane;
 const Panel = Collapse.Panel;
@@ -49,6 +51,18 @@ class Garment extends Component {
     return (
       <div>
         <React.Fragment>
+          <Button onClick={this.showDrawer}>Create Garment</Button>
+          <Drawer
+            title="New Garment"
+            placement={this.state.placement}
+            closable={false}
+            onClose={this.onClose}
+            visible={this.state.visible}
+          >
+            <GarmentForm />
+          </Drawer>
+        </React.Fragment>
+        {/* <React.Fragment>
           <Button onClick={this.showDrawer}>Garment List</Button>
           <Drawer
             title="All Garments"
@@ -64,7 +78,7 @@ class Garment extends Component {
                 </ul>
               ))}
           </Drawer>
-        </React.Fragment>
+        </React.Fragment> */}
 
         {this.props.selectedGarment ? (
           <React.Fragment>

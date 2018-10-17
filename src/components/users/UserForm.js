@@ -17,7 +17,6 @@ import { createUser } from "../actions/actions";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
-const { MonthPicker, RangePicker } = DatePicker;
 
 class UserForm extends Component {
   state = {
@@ -121,7 +120,7 @@ class UserForm extends Component {
 
     return (
       <div>
-        <h3>Sign Up</h3>
+        <h2 className="page-title">Sign Up</h2>
         <form onSubmit={event => this.handleOnSubmit(event)}>
           <FormItem
             label="Name"
