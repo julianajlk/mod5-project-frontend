@@ -43,10 +43,9 @@ class GarmentForm extends Component {
   handleOnSubmit = event => {
     console.log("submit", this.state.sizing);
     event.preventDefault();
-    this.props.createGarment({
+    let newGarment = {
       brand_id: 1,
       name: this.state.name,
-      image_url: this.state.image_url,
       category: this.state.category,
       season: this.state.season + " " + this.state.year,
       location: this.state.location,
@@ -60,7 +59,11 @@ class GarmentForm extends Component {
       measurement: this.state.measurement,
       fit_comment: this.state.fit_comment,
       comment: this.state.comment
-    });
+    };
+    let file = {
+      image_url: this.state.image_url
+    };
+    this.props.createGarment(newGarment, file);
     // // this.props.history.push("/garments/" + this.props.garment.id);
     this.setState({
       name: "",
@@ -81,6 +84,48 @@ class GarmentForm extends Component {
       comment: ""
     });
   };
+
+  // handleOnSubmit = event => {
+  //   console.log("submit", this.state.sizing);
+  //   event.preventDefault();
+  //   this.props.createGarment({
+  //     brand_id: 1,
+  //     name: this.state.name,
+  //     image_url: this.state.image_url,
+  //     category: this.state.category,
+  //     season: this.state.season + " " + this.state.year,
+  //     location: this.state.location,
+  //     status: this.state.status,
+  //     fabrication: this.state.fabrication,
+  //     trim_button: this.state.trim_button,
+  //     trim_label: this.state.trim_label,
+  //     trim_zipper: this.state.trim_zipper,
+  //     trim_hangtag: this.state.trim_hangtag,
+  //     sizing: this.state.sizing,
+  //     measurement: this.state.measurement,
+  //     fit_comment: this.state.fit_comment,
+  //     comment: this.state.comment
+  //   });
+  //   // // this.props.history.push("/garments/" + this.props.garment.id);
+  //   this.setState({
+  //     name: "",
+  //     image_url: "",
+  //     category: "",
+  //     season: "Spring",
+  //     year: "2019",
+  //     location: "",
+  //     status: "",
+  //     fabrication: "",
+  //     trim_button: "",
+  //     trim_label: "",
+  //     trim_zipper: "",
+  //     trim_hangtag: "",
+  //     sizing: "",
+  //     measurement: "",
+  //     fit_comment: "",
+  //     comment: ""
+  //   });
+  // };
 
   handleSliderSizing = marks => {
     console.log(marks);
@@ -177,12 +222,18 @@ class GarmentForm extends Component {
     });
   };
 
-  handlePictureUpload = info => {
-    console.log("Upload", info, info.file.name);
+  handlePictureUpload = event => {
     this.setState({
-      image_url: info.file.name
+      image_url: event.target.files[0]
     });
   };
+
+  // handlePictureUpload = info => {
+  //   console.log("Upload", info, info.file.name);
+  //   this.setState({
+  //     image_url: info.file.name
+  //   });
+  // };
 
   handleOnChange = event => {
     // console.log(event.target.name, event.target.value);
@@ -291,11 +342,17 @@ class GarmentForm extends Component {
             onChange={event => this.handleOnChange(event)}
           />
           <FormItem label="Technical Sketch">
-            <Upload {...props} onChange={this.handlePictureUpload}>
+            <input
+              type="file"
+              name="cover_upload"
+              id="cover_upload"
+              onChange={event => this.handlePictureUpload(event)}
+            />
+            {/* <Upload {...props} onChange={this.handlePictureUpload}>
               <Button>
                 <Icon type="upload" /> Click to Upload
               </Button>
-            </Upload>
+            </Upload> */}
           </FormItem>
           <FormItem label="Trims">
             <InputNumber

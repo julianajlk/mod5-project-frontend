@@ -1,21 +1,52 @@
 //GARMENTS
-export function createGarment(newGarment) {
-  console.log(newGarment);
+export function createGarment(newGarment, file) {
+  console.log("createGarment", file, file.image_url);
+  let formData = new FormData();
+  formData.append("brand_id", newGarment.brand_id);
+  formData.append("name", newGarment.name);
+  formData.append("category", newGarment.category);
+  formData.append("season", newGarment.season);
+  formData.append("location", newGarment.location);
+  formData.append("status", newGarment.status);
+  formData.append("fabrication", newGarment.fabrication);
+  formData.append("trim_button", newGarment.trim_button);
+  formData.append("trim_label", newGarment.trim_label);
+  formData.append("trim_zipper", newGarment.trim_zipper);
+  formData.append("trim_hangtag", newGarment.trim_hangtag);
+  formData.append("sizing", newGarment.sizing);
+  formData.append("measurement", newGarment.measurement);
+  formData.append("fit_comment", newGarment.fit_comment);
+  formData.append("comment", newGarment.comment);
+
+  formData.append("cover_upload", file.image_url);
+
   return dispatch => {
     fetch(`http://localhost:3000/garments`, {
       method: "POST",
-      body: JSON.stringify({
-        garment: newGarment
-      }),
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json"
-      }
+      body: formData
     })
       .then(response => response.json())
       .then(garment => addGarment(garment));
   };
 }
+
+// export function createGarment(newGarment) {
+//   console.log(newGarment);
+//   return dispatch => {
+//     fetch(`http://localhost:3000/garments`, {
+//       method: "POST",
+//       body: JSON.stringify({
+//         garment: newGarment
+//       }),
+//       headers: {
+//         "Content-type": "application/json",
+//         Accept: "application/json"
+//       }
+//     })
+//       .then(response => response.json())
+//       .then(garment => addGarment(garment));
+//   };
+// }
 
 export function addGarment(garment) {
   console.log("addGarment", garment);

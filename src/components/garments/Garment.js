@@ -82,7 +82,7 @@ class Garment extends Component {
 
         {this.props.selectedGarment ? (
           <React.Fragment>
-            <img alt="example" src={this.props.selectedGarment.image_url} />
+            <img alt="example" src={this.props.selectedGarment.url} />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
             <Divider orientation="left">General Info</Divider>
@@ -98,7 +98,7 @@ class Garment extends Component {
             <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
             <p>Other Comments: {this.props.selectedGarment.comment}</p>
 
-            <img alt="example" src={this.props.selectedGarment.image_url} />
+            <img alt="example" src={this.props.selectedGarment.url} />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
             <Tabs onChange={this.callback} type="card">
@@ -120,7 +120,7 @@ class Garment extends Component {
               </TabPane>
             </Tabs>
 
-            <img alt="example" src={this.props.selectedGarment.image_url} />
+            <img alt="example" src={this.props.selectedGarment.url} />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
             <Collapse bordered={false} defaultActiveKey={["1"]}>

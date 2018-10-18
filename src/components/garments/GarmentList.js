@@ -29,7 +29,7 @@ const GarmentList = props => {
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={<img alt="example" src={garment.image_url} />}
+        cover={<img alt="example" src={garment.url} />}
       >
         <Meta
           title={garment.name}
