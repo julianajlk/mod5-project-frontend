@@ -80,23 +80,81 @@ export function updateUser(user) {
   };
 }
 
-export function createUser(newUser) {
-  console.log(newUser);
+export function createUser(newUser, file) {
+  let formData = new FormData();
+  formData.append("name", newUser.name);
+  formData.append("email", newUser.email);
+  formData.append("dob", newUser.dob);
+  formData.append("phone", newUser.phone);
+  formData.append("location", newUser.location);
+  formData.append("position", newUser.position);
+  formData.append("department", newUser.department);
+  formData.append("organizationable_type", newUser.organizationable_type);
+  formData.append("organizationable_id", newUser.organizationable_id);
+  formData.append("avatar", file.picture);
+
   return dispatch => {
     fetch(`http://localhost:3000/users`, {
       method: "POST",
-      body: JSON.stringify({
-        user: newUser
-      }),
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json"
-      }
+      body: formData
     })
       .then(response => response.json())
       .then(user => addUser(user));
   };
 }
+
+//function to update the newly created User right after it's created.
+// export function uploadAvatar(newUser, file) {
+//   console.log("uploadAvatar", newUser.id, file);
+//   debugger;
+//   let formData = new FormData("avatar", file);
+//   // formData.append("avatar", file);
+//   console.log("formData", formData);
+//   return dispatch => {
+//     fetch(`http://localhost:3000/users/${userId}`, {
+//       method: "PATCH",
+//       body: formData
+//     })
+//       .then(response => response.json())
+//       .then(user => addUser(user));
+//   };
+// }
+
+//function to just create new user without the file object from the picture upload.
+// export function createUser(newUser) {
+//   console.log("newUser", newUser);
+//   return dispatch => {
+//     fetch(`http://localhost:3000/users`, {
+//       method: "POST",
+//       body: JSON.stringify({
+//         user: newUser
+//       }),
+//       headers: {
+//         "Content-type": "application/json",
+//         Accept: "application/json"
+//       }
+//     })
+//       .then(response => response.json())
+//       .then(user => uploadAvatar(user.id, newUser.picture));
+//     // .then(user => console.log("then", user, user.id, newUser.picture));
+//   };
+// }
+
+//   console.log(newUser.picture);
+//   let formData = new FormData();
+//   // let userKeys = Object.keys(newUser);
+//   // console.log(userKeys, userKeys[0]);
+//   // formData.append("user", userKeys[]);
+//   formData.append("user", newUser);
+//   formData.append("avatar", newUser.picture);
+//   return dispatch => {
+//     fetch(`http://localhost:3000/users`, {
+//       method: "POST",
+//       body: formData
+//     })
+//       .then(response => response.json())
+//       .then(user => addUser(user));
+//   };
 
 export function addUser(user) {
   // console.log("actions", user);

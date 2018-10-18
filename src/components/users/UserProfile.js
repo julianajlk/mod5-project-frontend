@@ -75,7 +75,7 @@ class UserProfile extends Component {
         {content}
       </div>
     );
-
+    console.log(this.props.selectedUser);
     return (
       <div>
         <React.Fragment>
@@ -111,7 +111,7 @@ class UserProfile extends Component {
                   <img
                     className="profile-picture"
                     alt="Profile Picture"
-                    src={this.props.selectedUser.picture}
+                    src={this.props.selectedUser.url}
                   />
                 </Col>
                 <Col span={16}>

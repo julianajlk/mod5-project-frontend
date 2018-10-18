@@ -35,10 +35,9 @@ class UserForm extends Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
-    this.props.createUser({
+    let newUser = {
       name: this.state.name,
       email: this.state.email,
-      picture: this.state.picture,
       dob: this.state.dob,
       phone: this.state.phone,
       location: this.state.location,
@@ -46,7 +45,23 @@ class UserForm extends Component {
       department: this.state.department,
       organizationable_type: this.state.organizationable_type,
       organizationable_id: this.state.radio_id
-    });
+    };
+    let file = {
+      picture: this.state.picture
+    };
+    this.props.createUser(newUser, file);
+    // this.props.createUser({
+    //   name: this.state.name,
+    //   email: this.state.email,
+    //   picture: this.state.picture,
+    //   dob: this.state.dob,
+    //   phone: this.state.phone,
+    //   location: this.state.location,
+    //   position: this.state.position,
+    //   department: this.state.department,
+    //   organizationable_type: this.state.organizationable_type,
+    //   organizationable_id: this.state.radio_id
+    // });
     // this.props.history.push("/users/" + this.props.user.id);
     this.setState({
       name: "",
@@ -91,12 +106,19 @@ class UserForm extends Component {
     });
   };
 
-  handlePictureUpload = info => {
-    // console.log("Upload", info, info.file.name);
+  handlePictureUpload = event => {
     this.setState({
-      picture: info.file.name
+      picture: event.target.files[0]
     });
   };
+
+  //Handle when using input from Ant Design
+  // handlePictureUpload = info => {
+  //   console.log("Upload", info, info.fileList[0]);
+  //   this.setState({
+  //     picture: info.fileList[0]
+  //   });
+  // };
 
   render() {
     //picture upload
@@ -153,11 +175,17 @@ class UserForm extends Component {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 12 }}
           >
-            <Upload {...props} onChange={this.handlePictureUpload}>
+            <input
+              type="file"
+              name="avatar"
+              id="avatar"
+              onChange={event => this.handlePictureUpload(event)}
+            />
+            {/* <Upload {...props} onChange={this.handlePictureUpload}>
               <Button>
                 <Icon type="upload" /> Click to Upload
               </Button>
-            </Upload>
+            </Upload> */}
           </FormItem>
           <FormItem
             label="DOB"

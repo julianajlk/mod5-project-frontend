@@ -82,6 +82,76 @@ class GarmentForm extends Component {
     });
   };
 
+  handleSliderSizing = marks => {
+    console.log(marks);
+    //REFACTOR THIS LATER
+    if (marks[0] === 0 && marks[1] === 0) {
+      this.setState({
+        sizing: "XS"
+      });
+    } else if (marks[0] === 25 && marks[1] === 25) {
+      this.setState({
+        sizing: "S"
+      });
+    } else if (marks[0] === 50 && marks[1] === 50) {
+      this.setState({
+        sizing: "M"
+      });
+    } else if (marks[0] === 75 && marks[1] === 75) {
+      this.setState({
+        sizing: "L"
+      });
+    } else if (marks[0] === 100 && marks[1] === 100) {
+      this.setState({
+        sizing: "XL"
+      });
+    } else if (marks[0] === 0 && marks[1] === 25) {
+      this.setState({
+        sizing: "XS-S"
+      });
+    } else if (marks[0] === 0 && marks[1] === 50) {
+      this.setState({
+        sizing: "XS-M"
+      });
+    } else if (marks[0] === 0 && marks[1] === 75) {
+      this.setState({
+        sizing: "XS-L"
+      });
+    } else if (marks[0] === 0 && marks[1] === 100) {
+      this.setState({
+        sizing: "SX-XL"
+      });
+    } else if (marks[0] === 25 && marks[1] === 50) {
+      this.setState({
+        sizing: "S-M"
+      });
+    } else if (marks[0] === 25 && marks[1] === 75) {
+      this.setState({
+        sizing: "S-L"
+      });
+    } else if (marks[0] === 25 && marks[1] === 100) {
+      this.setState({
+        sizing: "S-XL"
+      });
+    } else if (marks[0] === 50 && marks[1] === 75) {
+      this.setState({
+        sizing: "M-L"
+      });
+    } else if (marks[0] === 50 && marks[1] === 100) {
+      this.setState({
+        sizing: "M-XL"
+      });
+    } else if (marks[0] === 75 && marks[1] === 100) {
+      this.setState({
+        sizing: "L-XL"
+      });
+    } else {
+      this.setState({
+        sizing: "XS-XL"
+      });
+    }
+  };
+
   //InputNumber doesn't take a name= so need a separate function for each number input
   handleTrimButton = value => {
     this.setState({
@@ -105,78 +175,6 @@ class GarmentForm extends Component {
     this.setState({
       trim_hangtag: value
     });
-  };
-
-  handleSliderSizing = marks => {
-    console.log(marks);
-    // this.setState({
-    //   sizing: marks
-    // });
-    if (marks === [0, 0]) {
-      this.setState({
-        sizing: "XS"
-      });
-    } else if (marks === [25, 25]) {
-      this.setState({
-        sizing: "S"
-      });
-    } else if (marks === [50, 50]) {
-      this.setState({
-        sizing: "M"
-      });
-    } else if (marks === [75, 75]) {
-      this.setState({
-        sizing: "L"
-      });
-    } else if (marks === [100, 100]) {
-      this.setState({
-        sizing: "XL"
-      });
-    } else if (marks === [0, 25]) {
-      this.setState({
-        sizing: "XS-S"
-      });
-    } else if (marks === [0, 50]) {
-      this.setState({
-        sizing: "XS-M"
-      });
-    } else if (marks === [0, 75]) {
-      this.setState({
-        sizing: "XS-L"
-      });
-    } else if (marks === [0, 100]) {
-      this.setState({
-        sizing: "SX-XL"
-      });
-    } else if (marks === [25, 50]) {
-      this.setState({
-        sizing: "S-M"
-      });
-    } else if (marks === [25, 75]) {
-      this.setState({
-        sizing: "S-L"
-      });
-    } else if (marks === [25, 100]) {
-      this.setState({
-        sizing: "S-XL"
-      });
-    } else if (marks === [50, 75]) {
-      this.setState({
-        sizing: "M-L"
-      });
-    } else if (marks === [50, 100]) {
-      this.setState({
-        sizing: "M-XL"
-      });
-    } else if (marks === [75, 100]) {
-      this.setState({
-        sizing: "L-XL"
-      });
-    } else {
-      this.setState({
-        sizing: "XS-XL"
-      });
-    }
   };
 
   handlePictureUpload = info => {
