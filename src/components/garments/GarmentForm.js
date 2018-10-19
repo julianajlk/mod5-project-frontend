@@ -23,7 +23,7 @@ const Option = Select.Option;
 class GarmentForm extends Component {
   state = {
     name: "",
-    image_url: "",
+    file_upload: "",
     category: "",
     season: "Spring",
     year: "2019",
@@ -61,13 +61,13 @@ class GarmentForm extends Component {
       comment: this.state.comment
     };
     let file = {
-      image_url: this.state.image_url
+      file_upload: this.state.file_upload
     };
     this.props.createGarment(newGarment, file);
     // // this.props.history.push("/garments/" + this.props.garment.id);
     this.setState({
       name: "",
-      image_url: "",
+      file_upload: "",
       category: "",
       season: "Spring",
       year: "2019",
@@ -223,8 +223,16 @@ class GarmentForm extends Component {
   };
 
   handlePictureUpload = event => {
+    console.log("upload", event.target.files, event.target.info);
+    if (event.target.files) {
+      message.success(
+        `${event.target.files[0].name} file uploaded successfully`
+      );
+    } else if (event.target.files === false) {
+      message.error(`File upload failed.`);
+    }
     this.setState({
-      image_url: event.target.files[0]
+      file_upload: event.target.files[0]
     });
   };
 
@@ -259,24 +267,24 @@ class GarmentForm extends Component {
       marginBottom: 16
     };
 
-    //picture upload
-    const props = {
-      name: "file",
-      action: "//jsonplaceholder.typicode.com/posts/",
-      headers: {
-        authorization: "authorization-text"
-      },
-      onChange(info) {
-        if (info.file.status !== "uploading") {
-          console.log(info.file, info.file.name, info.fileList);
-        }
-        if (info.file.status === "done") {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === "error") {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      }
-    };
+    //picture upload Ant Design
+    // const props = {
+    //   name: "file",
+    //   action: "//jsonplaceholder.typicode.com/posts/",
+    //   headers: {
+    //     authorization: "authorization-text"
+    //   },
+    //   onChange(info) {
+    //     if (info.file.status !== "uploading") {
+    //       console.log(info.file, info.file.name, info.fileList);
+    //     }
+    //     if (info.file.status === "done") {
+    //       message.success(`${info.file.name} file uploaded successfully`);
+    //     } else if (info.file.status === "error") {
+    //       message.error(`${info.file.name} file upload failed.`);
+    //     }
+    //   }
+    // };
 
     return (
       <div>
@@ -342,12 +350,26 @@ class GarmentForm extends Component {
             onChange={event => this.handleOnChange(event)}
           />
           <FormItem label="Technical Sketch">
-            <input
-              type="file"
-              name="cover_upload"
-              id="cover_upload"
-              onChange={event => this.handlePictureUpload(event)}
-            />
+            <Button>
+              <label>
+                <Icon type="upload" />
+                {this.state.file_upload !== ""
+                  ? " Picture Uploaded"
+                  : " Click to Upload"}
+                <input
+                  type="file"
+                  name="avatar"
+                  id="avatar"
+                  onChange={event => this.handlePictureUpload(event)}
+                />
+              </label>
+            </Button>
+            {this.state.file_upload !== "" ? (
+              <p>
+                <Icon type="paper-clip" theme="outlined" />{" "}
+                {this.state.file_upload.name}
+              </p>
+            ) : null}
             {/* <Upload {...props} onChange={this.handlePictureUpload}>
               <Button>
                 <Icon type="upload" /> Click to Upload

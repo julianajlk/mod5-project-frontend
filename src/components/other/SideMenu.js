@@ -64,10 +64,10 @@ class NavBar extends React.Component {
               </span>
             }
           >
-            {this.props.garments.map(garment => (
-              <Menu.Item key={garment.id}>
+            {this.props.garments.filter(garment => garment.season).map(g => (
+              <Menu.Item key={g.id}>
                 {" "}
-                <a href={`/garments/${garment.id}`}>{garment.season}</a>
+                <a href={`/garments/${g.id}`}>{g.season}</a>
               </Menu.Item>
             ))}
 
@@ -85,10 +85,10 @@ class NavBar extends React.Component {
               </span>
             }
           >
-            {this.props.garments.map(garment => (
-              <Menu.Item key={garment.id}>
+            {this.props.garments.filter(garment => garment.category).map(g => (
+              <Menu.Item key={g.id}>
                 {" "}
-                <a href={`/garments/${garment.id}`}>{garment.category}</a>
+                <a href={`/garments/${g.id}`}>{g.category}</a>
               </Menu.Item>
             ))}
           </SubMenu>

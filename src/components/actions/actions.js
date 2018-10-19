@@ -1,6 +1,6 @@
 //GARMENTS
 export function createGarment(newGarment, file) {
-  console.log("createGarment", file, file.image_url);
+  console.log("createGarment", file, file.file_upload);
   let formData = new FormData();
   formData.append("brand_id", newGarment.brand_id);
   formData.append("name", newGarment.name);
@@ -18,7 +18,7 @@ export function createGarment(newGarment, file) {
   formData.append("fit_comment", newGarment.fit_comment);
   formData.append("comment", newGarment.comment);
 
-  formData.append("cover_upload", file.image_url);
+  formData.append("cover_upload", file.file_upload);
 
   return dispatch => {
     fetch(`http://localhost:3000/garments`, {
@@ -122,7 +122,7 @@ export function createUser(newUser, file) {
   formData.append("department", newUser.department);
   formData.append("organizationable_type", newUser.organizationable_type);
   formData.append("organizationable_id", newUser.organizationable_id);
-  formData.append("avatar", file.picture);
+  formData.append("avatar", file.file_upload);
 
   return dispatch => {
     fetch(`http://localhost:3000/users`, {

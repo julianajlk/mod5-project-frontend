@@ -26,7 +26,27 @@
   margin-left: 1em;
 }
 
+.profile-picture-edit {
+  border-radius: 50%;
+  float: left;
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+  margin-bottom: 1.5em;
+  margin-left: 1em;
+}
+
 .page-title {
   text-align: center;
   display: inline-block;
+}
+
+/* Garment list: card more button */
+/* .ant-btn-dashed {
+  color: #ffa154;
+} */
+
+/* Upload Button: hide <input> styling to follow Ant Button */
+input[type="file"] {
+  display: none !important;
 }

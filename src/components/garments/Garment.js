@@ -82,7 +82,16 @@ class Garment extends Component {
 
         {this.props.selectedGarment ? (
           <React.Fragment>
-            <img alt="example" src={this.props.selectedGarment.url} />
+            <img
+              alt="example"
+              src={this.props.selectedGarment.url}
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginBottom: 30,
+                width: 300
+              }}
+            />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
             <Divider orientation="left">General Info</Divider>
@@ -90,7 +99,12 @@ class Garment extends Component {
             <p>Status: {this.props.selectedGarment.status}</p>
             <Divider orientation="left">Materials Info</Divider>
             <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-            <p>Trims: {this.props.selectedGarment.trim}</p>
+            <p>Trims Quantity: </p>
+            <li>Buttons - {this.props.selectedGarment.trim_button}</li>
+            <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
+            <li>Labels - {this.props.selectedGarment.trim_label}</li>
+            <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
+
             <Divider orientation="left">Sizing Info</Divider>
             <p>Sizing: {this.props.selectedGarment.sizing}</p>
             <p>Measurements: {this.props.selectedGarment.measurement}</p>
@@ -98,7 +112,16 @@ class Garment extends Component {
             <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
             <p>Other Comments: {this.props.selectedGarment.comment}</p>
 
-            <img alt="example" src={this.props.selectedGarment.url} />
+            <img
+              alt="example"
+              src={this.props.selectedGarment.url}
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginBottom: 30,
+                width: 300
+              }}
+            />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
             <Tabs onChange={this.callback} type="card">
@@ -108,7 +131,11 @@ class Garment extends Component {
               </TabPane>
               <TabPane tab="Materials Info" key="2">
                 <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-                <p>Trims: {this.props.selectedGarment.trim}</p>
+                <p>Trims Quantity: </p>
+                <li>Buttons - {this.props.selectedGarment.trim_button}</li>
+                <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
+                <li>Labels - {this.props.selectedGarment.trim_label}</li>
+                <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
               </TabPane>
               <TabPane tab="Sizing Info" key="3">
                 <p>Sizing: {this.props.selectedGarment.sizing}</p>
@@ -120,7 +147,16 @@ class Garment extends Component {
               </TabPane>
             </Tabs>
 
-            <img alt="example" src={this.props.selectedGarment.url} />
+            <img
+              alt="example"
+              src={this.props.selectedGarment.url}
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginBottom: 30,
+                width: 300
+              }}
+            />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
             <Collapse bordered={false} defaultActiveKey={["1"]}>
@@ -131,7 +167,11 @@ class Garment extends Component {
               </Panel>
               <Panel header="Materials Info" key="2">
                 <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-                <p>Trims: {this.props.selectedGarment.trim}</p>
+                <p>Trims Quantity: </p>
+                <li>Buttons - {this.props.selectedGarment.trim_button}</li>
+                <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
+                <li>Labels - {this.props.selectedGarment.trim_label}</li>
+                <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
               </Panel>
               <Panel header="Sizing Info" key="3">
                 <p>Sizing: {this.props.selectedGarment.sizing}</p>

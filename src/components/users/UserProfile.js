@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import UserForm from "./UserForm";
+import UserFormEdit from "./UserFormEdit";
 
 import { Input, Form, Button, Icon, Row, Col, Divider } from "antd";
 
@@ -80,30 +80,7 @@ class UserProfile extends Component {
       <div>
         <React.Fragment>
           {this.state.isEditing ? (
-            // WIP make <UserFormEdit />
-            <Form onSubmit={event => this.handleOnSubmit(event)}>
-              <FormItem label="Name">
-                <Input
-                  placeholder={this.props.selectedUser.name}
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  onChange={event => this.handleOnChange(event)}
-                />
-              </FormItem>
-              <FormItem label="Email">
-                <Input
-                  placeholder={this.props.selectedUser.email}
-                  type="text"
-                  name="email"
-                  value={this.state.email}
-                  onChange={event => this.handleOnChange(event)}
-                />
-              </FormItem>
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-            </Form>
+            <UserFormEdit selectedUser={this.props.selectedUser} />
           ) : this.props.selectedUser ? (
             <React.Fragment>
               <Row>

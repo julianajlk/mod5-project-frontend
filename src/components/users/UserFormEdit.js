@@ -12,7 +12,7 @@ import {
   Icon
 } from "antd";
 
-import { createUser } from "../actions/actions";
+import { updateUser } from "../actions/actions";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -49,7 +49,7 @@ class UserForm extends Component {
     let file = {
       file_upload: this.state.file_upload
     };
-    this.props.createUser(newUser, file);
+    this.props.updateUser(newUser, file);
 
     // this.props.history.push("/users/" + this.props.user.id);
     this.setState({
@@ -109,37 +109,49 @@ class UserForm extends Component {
     });
   };
 
-  //Handle when using input from Ant Design
-  // handlePictureUpload = info => {
-  //   console.log("Upload", info, info.fileList[0]);
-  //   this.setState({
-  //     picture: info.fileList[0]
-  //   });
-  // };
-
   render() {
-    //picture upload Ant Design
-    // const props = {
-    //   name: "file",
-    //   action: "//jsonplaceholder.typicode.com/posts/",
-    //   headers: {
-    //     authorization: "authorization-text"
-    //   },
-    //   onChange(info) {
-    //     if (info.file.status !== "uploading") {
-    //       console.log(info.file, info.file.name, info.fileList);
-    //     }
-    //     if (info.file.status === "done") {
-    //       message.success(`${info.file.name} file uploaded successfully`);
-    //     } else if (info.file.status === "error") {
-    //       message.error(`${info.file.name} file upload failed.`);
-    //     }
-    //   }
-    // };
-
+    console.log(this.props.selectedUser);
     return (
       <div>
-        <h2 className="page-title">Sign Up</h2>
+        <h2 className="page-title">Edit Profile</h2>
+        <img
+          className="profile-picture-edit"
+          alt="Profile Picture"
+          src={this.props.selectedUser.url}
+        />
+        <FormItem
+          label="Profile Picture"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Button>
+            <label>
+              <Icon type="upload" />
+              {this.state.file_upload !== ""
+                ? " Picture Uploaded"
+                : " Click to Upload"}
+              <input
+                type="file"
+                name="avatar"
+                id="avatar"
+                onChange={event => this.handlePictureUpload(event)}
+              />
+            </label>
+          </Button>
+          {this.state.file_upload !== "" ? (
+            <p>
+              <Icon type="paper-clip" theme="outlined" />{" "}
+              {this.state.file_upload.name}
+            </p>
+          ) : null}
+
+          {/* <Upload {...props} onChange={this.handlePictureUpload}>
+            <Button>
+              <Icon type="upload" /> Click to Upload
+            </Button>
+          </Upload> */}
+        </FormItem>
+
         <form onSubmit={event => this.handleOnSubmit(event)}>
           <FormItem
             label="Name"
@@ -147,7 +159,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Name"
+              placeholder={this.props.selectedUser.name}
               type="text"
               name="name"
               value={this.state.name}
@@ -160,45 +172,14 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Email"
+              placeholder={this.props.selectedUser.email}
               type="text"
               name="email"
               value={this.state.email}
               onChange={event => this.handleOnChange(event)}
             />
           </FormItem>
-          <FormItem
-            label="Profile Picture"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Button>
-              <label>
-                <Icon type="upload" />
-                {this.state.file_upload !== ""
-                  ? " Picture Uploaded"
-                  : " Click to Upload"}
-                <input
-                  type="file"
-                  name="avatar"
-                  id="avatar"
-                  onChange={event => this.handlePictureUpload(event)}
-                />
-              </label>
-            </Button>
-            {this.state.file_upload !== "" ? (
-              <p>
-                <Icon type="paper-clip" theme="outlined" />{" "}
-                {this.state.file_upload.name}
-              </p>
-            ) : null}
 
-            {/* <Upload {...props} onChange={this.handlePictureUpload}>
-              <Button>
-                <Icon type="upload" /> Click to Upload
-              </Button>
-            </Upload> */}
-          </FormItem>
           <FormItem
             label="DOB"
             labelCol={{ span: 5 }}
@@ -212,7 +193,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Phone"
+              placeholder={this.props.selectedUser.phone}
               type="text"
               name="phone"
               value={this.state.phone}
@@ -225,7 +206,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Location"
+              placeholder={this.props.selectedUser.location}
               type="text"
               name="location"
               value={this.state.location}
@@ -238,7 +219,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Position"
+              placeholder={this.props.selectedUser.position}
               type="text"
               name="position"
               value={this.state.position}
@@ -251,7 +232,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder="Department"
+              placeholder={this.props.selectedUser.department}
               type="text"
               name="department"
               value={this.state.department}
@@ -264,7 +245,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Select
-              placeholder="Select Company Type"
+              placeholder="Get organizationable type here"
               onChange={this.handleSelectChange}
             >
               <Select.Option value="Brand">Brand</Select.Option>
@@ -299,7 +280,7 @@ class UserForm extends Component {
           <div style={{ marginTop: 16 }}>
             <FormItem wrapperCol={{ span: 12, offset: 5 }}>
               <Button type="primary" htmlType="submit">
-                Sign Up
+                Update Profile
               </Button>
             </FormItem>
           </div>
@@ -311,5 +292,5 @@ class UserForm extends Component {
 
 export default connect(
   null,
-  { createUser }
+  { updateUser }
 )(UserForm);

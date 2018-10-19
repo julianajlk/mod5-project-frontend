@@ -12,6 +12,7 @@ class Garments extends Component {
       <Switch>
         <Route exact path="/garments">
           <ul>
+            <h2 className=".page-title">Garments</h2>
             {/* {this.props.loading ? <Icon type="loading" theme="outlined" />"Loading, please wait..." : null} */}
             {this.props.garments
               ? this.props.garments.map(garment => (

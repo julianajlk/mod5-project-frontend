@@ -1,7 +1,6 @@
 import React from "react";
-
-import { Card } from "antd";
 import { Link } from "react-router-dom";
+import { Card, Button, Icon, Row, Col } from "antd";
 
 const { Meta } = Card;
 
@@ -9,39 +8,70 @@ const GarmentList = props => {
   const { garment } = props;
 
   return (
-    // <React.Fragment>
-    //   <Card
-    //     title={garment.name}
-    //     extra={
-    //       <Link className="item" to={`/garments/${garment.id}`}>
-    //         More
-    //       </Link>
-    //     }
-    //     cover={<img alt="example" src={garment.image_url} />}
-    //     style={{ width: 300 }}
-    //   >
-    //     <p>Season: {garment.season}</p>
-    //     {/* <img src={garment.image_url} /> */}
-    //   </Card>
-    // </React.Fragment>
-
-    <Link className="item" to={`/garments/${garment.id}`}>
+    <React.Fragment>
       <Card
-        hoverable
-        style={{ width: 240 }}
-        cover={<img alt="example" src={garment.url} />}
+        // hoverable (changes the cursor to click on hover)
+        style={{
+          width: 240,
+          margin: 10,
+          display: "inline-block"
+        }}
+        cover={
+          <img
+            alt="cover_image"
+            src={garment.url}
+            style={{
+              width: 200,
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: 20
+            }}
+          />
+        }
       >
         <Meta
           title={garment.name}
           description={garment.season}
-          extra={
-            <Link className="item" to={`/garments/${garment.id}`}>
-              More
-            </Link>
-          }
+          style={{ marginBottom: 0 }}
         />
+        <Row>
+          <Col span={8}>
+            <Link className="item" to={`/garments/${garment.id}`}>
+              <Button
+                type="dashed"
+                size="small"
+                style={{
+                  marginBottom: 5,
+                  marginTop: 10,
+                  color: "#ffa154",
+                  fontSize: "11px"
+                }}
+              >
+                EDIT
+                <Icon type="edit" theme="outlined" />
+              </Button>
+            </Link>
+          </Col>
+          <Col span={16}>
+            <Link className="item" to={`/garments/${garment.id}`}>
+              <Button
+                type="dashed"
+                size="small"
+                style={{
+                  marginBottom: 5,
+                  marginTop: 10,
+                  color: "#ffa154",
+                  fontSize: "11px"
+                }}
+              >
+                SEE MORE
+                <Icon type="right" />
+              </Button>
+            </Link>
+          </Col>
+        </Row>
       </Card>
-    </Link>
+    </React.Fragment>
   );
 };
 
