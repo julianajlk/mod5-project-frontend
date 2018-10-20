@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { Icon } from "antd";
 
 import User from "./User";
 import UserProfile from "./UserProfile";
-// import UserForm from "./UserForm";
+import UserFormEdit from "./UserFormEdit";
 
 class Users extends Component {
   render() {
@@ -22,17 +22,23 @@ class Users extends Component {
           </ul>
         </Route>
         <Route
+          exact
           path="/users/:userId"
           render={data => {
             return <UserProfile userId={data.match.params.userId} />;
           }}
         />
-        {/* <Route
-          path="/signup"
+        <Route
+          path="/users/:userId/edit"
           render={data => {
-            return <UserForm userId={data.match.params.userId} />;
+            return (
+              <UserFormEdit
+                userId={data.match.params.userId}
+                users={this.props.users}
+              />
+            );
           }}
-        /> */}
+        />
       </Switch>
     );
   }

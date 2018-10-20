@@ -11,6 +11,9 @@ class NavBar extends React.Component {
   state = {
     openKeys: ["sub1"],
     left: 10
+    // filterSeason:
+    // filterCategory:
+    // filterLocation:
   };
 
   onOpenChange = openKeys => {
@@ -64,6 +67,9 @@ class NavBar extends React.Component {
               </span>
             }
           >
+            {/* unique method */}
+            {/* const sampleValues = [1, 4, 5, 2, 'a', 'e', 'b', 'e', 2, 2, 4];
+const uniqueValues = [...new Set(sampleValues)];  */}
             {this.props.garments.filter(garment => garment.season).map(g => (
               <Menu.Item key={g.id}>
                 {" "}

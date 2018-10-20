@@ -1,37 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Form,
-  Input,
-  Button,
-  Select,
-  Radio,
-  DatePicker,
-  Upload,
-  message,
-  Icon
-} from "antd";
+import { Link } from "react-router-dom";
+import { Form, Input, Button, DatePicker, message, Icon, Row, Col } from "antd";
 
 import { updateUser } from "../actions/actions";
 
 const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
-const RadioButton = Radio.Button;
 
-class UserForm extends Component {
-  state = {
-    name: "",
-    email: "",
-    file_upload: "",
-    dob: "",
-    phone: "",
-    location: "",
-    position: "",
-    department: "",
-    organizationable_type: "",
-    radio_id: "",
-    organization: ""
-  };
+class UserFormEdit extends Component {
+  //like DOM content loaded
+  componentDidMount() {
+    this.setState({
+      name: this.props.selectedUser.name,
+      email: this.props.selectedUser.email,
+      file_upload: "",
+      dob: this.props.selectedUser.dob,
+      phone: this.props.selectedUser.phone,
+      location: this.props.selectedUser.location,
+      position: this.props.selectedUser.position,
+      department: this.props.selectedUser.department
+    });
+  }
 
   handleOnSubmit = event => {
     event.preventDefault();
@@ -42,14 +31,12 @@ class UserForm extends Component {
       phone: this.state.phone,
       location: this.state.location,
       position: this.state.position,
-      department: this.state.department,
-      organizationable_type: this.state.organizationable_type,
-      organizationable_id: this.state.radio_id
+      department: this.state.department
     };
     let file = {
       file_upload: this.state.file_upload
     };
-    this.props.updateUser(newUser, file);
+    this.props.updateUser(newUser, this.props.selectedUser.id, file);
 
     // this.props.history.push("/users/" + this.props.user.id);
     this.setState({
@@ -59,16 +46,7 @@ class UserForm extends Component {
       phone: "",
       location: "",
       position: "",
-      deparment: "",
-      organizationable_type: "",
-      radio_id: "",
-      organization: ""
-    });
-  };
-
-  handleSelectChange = value => {
-    this.setState({
-      organizationable_type: value
+      deparment: ""
     });
   };
 
@@ -76,15 +54,6 @@ class UserForm extends Component {
     //[event.target.name] will be replaced with name/email/organization depending on where the input is
     this.setState({
       [event.target.name]: event.target.value
-    });
-  };
-
-  handleRadioChange = event => {
-    console.log(`radio checked:${event.target.value}`);
-    // console.log("radio", event.target.value[0], event.target.value[1]);
-    this.setState({
-      radio_id: event.target.value[0],
-      organization: event.target.value[1]
     });
   };
 
@@ -110,47 +79,43 @@ class UserForm extends Component {
   };
 
   render() {
-    console.log(this.props.selectedUser);
+    console.log("edit selectedUser", this.props.selectedUser);
     return (
       <div>
-        <h2 className="page-title">Edit Profile</h2>
-        <img
-          className="profile-picture-edit"
-          alt="Profile Picture"
-          src={this.props.selectedUser.url}
-        />
-        <FormItem
-          label="Profile Picture"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 12 }}
-        >
-          <Button>
-            <label>
-              <Icon type="upload" />
-              {this.state.file_upload !== ""
-                ? " Picture Uploaded"
-                : " Click to Upload"}
-              <input
-                type="file"
-                name="avatar"
-                id="avatar"
-                onChange={event => this.handlePictureUpload(event)}
-              />
-            </label>
-          </Button>
-          {this.state.file_upload !== "" ? (
-            <p>
-              <Icon type="paper-clip" theme="outlined" />{" "}
-              {this.state.file_upload.name}
-            </p>
-          ) : null}
-
-          {/* <Upload {...props} onChange={this.handlePictureUpload}>
-            <Button>
-              <Icon type="upload" /> Click to Upload
-            </Button>
-          </Upload> */}
-        </FormItem>
+        <Row>
+          <Col span={8}>
+            {/* <img
+              className="profile-picture-edit"
+              alt="Profile Avatar"
+              src={this.props.selectedUser.url}
+            /> */}
+          </Col>
+          <Col span={16}>
+            <h2 className="page-title">Edit Profile</h2>
+            <FormItem label="Profile Picture">
+              <Button>
+                <label>
+                  <Icon type="upload" />
+                  {this.state.file_upload !== ""
+                    ? " Picture Uploaded"
+                    : " Upload New Picture"}
+                  <input
+                    type="file"
+                    name="avatar"
+                    id="avatar"
+                    onChange={event => this.handlePictureUpload(event)}
+                  />
+                </label>
+              </Button>
+              {this.state.file_upload !== "" ? (
+                <p>
+                  <Icon type="paper-clip" theme="outlined" />{" "}
+                  {this.state.file_upload.name}
+                </p>
+              ) : null}
+            </FormItem>
+          </Col>
+        </Row>
 
         <form onSubmit={event => this.handleOnSubmit(event)}>
           <FormItem
@@ -159,7 +124,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder={this.props.selectedUser.name}
+              placeholder="Name"
               type="text"
               name="name"
               value={this.state.name}
@@ -172,7 +137,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder={this.props.selectedUser.email}
+              placeholder="Email"
               type="text"
               name="email"
               value={this.state.email}
@@ -185,7 +150,10 @@ class UserForm extends Component {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 12 }}
           >
-            <DatePicker onChange={this.handleDateChange} />
+            <DatePicker
+              placeholder={this.props.selectedUser.dob}
+              onChange={this.handleDateChange}
+            />
           </FormItem>
           <FormItem
             label="Phone"
@@ -193,7 +161,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder={this.props.selectedUser.phone}
+              placeholder="Phone"
               type="text"
               name="phone"
               value={this.state.phone}
@@ -206,7 +174,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder={this.props.selectedUser.location}
+              placeholder="Location"
               type="text"
               name="location"
               value={this.state.location}
@@ -219,7 +187,7 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder={this.props.selectedUser.position}
+              placeholder="Position"
               type="text"
               name="position"
               value={this.state.position}
@@ -232,56 +200,29 @@ class UserForm extends Component {
             wrapperCol={{ span: 12 }}
           >
             <Input
-              placeholder={this.props.selectedUser.department}
+              placeholder="Department"
               type="text"
               name="department"
               value={this.state.department}
               onChange={event => this.handleOnChange(event)}
             />
           </FormItem>
-          <FormItem
-            label="Company Type"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Select
-              placeholder="Get organizationable type here"
-              onChange={this.handleSelectChange}
-            >
-              <Select.Option value="Brand">Brand</Select.Option>
-              <Select.Option value="Supplier">Supplier</Select.Option>
-            </Select>
-          </FormItem>
 
-          <div>
-            <RadioGroup onChange={this.handleRadioChange} defaultValue="">
-              {this.state.organizationable_type === "Brand"
-                ? this.props.brands &&
-                  this.props.brands.map(brand => (
-                    <RadioButton value={[brand.id, brand.name]}>
-                      {brand.name}
-                    </RadioButton>
-                  ))
-                : this.state.organizationable_type === "Supplier"
-                  ? this.props.suppliers &&
-                    this.props.suppliers.map(supplier => (
-                      <RadioButton value={[supplier.id, supplier.name]}>
-                        {supplier.name}
-                      </RadioButton>
-                    ))
-                  : null}
-            </RadioGroup>
-
-            <RadioGroup defaultValue="a">
-              <RadioButton value="a">Hello</RadioButton>
-              <RadioButton value="b">Goodbye</RadioButton>
-            </RadioGroup>
-          </div>
           <div style={{ marginTop: 16 }}>
             <FormItem wrapperCol={{ span: 12, offset: 5 }}>
               <Button type="primary" htmlType="submit">
                 Update Profile
               </Button>
+              <Link to={`/users/${this.props.selectedUser.id}`}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ float: "right" }}
+                  onClick={this.toggleEditing}
+                >
+                  Cancel
+                </Button>
+              </Link>
             </FormItem>
           </div>
         </form>
@@ -289,8 +230,29 @@ class UserForm extends Component {
     );
   }
 }
+// if (this.props.users) {
+//   let clickedUser = this.props.users.find(
+//     user => user.id === this.props.userId
+//   );
+// }
+// console.log(this.props.users);
+// console.log("UserFormEdit", clickedUser);
+
+const mapStateToProps = (state, ownProps) => {
+  console.log("state", state);
+  console.log("ownprops", ownProps);
+  console.log("state.users", state.users);
+
+  let selectedUser = state.users.find(
+    user => user.id === parseInt(ownProps.userId)
+  );
+  return {
+    selectedUser: selectedUser,
+    users: state.users
+  };
+};
 
 export default connect(
-  null,
+  mapStateToProps,
   { updateUser }
-)(UserForm);
+)(UserFormEdit);

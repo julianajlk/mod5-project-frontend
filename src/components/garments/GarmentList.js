@@ -34,7 +34,22 @@ const GarmentList = props => {
           description={garment.season}
           style={{ marginBottom: 0 }}
         />
-        <Row>
+        <Link className="item" to={`/garments/${garment.id}`}>
+          <Button
+            type="dashed"
+            size="small"
+            style={{
+              marginBottom: 5,
+              marginTop: 10,
+              color: "#ffa154",
+              fontSize: "11px"
+            }}
+          >
+            SEE MORE
+            <Icon type="right" />
+          </Button>
+        </Link>
+        {/* <Row>
           <Col span={8}>
             <Link className="item" to={`/garments/${garment.id}`}>
               <Button
@@ -69,7 +84,7 @@ const GarmentList = props => {
               </Button>
             </Link>
           </Col>
-        </Row>
+        </Row> */}
       </Card>
     </React.Fragment>
   );

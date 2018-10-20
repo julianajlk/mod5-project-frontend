@@ -1,4 +1,36 @@
 //GARMENTS
+export function updateGarment(newGarment, garmentId, file) {
+  let formData = new FormData();
+  formData.append("brand_id", newGarment.brand_id);
+  formData.append("name", newGarment.name);
+  formData.append("category", newGarment.category);
+  formData.append("season", newGarment.season);
+  formData.append("location", newGarment.location);
+  formData.append("status", newGarment.status);
+  formData.append("fabrication", newGarment.fabrication);
+  formData.append("trim_button", newGarment.trim_button);
+  formData.append("trim_label", newGarment.trim_label);
+  formData.append("trim_zipper", newGarment.trim_zipper);
+  formData.append("trim_hangtag", newGarment.trim_hangtag);
+  formData.append("sizing", newGarment.sizing);
+  formData.append("measurement", newGarment.measurement);
+  formData.append("fit_comment", newGarment.fit_comment);
+  formData.append("comment", newGarment.comment);
+  formData.append("cover_upload", file.file_upload);
+  // console.log(typeof file.file_upload);
+
+  return dispatch => {
+    fetch(`http://localhost:3000/garments/${garmentId}`, {
+      method: "PATCH",
+      body: formData
+    })
+      .then(response => response.json())
+      .then(garment => addGarment(garment));
+  };
+}
+
+// .then(garment =>{ addGarment(garment)push(`http://localhost:3000/garments/${garmentId})`});
+
 export function createGarment(newGarment, file) {
   console.log("createGarment", file, file.file_upload);
   let formData = new FormData();
@@ -92,19 +124,22 @@ export function fetchBrands() {
 }
 
 // USERS
-export function updateUser(user) {
-  console.log(user);
+export function updateUser(newUser, userId, file) {
+  console.log("update", newUser, userId, file);
+  let formData = new FormData();
+  formData.append("name", newUser.name);
+  formData.append("email", newUser.email);
+  formData.append("dob", newUser.dob);
+  formData.append("phone", newUser.phone);
+  formData.append("location", newUser.location);
+  formData.append("position", newUser.position);
+  formData.append("department", newUser.department);
+  formData.append("avatar", file.file_upload);
+
   return dispatch => {
-    fetch(`http://localhost:3000/users/${user.userId}`, {
+    fetch(`http://localhost:3000/users/${userId}`, {
       method: "PATCH",
-      body: JSON.stringify({
-        name: user.name,
-        email: user.email
-      }),
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json"
-      }
+      body: formData
     })
       .then(response => response.json())
       .then(user => addUser(user));

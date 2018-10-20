@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 // import { Icon } from "antd";
 
 import GarmentList from "./GarmentList";
 import Garment from "./Garment";
+import GarmentFormEdit from "./GarmentFormEdit";
 
 class Garments extends Component {
   render() {
@@ -26,6 +27,17 @@ class Garments extends Component {
           render={data => {
             return (
               <Garment
+                garmentId={data.match.params.garmentId}
+                garments={this.props.garments}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/garments/:garmentId"
+          render={data => {
+            return (
+              <GarmentFormEdit
                 garmentId={data.match.params.garmentId}
                 garments={this.props.garments}
               />

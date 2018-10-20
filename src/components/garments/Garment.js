@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
-import { Divider, Tabs, Collapse, Drawer, Button } from "antd";
+import { Divider, Tabs, Collapse, Drawer, Button, Icon, Rate } from "antd";
 
 import GarmentForm from "./GarmentForm";
+import GarmentFormEdit from "./GarmentFormEdit";
 
 // const { Meta } = Card;
 const TabPane = Tabs.TabPane;
@@ -11,16 +12,26 @@ const Panel = Collapse.Panel;
 
 class Garment extends Component {
   state = {
-    isEditing: false,
     visible: false,
-    placement: "left",
+    visibleEdit: false,
     top: 10
   };
 
+  state = {
+    value: 3
+  };
+
+  //rate
+  handleChange = value => {
+    this.setState({ value });
+  };
+
+  //tabs
   callback = key => {
     console.log(key);
   };
 
+  //create drawer
   showDrawer = () => {
     this.setState({
       visible: true
@@ -33,9 +44,16 @@ class Garment extends Component {
     });
   };
 
-  onChange = e => {
+  //edit drawer
+  showDrawerEdit = () => {
     this.setState({
-      placement: e.target.value
+      visibleEdit: true
+    });
+  };
+
+  onCloseEdit = () => {
+    this.setState({
+      visibleEdit: false
     });
   };
 
@@ -48,18 +66,41 @@ class Garment extends Component {
   // );
 
   render() {
+    const { value } = this.state;
     return (
       <div>
         <React.Fragment>
-          <Button onClick={this.showDrawer}>Create Garment</Button>
+          <Button onClick={this.showDrawer}>Create New Garment</Button>
           <Drawer
             title="New Garment"
-            placement={this.state.placement}
-            closable={false}
+            placement="left"
+            closable={true}
             onClose={this.onClose}
             visible={this.state.visible}
+            width={720}
+            // style={{
+            //   height: "calc(100% - 55px)",
+            //   overflow: "auto",
+            //   paddingBottom: 53
+            // }}
           >
             <GarmentForm />
+          </Drawer>
+        </React.Fragment>
+        <React.Fragment>
+          <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
+            <Icon type="edit" theme="outlined" />
+            Edit This Garment
+          </Button>
+          <Drawer
+            title="Update Garment"
+            placement="left"
+            closable={true}
+            onClose={this.onCloseEdit}
+            visible={this.state.visibleEdit}
+            width={720}
+          >
+            <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
           </Drawer>
         </React.Fragment>
         {/* <React.Fragment>
@@ -94,6 +135,18 @@ class Garment extends Component {
             />
             <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <h3>Season: {this.props.selectedGarment.season}</h3>
+            <span>
+              <Rate
+                onChange={this.handleChange}
+                value={value}
+                character={<Icon type="check-circle" theme="outlined" />}
+                allowClear
+              />
+              {value && (
+                <span className="ant-rate-text">{value} samples approved </span>
+              )}
+            </span>
+
             <Divider orientation="left">General Info</Divider>
             <p>Location: {this.props.selectedGarment.location}</p>
             <p>Status: {this.props.selectedGarment.status}</p>

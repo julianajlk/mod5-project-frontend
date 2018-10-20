@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { createGarment } from "../actions/actions";
+import { updateGarment } from "../actions/actions";
+
+// import { showDrawerEdit } from "./Garment";
 
 import {
   Form,
@@ -20,28 +22,27 @@ const FormItem = Form.Item;
 const InputGroup = Input.Group;
 const Option = Select.Option;
 
-class GarmentForm extends Component {
+class GarmentFormEdit extends Component {
   state = {
-    name: "",
+    name: this.props.selectedGarment.name,
     file_upload: "",
-    category: "",
+    category: this.props.selectedGarment.category,
     season: "Spring",
     year: "2019",
-    location: "",
-    status: "",
-    fabrication: "",
+    location: this.props.selectedGarment.location,
+    status: this.props.selectedGarment.status,
+    fabrication: this.props.selectedGarment.fabrication,
     trim_button: 1,
     trim_label: 1,
     trim_zipper: 1,
     trim_hangtag: 1,
     sizing: "XS",
-    measurement: "",
-    fit_comment: "",
-    comment: ""
+    measurement: this.props.selectedGarment.measurement,
+    fit_comment: this.props.selectedGarment.fit_comment,
+    comment: this.props.selectedGarment.comment
   };
 
   handleOnSubmit = event => {
-    console.log("submit", this.state.sizing);
     event.preventDefault();
     let newGarment = {
       brand_id: 1,
@@ -60,10 +61,37 @@ class GarmentForm extends Component {
       fit_comment: this.state.fit_comment,
       comment: this.state.comment
     };
+
+    // if (this.state.file_upload === "") {
+    //   const file = {
+    //     file_upload: null
+    //   };
+    // } else {
+    //   const file = {
+    //     file_upload: this.state.file_upload
+    //   };
+    // }
+
+    //if there is a file_upload
+    // if (this.state.file_upload) {
+    //   const file = {
+    //     file_upload: this.state.file_upload
+    //   };
+    // } else {
+    //   const file = null;
+    // }
+
     let file = {
       file_upload: this.state.file_upload
     };
-    this.props.createGarment(newGarment, file);
+
+    this.props.updateGarment(
+      newGarment,
+      this.props.selectedGarment.id,
+      // this.props.history.push,
+      // this.state.file_upload,
+      file
+    );
     // // this.props.history.push("/garments/" + this.props.garment.id);
     this.setState({
       name: "",
@@ -84,48 +112,6 @@ class GarmentForm extends Component {
       comment: ""
     });
   };
-
-  // handleOnSubmit = event => {
-  //   console.log("submit", this.state.sizing);
-  //   event.preventDefault();
-  //   this.props.createGarment({
-  //     brand_id: 1,
-  //     name: this.state.name,
-  //     image_url: this.state.image_url,
-  //     category: this.state.category,
-  //     season: this.state.season + " " + this.state.year,
-  //     location: this.state.location,
-  //     status: this.state.status,
-  //     fabrication: this.state.fabrication,
-  //     trim_button: this.state.trim_button,
-  //     trim_label: this.state.trim_label,
-  //     trim_zipper: this.state.trim_zipper,
-  //     trim_hangtag: this.state.trim_hangtag,
-  //     sizing: this.state.sizing,
-  //     measurement: this.state.measurement,
-  //     fit_comment: this.state.fit_comment,
-  //     comment: this.state.comment
-  //   });
-  //   // // this.props.history.push("/garments/" + this.props.garment.id);
-  //   this.setState({
-  //     name: "",
-  //     image_url: "",
-  //     category: "",
-  //     season: "Spring",
-  //     year: "2019",
-  //     location: "",
-  //     status: "",
-  //     fabrication: "",
-  //     trim_button: "",
-  //     trim_label: "",
-  //     trim_zipper: "",
-  //     trim_hangtag: "",
-  //     sizing: "",
-  //     measurement: "",
-  //     fit_comment: "",
-  //     comment: ""
-  //   });
-  // };
 
   handleSliderSizing = marks => {
     console.log(marks);
@@ -236,13 +222,6 @@ class GarmentForm extends Component {
     });
   };
 
-  // handlePictureUpload = info => {
-  //   console.log("Upload", info, info.file.name);
-  //   this.setState({
-  //     image_url: info.file.name
-  //   });
-  // };
-
   handleOnChange = event => {
     // console.log(event.target.name, event.target.value);
     this.setState({
@@ -266,25 +245,7 @@ class GarmentForm extends Component {
     const pStyle = {
       marginBottom: 16
     };
-
-    //picture upload Ant Design
-    // const props = {
-    //   name: "file",
-    //   action: "//jsonplaceholder.typicode.com/posts/",
-    //   headers: {
-    //     authorization: "authorization-text"
-    //   },
-    //   onChange(info) {
-    //     if (info.file.status !== "uploading") {
-    //       console.log(info.file, info.file.name, info.fileList);
-    //     }
-    //     if (info.file.status === "done") {
-    //       message.success(`${info.file.name} file uploaded successfully`);
-    //     } else if (info.file.status === "error") {
-    //       message.error(`${info.file.name} file upload failed.`);
-    //     }
-    //   }
-    // };
+    console.log("garment edit", this.props.selectedGarment);
 
     return (
       <div>
@@ -296,13 +257,6 @@ class GarmentForm extends Component {
             style={pStyle}
             onChange={event => this.handleOnChange(event)}
           />
-
-          {/* <RadioGroup onChange={this.onCategoryChange} value={this.state.value}>
-            <Radio value="tops">Tops</Radio>
-            <Radio value="bottoms">Bottoms</Radio>
-            <Radio value="dresses">Dresses</Radio>
-            <Radio value="outerwear">Outerwear</Radio>
-          </RadioGroup> */}
           <Input
             name="category"
             value={this.state.category}
@@ -314,7 +268,7 @@ class GarmentForm extends Component {
             <InputGroup compact>
               <Select
                 name="season"
-                defaultValue="Spring"
+                defaultValue={this.props.selectedGarment.season.split(" ")[0]}
                 onChange={this.handleSelectSeason}
               >
                 <Option value="Spring">Spring</Option>
@@ -325,7 +279,7 @@ class GarmentForm extends Component {
               </Select>
               <Select
                 name="year"
-                defaultValue="2019"
+                defaultValue={this.props.selectedGarment.season.split(" ")[1]}
                 onChange={this.handleSelectYear}
               >
                 <Option value="2019">2019</Option>
@@ -377,43 +331,40 @@ class GarmentForm extends Component {
                 {this.state.file_upload.name}
               </p>
             ) : null}
-            {/* <Upload {...props} onChange={this.handlePictureUpload}>
-              <Button>
-                <Icon type="upload" /> Click to Upload
-              </Button>
-            </Upload> */}
           </FormItem>
           <FormItem label="Trims">
             <InputNumber
               min={1}
               max={15}
-              defaultValue={1}
+              defaultValue={this.props.selectedGarment.trim_button}
               onChange={this.handleTrimButton}
             />
             <span className="ant-form-text"> buttons</span>
             <InputNumber
               min={1}
               max={15}
-              defaultValue={1}
+              defaultValue={this.props.selectedGarment.trim_label}
               onChange={this.handleTrimLabel}
             />
             <span className="ant-form-text"> labels</span>
             <InputNumber
               min={1}
               max={15}
-              defaultValue={1}
+              defaultValue={this.props.selectedGarment.trim_zipper}
               onChange={this.handleTrimZipper}
             />
             <span className="ant-form-text"> zippers</span>
             <InputNumber
               min={1}
               max={15}
-              defaultValue={1}
+              defaultValue={this.props.selectedGarment.trim_hangtag}
               onChange={this.handleTrimHangtag}
             />
             <span className="ant-form-text"> hangtags</span>
           </FormItem>
           <FormItem label="Sizing">
+            <p>{this.props.selectedGarment.sizing}</p>
+            <p>Select New Sizing:</p>
             <Slider
               range
               marks={{
@@ -424,7 +375,6 @@ class GarmentForm extends Component {
                 100: "XL"
               }}
               step={25}
-              // value={value}
               onChange={this.handleSliderSizing}
             />
           </FormItem>
@@ -456,6 +406,14 @@ class GarmentForm extends Component {
             <Button type="primary" htmlType="submit">
               Save
             </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={this.props.showDrawerEdit}
+              style={{ marginLeft: 10 }}
+            >
+              Cancel
+            </Button>
           </div>
         </Form>
       </div>
@@ -465,5 +423,5 @@ class GarmentForm extends Component {
 
 export default connect(
   null,
-  { createGarment }
-)(GarmentForm);
+  { updateGarment }
+)(GarmentFormEdit);

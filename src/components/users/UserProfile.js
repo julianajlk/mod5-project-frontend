@@ -1,27 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import UserFormEdit from "./UserFormEdit";
-
-import { Input, Form, Button, Icon, Row, Col, Divider } from "antd";
-
-import { updateUser } from "../actions/actions";
-
-const FormItem = Form.Item;
+import { Icon, Row, Col, Divider } from "antd";
 
 class UserProfile extends Component {
   state = {
-    isEditing: false,
     name: "",
     email: ""
-  };
-
-  toggleEditing = event => {
-    this.setState({
-      isEditing: !this.state.isEditing,
-      name: this.props.selectedUser.name,
-      email: this.props.selectedUser.email
-    });
   };
 
   handleOnChange = event => {
@@ -38,7 +24,6 @@ class UserProfile extends Component {
       userId: this.props.selectedUser.id
     });
     this.setState({
-      isEditing: !this.state.isEditing,
       name: "",
       email: ""
     });
@@ -50,7 +35,8 @@ class UserProfile extends Component {
       color: "rgba(0,0,0,0.85)",
       lineHeight: "24px",
       display: "inline-block",
-      marginBottom: 16
+      marginBottom: 16,
+      fontWeight: 600
     };
 
     const DescriptionItem = ({ title, content }) => (
@@ -60,7 +46,6 @@ class UserProfile extends Component {
           lineHeight: "22px",
           marginBottom: 7,
           color: "rgba(0,0,0,0.65)"
-          // textAlign: "center"
         }}
       >
         <p
@@ -78,102 +63,101 @@ class UserProfile extends Component {
     console.log(this.props.selectedUser);
     return (
       <div>
-        <React.Fragment>
-          {this.state.isEditing ? (
-            <UserFormEdit selectedUser={this.props.selectedUser} />
-          ) : this.props.selectedUser ? (
-            <React.Fragment>
-              <Row>
-                <Col span={8}>
-                  <img
-                    className="profile-picture"
-                    alt="Profile Picture"
-                    src={this.props.selectedUser.url}
-                  />
-                </Col>
-                <Col span={16}>
-                  <h2 className="page-title">User Profile</h2>
-                  {/* <h2
-                    className="page-title"
-                    style={{ ...pStyle, marginBottom: 24 }}
-                  >
-                    User Profile
-                  </h2> */}
-                  <a onClick={this.toggleEditing}>
-                    {" "}
-                    <Icon type="edit" theme="outlined" />
-                  </a>
-                  <h3>Name: {this.props.selectedUser.name}</h3>
-                </Col>
-              </Row>
-              <Divider />
-              <p style={pStyle}>Personal Info</p>
-              <Row>
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Location"
-                    content={this.props.selectedUser.location}
-                  />
-                  <DescriptionItem
-                    title="Birthday"
-                    content={this.props.selectedUser.dob}
-                  />
-                </Col>
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Email"
-                    content={this.props.selectedUser.email}
-                  />
-                </Col>
-              </Row>
+        {/* If I had the <UserFormEdit/> component here, <Route> would be inside <Link> */}
+        {/* <Link to={`/users/${this.props.selectedUser.id}/edit`}>
+              <Route path={`/users/${this.props.selectedUser.id}/edit`}>
+                <UserFormEdit selectedUser={this.props.selectedUser} />
+              </Route>
+            </Link> */}
 
-              <Divider />
-              <p style={pStyle}>Company</p>
-              <Row>
+        {this.props.selectedUser ? (
+          <React.Fragment>
+            <Row>
+              <Col span={8}>
+                <img
+                  className="profile-picture"
+                  alt="Profile"
+                  src={this.props.selectedUser.url}
+                />
+              </Col>
+              <Col span={16}>
+                <h2 className="page-title">User Profile</h2>
+
+                {/* Route to switch from <UserProfile/> to <UserFormEdit/> is on <Users/> */}
+                <Link to={`/users/${this.props.selectedUser.id}/edit`}>
+                  <Icon type="edit" theme="outlined" />
+                </Link>
+
+                <h3>Name: {this.props.selectedUser.name}</h3>
+              </Col>
+            </Row>
+            <Divider />
+            <p style={pStyle}>Personal Info</p>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Location"
+                  content={this.props.selectedUser.location}
+                />
+                <DescriptionItem
+                  title="Birthday"
+                  content={this.props.selectedUser.dob}
+                />
+              </Col>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Email"
+                  content={this.props.selectedUser.email}
+                />
+              </Col>
+            </Row>
+
+            <Divider />
+            <p style={pStyle}>Company</p>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Position"
+                  content={this.props.selectedUser.position}
+                />
+              </Col>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Department"
+                  content={this.props.selectedUser.department}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={12}>
+                <DescriptionItem
+                  title="Company Type"
+                  content={this.props.selectedUser.organizationable.type}
+                />
+              </Col>
+              {this.props.selectedUser &&
+              this.props.selectedUser.organizationable.type === "brand" ? (
                 <Col span={12}>
                   <DescriptionItem
-                    title="Position"
-                    content={this.props.selectedUser.position}
+                    title="Company Name"
+                    content={
+                      this.props.selectedUser.organizationable.brand.name
+                    }
                   />
                 </Col>
+              ) : (
                 <Col span={12}>
                   <DescriptionItem
-                    title="Department"
-                    content={this.props.selectedUser.department}
+                    title="Company Name"
+                    content={
+                      this.props.selectedUser.organizationable.supplier.name
+                    }
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col span={12}>
-                  <DescriptionItem
-                    title="Company Type"
-                    content={this.props.selectedUser.organizationable.type}
-                  />
-                </Col>
-                {this.props.selectedUser &&
-                this.props.selectedUser.organizationable.type === "brand" ? (
-                  <Col span={12}>
-                    <DescriptionItem
-                      title="Company Name"
-                      content={
-                        this.props.selectedUser.organizationable.brand.name
-                      }
-                    />
-                  </Col>
-                ) : (
-                  <Col span={12}>
-                    <DescriptionItem
-                      title="Company Name"
-                      content={
-                        this.props.selectedUser.organizationable.supplier.name
-                      }
-                    />
-                  </Col>
-                )}
-              </Row>
-            </React.Fragment>
-          ) : null}
-        </React.Fragment>
+              )}
+            </Row>
+          </React.Fragment>
+        ) : null}
       </div>
     );
   }
@@ -191,7 +175,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { updateUser }
-)(UserProfile);
+export default connect(mapStateToProps)(UserProfile);
