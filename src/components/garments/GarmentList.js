@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, Button, Icon, Row, Col } from "antd";
+import { Card, Button, Icon } from "antd";
 
 const { Meta } = Card;
 

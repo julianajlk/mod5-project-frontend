@@ -37,8 +37,8 @@ class UserLogin extends Component {
         >
           <FormItem
             label="Name"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // labelCol={{ span: 5 }}
+            // wrapperCol={{ span: 12 }}
           >
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -51,8 +51,8 @@ class UserLogin extends Component {
           </FormItem>
           <FormItem
             label="Password"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // labelCol={{ span: 5 }}
+            // wrapperCol={{ span: 12 }}
           >
             <Input
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -71,11 +71,14 @@ class UserLogin extends Component {
             </a>
           </FormItem>
 
-          <FormItem wrapperCol={{ span: 12, offset: 5 }}>
+          <FormItem
+          // wrapperCol={{ span: 12, offset: 5 }}
+          >
             <Button
               type="primary"
               htmlType="submit"
               className="login-form-button"
+              style={{ marginRight: 10 }}
             >
               Login
             </Button>

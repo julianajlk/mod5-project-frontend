@@ -62,7 +62,7 @@ class UserProfile extends Component {
     );
     console.log(this.props.selectedUser);
     return (
-      <div>
+      <div className="main-div">
         {/* If I had the <UserFormEdit/> component here, <Route> would be inside <Link> */}
         {/* <Link to={`/users/${this.props.selectedUser.id}/edit`}>
               <Route path={`/users/${this.props.selectedUser.id}/edit`}>

@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import {
+  Route,
+  Switch
+  // withRouter
+} from "react-router-dom";
 // import { Icon } from "antd";
 
 import GarmentList from "./GarmentList";
@@ -9,6 +13,7 @@ import GarmentFormEdit from "./GarmentFormEdit";
 class Garments extends Component {
   render() {
     console.log(this.props.garments);
+    console.log(this.props.materials);
     return (
       <Switch>
         <Route exact path="/garments">

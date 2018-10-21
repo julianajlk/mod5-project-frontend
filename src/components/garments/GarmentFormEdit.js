@@ -11,7 +11,7 @@ import {
   InputNumber,
   Slider,
   Button,
-  Upload,
+  // Upload,
   message,
   Icon,
   Select

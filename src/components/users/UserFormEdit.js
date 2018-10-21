@@ -82,150 +82,154 @@ class UserFormEdit extends Component {
     console.log("edit selectedUser", this.props.selectedUser);
     return (
       <div>
-        <Row>
-          <Col span={8}>
-            {/* <img
-              className="profile-picture-edit"
-              alt="Profile Avatar"
-              src={this.props.selectedUser.url}
-            /> */}
-          </Col>
-          <Col span={16}>
-            <h2 className="page-title">Edit Profile</h2>
-            <FormItem label="Profile Picture">
-              <Button>
-                <label>
-                  <Icon type="upload" />
-                  {this.state.file_upload !== ""
-                    ? " Picture Uploaded"
-                    : " Upload New Picture"}
-                  <input
-                    type="file"
-                    name="avatar"
-                    id="avatar"
-                    onChange={event => this.handlePictureUpload(event)}
-                  />
-                </label>
-              </Button>
-              {this.state.file_upload !== "" ? (
-                <p>
-                  <Icon type="paper-clip" theme="outlined" />{" "}
-                  {this.state.file_upload.name}
-                </p>
-              ) : null}
-            </FormItem>
-          </Col>
-        </Row>
+        {this.props.selectedUser ? (
+          <React.Fragment>
+            <Row>
+              <Col span={8}>
+                {/* <img
+                className="profile-picture-edit"
+                alt="Profile Avatar"
+                src={this.props.selectedUser.url}
+              /> */}
+              </Col>
+              <Col span={16}>
+                <h2 className="page-title">Edit Profile</h2>
+                <FormItem label="Profile Picture">
+                  <Button>
+                    <label>
+                      <Icon type="upload" />
+                      {this.state.file_upload !== ""
+                        ? " Picture Uploaded"
+                        : " Upload New Picture"}
+                      <input
+                        type="file"
+                        name="avatar"
+                        id="avatar"
+                        onChange={event => this.handlePictureUpload(event)}
+                      />
+                    </label>
+                  </Button>
+                  {this.state.file_upload !== "" ? (
+                    <p>
+                      <Icon type="paper-clip" theme="outlined" />{" "}
+                      {this.state.file_upload.name}
+                    </p>
+                  ) : null}
+                </FormItem>
+              </Col>
+            </Row>
 
-        <form onSubmit={event => this.handleOnSubmit(event)}>
-          <FormItem
-            label="Name"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Input
-              placeholder="Name"
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={event => this.handleOnChange(event)}
-            />
-          </FormItem>
-          <FormItem
-            label="Email"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Input
-              placeholder="Email"
-              type="text"
-              name="email"
-              value={this.state.email}
-              onChange={event => this.handleOnChange(event)}
-            />
-          </FormItem>
+            <Form onSubmit={event => this.handleOnSubmit(event)}>
+              <FormItem
+                label="Name"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="Name"
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
+              <FormItem
+                label="Email"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="Email"
+                  type="text"
+                  name="email"
+                  value={this.state.email}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
 
-          <FormItem
-            label="DOB"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <DatePicker
-              placeholder={this.props.selectedUser.dob}
-              onChange={this.handleDateChange}
-            />
-          </FormItem>
-          <FormItem
-            label="Phone"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Input
-              placeholder="Phone"
-              type="text"
-              name="phone"
-              value={this.state.phone}
-              onChange={event => this.handleOnChange(event)}
-            />
-          </FormItem>
-          <FormItem
-            label="Location"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Input
-              placeholder="Location"
-              type="text"
-              name="location"
-              value={this.state.location}
-              onChange={event => this.handleOnChange(event)}
-            />
-          </FormItem>
-          <FormItem
-            label="Position"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Input
-              placeholder="Position"
-              type="text"
-              name="position"
-              value={this.state.position}
-              onChange={event => this.handleOnChange(event)}
-            />
-          </FormItem>
-          <FormItem
-            label="Department"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
-          >
-            <Input
-              placeholder="Department"
-              type="text"
-              name="department"
-              value={this.state.department}
-              onChange={event => this.handleOnChange(event)}
-            />
-          </FormItem>
+              <FormItem
+                label="DOB"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <DatePicker
+                  placeholder={this.props.selectedUser.dob}
+                  onChange={this.handleDateChange}
+                />
+              </FormItem>
+              <FormItem
+                label="Phone"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="Phone"
+                  type="text"
+                  name="phone"
+                  value={this.state.phone}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
+              <FormItem
+                label="Location"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="Location"
+                  type="text"
+                  name="location"
+                  value={this.state.location}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
+              <FormItem
+                label="Position"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="Position"
+                  type="text"
+                  name="position"
+                  value={this.state.position}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
+              <FormItem
+                label="Department"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="Department"
+                  type="text"
+                  name="department"
+                  value={this.state.department}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
 
-          <div style={{ marginTop: 16 }}>
-            <FormItem wrapperCol={{ span: 12, offset: 5 }}>
-              <Button type="primary" htmlType="submit">
-                Update Profile
-              </Button>
-              <Link to={`/users/${this.props.selectedUser.id}`}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ float: "right" }}
-                  onClick={this.toggleEditing}
-                >
-                  Cancel
-                </Button>
-              </Link>
-            </FormItem>
-          </div>
-        </form>
+              <div style={{ marginTop: 16 }}>
+                <FormItem wrapperCol={{ span: 12, offset: 5 }}>
+                  <Button type="primary" htmlType="submit">
+                    Update Profile
+                  </Button>
+                  <Link to={`/users/${this.props.selectedUser.id}`}>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ float: "right" }}
+                      onClick={this.toggleEditing}
+                    >
+                      Cancel
+                    </Button>
+                  </Link>
+                </FormItem>
+              </div>
+            </Form>
+          </React.Fragment>
+        ) : null}
       </div>
     );
   }

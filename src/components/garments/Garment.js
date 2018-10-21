@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
-import { Divider, Tabs, Collapse, Drawer, Button, Icon, Rate } from "antd";
+import { Divider, Collapse, Drawer, Button, Icon, Rate } from "antd";
 
 import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
 
 // const { Meta } = Card;
-const TabPane = Tabs.TabPane;
 const Panel = Collapse.Panel;
 
 class Garment extends Component {
   state = {
-    visible: false,
-    visibleEdit: false,
-    top: 10
+    visibleDrawer: false,
+    visibleDrawerEdit: false,
+    top: 10,
+    fullView: false
   };
 
   state = {
@@ -26,34 +26,36 @@ class Garment extends Component {
     this.setState({ value });
   };
 
-  //tabs
-  callback = key => {
-    console.log(key);
-  };
-
   //create drawer
   showDrawer = () => {
     this.setState({
-      visible: true
+      visibleDrawer: true
     });
   };
 
   onClose = () => {
     this.setState({
-      visible: false
+      visibleDrawer: false
     });
   };
 
   //edit drawer
   showDrawerEdit = () => {
     this.setState({
-      visibleEdit: true
+      visibleDrawerEdit: true
     });
   };
 
   onCloseEdit = () => {
     this.setState({
-      visibleEdit: false
+      visibleDrawerEdit: false
+    });
+  };
+
+  //full view
+  toggleFullView = () => {
+    this.setState({
+      fullView: !this.state.fullView
     });
   };
 
@@ -66,9 +68,11 @@ class Garment extends Component {
   // );
 
   render() {
+    console.log("garment page > materials", this.props.materials);
+
     const { value } = this.state;
     return (
-      <div>
+      <div className="main-div">
         <React.Fragment>
           <Button onClick={this.showDrawer}>Create New Garment</Button>
           <Drawer
@@ -122,120 +126,137 @@ class Garment extends Component {
         </React.Fragment> */}
 
         {this.props.selectedGarment ? (
-          <React.Fragment>
-            <img
-              alt="example"
-              src={this.props.selectedGarment.url}
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                marginBottom: 30,
-                width: 300
-              }}
-            />
-            <h2>Item Name: {this.props.selectedGarment.name}</h2>
-            <h3>Season: {this.props.selectedGarment.season}</h3>
-            <span>
-              <Rate
-                onChange={this.handleChange}
-                value={value}
-                character={<Icon type="check-circle" theme="outlined" />}
-                allowClear
+          this.state.fullView ? (
+            //full view
+            <React.Fragment>
+              <img
+                alt="example"
+                src={this.props.selectedGarment.url}
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginTop: 30,
+                  marginBottom: 30,
+                  width: 300,
+                  display: "block"
+                }}
               />
-              {value && (
-                <span className="ant-rate-text">{value} samples approved </span>
-              )}
-            </span>
+              <Button
+                size="small"
+                style={{
+                  color: "#ffa154",
+                  fontSize: "12px",
+                  float: "right"
+                }}
+                onClick={this.toggleFullView}
+              >
+                Collapse View
+                <Icon type="minus" theme="outlined" />
+              </Button>
+              <h2>Item Name: {this.props.selectedGarment.name}</h2>
 
-            <Divider orientation="left">General Info</Divider>
-            <p>Location: {this.props.selectedGarment.location}</p>
-            <p>Status: {this.props.selectedGarment.status}</p>
-            <Divider orientation="left">Materials Info</Divider>
-            <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-            <p>Trims Quantity: </p>
-            <li>Buttons - {this.props.selectedGarment.trim_button}</li>
-            <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
-            <li>Labels - {this.props.selectedGarment.trim_label}</li>
-            <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
+              <h3>Season: {this.props.selectedGarment.season}</h3>
+              <span>
+                <Rate
+                  onChange={this.handleChange}
+                  value={value}
+                  character={<Icon type="check-circle" theme="outlined" />}
+                  allowClear
+                />
+                {value && (
+                  <span className="ant-rate-text">
+                    {value} samples approved{" "}
+                  </span>
+                )}
+              </span>
 
-            <Divider orientation="left">Sizing Info</Divider>
-            <p>Sizing: {this.props.selectedGarment.sizing}</p>
-            <p>Measurements: {this.props.selectedGarment.measurement}</p>
-            <Divider orientation="left">Comments</Divider>
-            <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
-            <p>Other Comments: {this.props.selectedGarment.comment}</p>
+              <Divider orientation="left">General Info</Divider>
+              <p>Location: {this.props.selectedGarment.location}</p>
+              <p>Status: {this.props.selectedGarment.status}</p>
+              <Divider orientation="left">Materials Info</Divider>
+              <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
+              <p>Trims Quantity: </p>
+              <li>Buttons - {this.props.selectedGarment.trim_button}</li>
+              <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
+              <li>Labels - {this.props.selectedGarment.trim_label}</li>
+              <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
 
-            <img
-              alt="example"
-              src={this.props.selectedGarment.url}
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                marginBottom: 30,
-                width: 300
-              }}
-            />
-            <h2>Item Name: {this.props.selectedGarment.name}</h2>
-            <h3>Season: {this.props.selectedGarment.season}</h3>
-            <Tabs onChange={this.callback} type="card">
-              <TabPane tab="General Info" key="1">
-                <p>Location: {this.props.selectedGarment.location}</p>
-                <p>Status: {this.props.selectedGarment.status}</p>
-              </TabPane>
-              <TabPane tab="Materials Info" key="2">
-                <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-                <p>Trims Quantity: </p>
-                <li>Buttons - {this.props.selectedGarment.trim_button}</li>
-                <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
-                <li>Labels - {this.props.selectedGarment.trim_label}</li>
-                <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
-              </TabPane>
-              <TabPane tab="Sizing Info" key="3">
-                <p>Sizing: {this.props.selectedGarment.sizing}</p>
-                <p>Measurements: {this.props.selectedGarment.measurement}</p>
-              </TabPane>
-              <TabPane tab="Comments" key="4">
-                <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
-                <p>Other Comments: {this.props.selectedGarment.comment}</p>
-              </TabPane>
-            </Tabs>
+              <Divider orientation="left">Sizing Info</Divider>
+              <p>Sizing: {this.props.selectedGarment.sizing}</p>
+              <p>Measurements: {this.props.selectedGarment.measurement}</p>
+              <Divider orientation="left">Comments</Divider>
+              <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
+              <p>Other Comments: {this.props.selectedGarment.comment}</p>
+            </React.Fragment>
+          ) : (
+            // collapsed view
+            <React.Fragment>
+              <img
+                alt="example"
+                src={this.props.selectedGarment.url}
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginTop: 30,
+                  marginBottom: 30,
+                  width: 300,
+                  display: "block"
+                }}
+              />
+              <Button
+                size="small"
+                style={{
+                  color: "#ffa154",
+                  fontSize: "12px",
+                  float: "right"
+                }}
+                onClick={this.toggleFullView}
+              >
+                Full View
+                <Icon type="plus" theme="outlined" />
+              </Button>
+              <h2>Item Name: {this.props.selectedGarment.name}</h2>
 
-            <img
-              alt="example"
-              src={this.props.selectedGarment.url}
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                marginBottom: 30,
-                width: 300
-              }}
-            />
-            <h2>Item Name: {this.props.selectedGarment.name}</h2>
-            <h3>Season: {this.props.selectedGarment.season}</h3>
-            <Collapse bordered={false} defaultActiveKey={["1"]}>
-              <Panel header="General Info" key="1">
-                {/* {text} */}
-                <p>Location: {this.props.selectedGarment.location}</p>
-                <p>Status: {this.props.selectedGarment.status}</p>
-              </Panel>
-              <Panel header="Materials Info" key="2">
-                <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-                <p>Trims Quantity: </p>
-                <li>Buttons - {this.props.selectedGarment.trim_button}</li>
-                <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
-                <li>Labels - {this.props.selectedGarment.trim_label}</li>
-                <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
-              </Panel>
-              <Panel header="Sizing Info" key="3">
-                <p>Sizing: {this.props.selectedGarment.sizing}</p>
-                <p>Measurements: {this.props.selectedGarment.measurement}</p>
-              </Panel>
-              <Panel header="Comments" key="4">
-                <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
-                <p>Other Comments: {this.props.selectedGarment.comment}</p>
-              </Panel>
-            </Collapse>
-          </React.Fragment>
+              <h3>Season: {this.props.selectedGarment.season}</h3>
+              <span>
+                <Rate
+                  onChange={this.handleChange}
+                  value={value}
+                  character={<Icon type="check-circle" theme="outlined" />}
+                  allowClear
+                />
+                {value && (
+                  <span className="ant-rate-text">
+                    {value} samples approved{" "}
+                  </span>
+                )}
+              </span>
+
+              <Collapse bordered={false} defaultActiveKey={["1"]}>
+                <Panel header="General Info" key="1">
+                  {/* {text} */}
+                  <p>Location: {this.props.selectedGarment.location}</p>
+                  <p>Status: {this.props.selectedGarment.status}</p>
+                </Panel>
+                <Panel header="Materials Info" key="2">
+                  <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
+                  <p>Trims Quantity: </p>
+                  <li>Buttons - {this.props.selectedGarment.trim_button}</li>
+                  <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
+                  <li>Labels - {this.props.selectedGarment.trim_label}</li>
+                  <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
+                </Panel>
+                <Panel header="Sizing Info" key="3">
+                  <p>Sizing: {this.props.selectedGarment.sizing}</p>
+                  <p>Measurements: {this.props.selectedGarment.measurement}</p>
+                </Panel>
+                <Panel header="Comments" key="4">
+                  <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
+                  <p>Other Comments: {this.props.selectedGarment.comment}</p>
+                </Panel>
+              </Collapse>
+            </React.Fragment>
+          )
         ) : null}
       </div>
     );

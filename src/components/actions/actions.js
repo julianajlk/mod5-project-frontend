@@ -1,3 +1,16 @@
+//MATERIALS
+export function fetchedMaterials(materials) {
+  return { type: "FETCHED_MATERIALS", materials };
+}
+
+export function fetchMaterials() {
+  return dispatch => {
+    fetch(`http://localhost:3000/materials`)
+      .then(response => response.json())
+      .then(materials => dispatch(fetchedMaterials(materials)));
+  };
+}
+
 //GARMENTS
 export function updateGarment(newGarment, garmentId, file) {
   let formData = new FormData();

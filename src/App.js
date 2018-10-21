@@ -6,6 +6,7 @@ import "./App.css";
 import UsersContainer from "./containers/UsersContainer";
 import OrganizationsContainer from "./containers/OrganizationsContainer";
 import GarmentsContainer from "./containers/GarmentsContainer";
+import MaterialsContainer from "./containers/MaterialsContainer";
 import NavBar from "./components/other/NavBar";
 import SideMenu from "./components/other/SideMenu";
 import Home from "./components/other/Home";
@@ -30,6 +31,7 @@ class App extends Component {
                 <Route path="/login" component={UserLogin} />
                 <Route path="/users" component={UsersContainer} />
                 <Route path="/garments" component={GarmentsContainer} />
+                <Route path="/materials" component={MaterialsContainer} />
               </Switch>
             </Content>
           </Col>

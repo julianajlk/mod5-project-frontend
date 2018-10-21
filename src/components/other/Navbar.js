@@ -37,6 +37,12 @@ class NavBar extends React.Component {
                 Garments
               </NavLink>
             </Menu.Item>
+            <Menu.Item key="materials">
+              <NavLink to={`/materials`}>
+                <Icon type="pushpin" theme="outlined" />
+                Materials
+              </NavLink>
+            </Menu.Item>
             <Menu.Item key="signup">
               <NavLink to="/signup">
                 <Icon type="form" theme="outlined" />

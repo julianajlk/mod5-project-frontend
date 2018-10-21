@@ -1,5 +1,14 @@
 import { combineReducers } from "redux";
 
+const materialsReducer = (state = [], action) => {
+  switch (action.type) {
+    case "FETCHED_MATERIALS":
+      return action.materials;
+    default:
+      return state;
+  }
+};
+
 const garmentsReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_GARMENTS":
@@ -69,7 +78,8 @@ const rootReducer = combineReducers({
   users: usersReducer,
   brands: brandsReducer,
   suppliers: suppliersReducer,
-  garments: garmentsReducer
+  garments: garmentsReducer,
+  materials: materialsReducer
 });
 
 export default rootReducer;
