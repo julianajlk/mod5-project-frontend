@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import UserForm from "../components/users/UserForm";
 
 import { fetchBrands, fetchSuppliers } from "../components/actions/actions";
+import UserForm from "../components/users/UserForm";
 
 class OrganizationsContainer extends Component {
   componentDidMount() {

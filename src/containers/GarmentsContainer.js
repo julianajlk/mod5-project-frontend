@@ -11,7 +11,6 @@ class GarmentsContainer extends Component {
   }
 
   render() {
-    console.log(this.props.materials);
     return (
       <div>
         <Garments garments={this.props.garments} />
@@ -22,7 +21,7 @@ class GarmentsContainer extends Component {
 
 //add state from store to props, but still need to pass in props to <Garments/>
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log("GarmentsContainer", state);
   return {
     garments: state.garments
   };

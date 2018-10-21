@@ -5,6 +5,7 @@ import { Divider, Collapse, Drawer, Button, Icon, Rate } from "antd";
 
 import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
+import GarmentMaterials from "./GarmentMaterials";
 
 // const { Meta } = Card;
 const Panel = Collapse.Panel;
@@ -68,7 +69,7 @@ class Garment extends Component {
   // );
 
   render() {
-    console.log("garment page > materials", this.props.materials);
+    console.log("garment page PROPS", this.props);
 
     const { value } = this.state;
     return (
@@ -156,6 +157,7 @@ class Garment extends Component {
               <h2>Item Name: {this.props.selectedGarment.name}</h2>
 
               <h3>Season: {this.props.selectedGarment.season}</h3>
+              <p>Brand: {this.props.selectedGarment.brand.name}</p>
               <span>
                 <Rate
                   onChange={this.handleChange}
@@ -175,11 +177,29 @@ class Garment extends Component {
               <p>Status: {this.props.selectedGarment.status}</p>
               <Divider orientation="left">Materials Info</Divider>
               <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-              <p>Trims Quantity: </p>
+              <p>Materials: </p>
+              {/* {this.props.selectedGarment.materials.map(material => (
+                <div key={material.id}>
+                  <h4>{material.name}</h4>
+                  <h5>Item# {material.item_number}</h5>
+                  <p>Category: {material.category}</p>
+                  <p>Size: {material.size}</p>
+                  <p>Color: {material.color}</p>
+                  <p>Usage: {material.usage}</p>
+                  <p>Price: {material.price}</p>
+                  <p>Comment: {material.comment}</p>
+                </div>
+              ))} */}
+
+              {this.props.selectedGarment.materials.map(material => (
+                <GarmentMaterials material={material} />
+              ))}
+
+              {/* <p>Trims Quantity: </p>
               <li>Buttons - {this.props.selectedGarment.trim_button}</li>
               <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
               <li>Labels - {this.props.selectedGarment.trim_label}</li>
-              <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
+              <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li> */}
 
               <Divider orientation="left">Sizing Info</Divider>
               <p>Sizing: {this.props.selectedGarment.sizing}</p>
@@ -216,8 +236,9 @@ class Garment extends Component {
                 <Icon type="plus" theme="outlined" />
               </Button>
               <h2>Item Name: {this.props.selectedGarment.name}</h2>
-
               <h3>Season: {this.props.selectedGarment.season}</h3>
+              <p>Brand: {this.props.selectedGarment.brand.name}</p>
+
               <span>
                 <Rate
                   onChange={this.handleChange}
@@ -269,6 +290,7 @@ const mapStateToProps = (state, ownProps) => {
     garment => garment.id === parseInt(ownProps.garmentId)
   );
   // console.log("selectedGarment", selectedGarment);
+  // debugger;
   return {
     selectedGarment: selectedGarment,
     garments: state.garments

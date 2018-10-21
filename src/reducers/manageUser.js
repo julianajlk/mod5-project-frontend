@@ -41,7 +41,7 @@ const suppliersReducer = (state = [], action) => {
 };
 
 const usersReducer = (state = [], action) => {
-  console.log("reducer", action.user);
+  // console.log("reducer", action.user);
   switch (action.type) {
     case "UPDATE_USER":
       return action.user;
