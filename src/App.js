@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, BackTop, Icon } from "antd";
 
 import "./App.css";
 import UsersContainer from "./containers/UsersContainer";
@@ -36,6 +36,11 @@ class App extends Component {
             </Content>
           </Col>
         </Row>
+        <BackTop>
+          <div className="ant-back-top-inner">
+            <Icon type="up" theme="outlined" />
+          </div>
+        </BackTop>
       </div>
     );
   }

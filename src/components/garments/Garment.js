@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
-import { Divider, Collapse, Drawer, Button, Icon, Rate } from "antd";
+import {
+  Divider,
+  Collapse,
+  Drawer,
+  Button,
+  Icon,
+  Rate,
+  Table,
+  Alert,
+  Card
+} from "antd";
 
 import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
@@ -69,9 +79,73 @@ class Garment extends Component {
   // );
 
   render() {
-    console.log("garment page PROPS", this.props);
+    // console.log("garment page PROPS", this.props);
 
     const { value } = this.state;
+
+    const columns = [
+      {
+        title: "Measurements",
+        dataIndex: "measurement",
+        key: "measurement"
+      },
+      {
+        title: "Inches",
+        dataIndex: "inches",
+        key: "inches"
+      },
+      {
+        title: "Notes",
+        dataIndex: "notes",
+        key: "notes"
+      }
+    ];
+
+    const data = this.props.selectedGarment
+      ? [
+          {
+            key: "1",
+            measurement: this.props.selectedGarment.measurement
+              .split(",")[0]
+              .split(":")[0],
+            inches: this.props.selectedGarment.measurement
+              .split(",")[0]
+              .split(": ")[1],
+            notes: "From Center Back"
+          },
+          {
+            key: "2",
+            measurement: this.props.selectedGarment.measurement
+              .split(",")[1]
+              .split(":")[0],
+            inches: this.props.selectedGarment.measurement
+              .split(",")[1]
+              .split(":")[1],
+            notes: "Armhole at 2 inches"
+          },
+          {
+            key: "3",
+            measurement: this.props.selectedGarment.measurement
+              .split(",")[2]
+              .split(":")[0],
+            inches: this.props.selectedGarment.measurement
+              .split(",")[2]
+              .split(":")[1],
+            notes: "Waist at Center Front"
+          },
+          {
+            key: "4",
+            measurement: this.props.selectedGarment.measurement
+              .split(",")[3]
+              .split(":")[0],
+            inches: this.props.selectedGarment.measurement
+              .split(",")[3]
+              .split(":")[1],
+            notes: "From Inner Collar"
+          }
+        ]
+      : null;
+
     return (
       <div className="main-div">
         <React.Fragment>
@@ -177,23 +251,8 @@ class Garment extends Component {
               <p>Status: {this.props.selectedGarment.status}</p>
               <Divider orientation="left">Materials Info</Divider>
               <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-              <p>Materials: </p>
-              {/* {this.props.selectedGarment.materials.map(material => (
-                <div key={material.id}>
-                  <h4>{material.name}</h4>
-                  <h5>Item# {material.item_number}</h5>
-                  <p>Category: {material.category}</p>
-                  <p>Size: {material.size}</p>
-                  <p>Color: {material.color}</p>
-                  <p>Usage: {material.usage}</p>
-                  <p>Price: {material.price}</p>
-                  <p>Comment: {material.comment}</p>
-                </div>
-              ))} */}
 
-              {this.props.selectedGarment.materials.map(material => (
-                <GarmentMaterials material={material} />
-              ))}
+              <GarmentMaterials selectedGarment={this.props.selectedGarment} />
 
               {/* <p>Trims Quantity: </p>
               <li>Buttons - {this.props.selectedGarment.trim_button}</li>
@@ -203,10 +262,31 @@ class Garment extends Component {
 
               <Divider orientation="left">Sizing Info</Divider>
               <p>Sizing: {this.props.selectedGarment.sizing}</p>
-              <p>Measurements: {this.props.selectedGarment.measurement}</p>
+
+              <Table columns={columns} dataSource={data} />
+
               <Divider orientation="left">Comments</Divider>
-              <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
-              <p>Other Comments: {this.props.selectedGarment.comment}</p>
+              <p>Fit Comments:</p>
+              <Alert
+                type="warning"
+                style={{
+                  margin: "16px 0",
+                  border: "1px solid #f5f5f5",
+                  backgroundColor: "#fafafa"
+                }}
+                message={this.props.selectedGarment.fit_comment}
+              />
+
+              <p>Other Comments:</p>
+              <Alert
+                type="warning"
+                style={{
+                  margin: "16px 0",
+                  border: "1px solid #f5f5f5",
+                  backgroundColor: "#fafafa"
+                }}
+                message={this.props.selectedGarment.comment}
+              />
             </React.Fragment>
           ) : (
             // collapsed view
