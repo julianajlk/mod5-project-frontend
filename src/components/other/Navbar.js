@@ -6,7 +6,8 @@ class NavBar extends React.Component {
   //use NavLink vs. Link to have "active" instead of setting the key to state
   //<Link/> must be inside a <Menu.Item /> (inheritance issue with non-nested component)
   state = {
-    current: ""
+    current: "",
+    top: 0
   };
 
   handleClick = e => {
@@ -43,19 +44,19 @@ class NavBar extends React.Component {
                 Materials
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="signup">
+            <Menu.Item key="signup" style={{ float: "right" }}>
               <NavLink to="/signup">
                 <Icon type="form" theme="outlined" />
                 Sign Up
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="login">
+            <Menu.Item key="login" style={{ float: "right" }}>
               <NavLink to="/login">
                 <Icon type="user" theme="outlined" />
                 Login
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="user">
+            <Menu.Item key="user" style={{ float: "right" }}>
               <NavLink to={`/users/1`}>
                 <Icon type="smile" theme="twoTone" twoToneColor="#ffa154" />
                 User 1

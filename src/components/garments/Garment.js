@@ -13,6 +13,8 @@ import {
   Card
 } from "antd";
 
+import { fetchMaterials } from "../actions/actions";
+
 import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
 import GarmentMaterials from "./GarmentMaterials";
@@ -22,15 +24,17 @@ const Panel = Collapse.Panel;
 
 class Garment extends Component {
   state = {
-    visibleDrawer: false,
-    visibleDrawerEdit: false,
+    visible: false,
+    visibleEdit: false,
     top: 10,
-    fullView: false
+    fullView: false,
+    value: 2
   };
 
-  state = {
-    value: 3
-  };
+  //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
+  componentDidMount() {
+    this.props.fetchMaterials();
+  }
 
   //rate
   handleChange = value => {
@@ -40,26 +44,26 @@ class Garment extends Component {
   //create drawer
   showDrawer = () => {
     this.setState({
-      visibleDrawer: true
+      visible: true
     });
   };
 
   onClose = () => {
     this.setState({
-      visibleDrawer: false
+      visible: false
     });
   };
 
   //edit drawer
   showDrawerEdit = () => {
     this.setState({
-      visibleDrawerEdit: true
+      visibleEdit: true
     });
   };
 
   onCloseEdit = () => {
     this.setState({
-      visibleDrawerEdit: false
+      visibleEdit: false
     });
   };
 
@@ -80,6 +84,8 @@ class Garment extends Component {
 
   render() {
     // console.log("garment page PROPS", this.props);
+    // debugger;
+    console.log("materials", this.props.materials);
 
     const { value } = this.state;
 
@@ -87,7 +93,8 @@ class Garment extends Component {
       {
         title: "Measurements",
         dataIndex: "measurement",
-        key: "measurement"
+        key: "measurement",
+        fixed: "left"
       },
       {
         title: "Inches",
@@ -117,30 +124,30 @@ class Garment extends Component {
             key: "2",
             measurement: this.props.selectedGarment.measurement
               .split(",")[1]
-              .split(":")[0],
+              .split(": ")[0],
             inches: this.props.selectedGarment.measurement
               .split(",")[1]
-              .split(":")[1],
+              .split(": ")[1],
             notes: "Armhole at 2 inches"
           },
           {
             key: "3",
             measurement: this.props.selectedGarment.measurement
               .split(",")[2]
-              .split(":")[0],
+              .split(": ")[0],
             inches: this.props.selectedGarment.measurement
               .split(",")[2]
-              .split(":")[1],
+              .split(": ")[1],
             notes: "Waist at Center Front"
           },
           {
             key: "4",
             measurement: this.props.selectedGarment.measurement
               .split(",")[3]
-              .split(":")[0],
+              .split(": ")[0],
             inches: this.props.selectedGarment.measurement
               .split(",")[3]
-              .split(":")[1],
+              .split(": ")[1],
             notes: "From Inner Collar"
           }
         ]
@@ -163,7 +170,7 @@ class Garment extends Component {
             //   paddingBottom: 53
             // }}
           >
-            <GarmentForm />
+            <GarmentForm materials={this.props.materials} />
           </Drawer>
         </React.Fragment>
         <React.Fragment>
@@ -261,9 +268,14 @@ class Garment extends Component {
               <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li> */}
 
               <Divider orientation="left">Sizing Info</Divider>
-              <p>Sizing: {this.props.selectedGarment.sizing}</p>
+              <p>Size Range Available: {this.props.selectedGarment.sizing}</p>
 
-              <Table columns={columns} dataSource={data} />
+              <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                scroll={{ x: 350 }}
+              />
 
               <Divider orientation="left">Comments</Divider>
               <p>Fit Comments:</p>
@@ -312,7 +324,7 @@ class Garment extends Component {
                 }}
                 onClick={this.toggleFullView}
               >
-                Full View
+                Expand All
                 <Icon type="plus" theme="outlined" />
               </Button>
               <h2>Item Name: {this.props.selectedGarment.name}</h2>
@@ -333,7 +345,10 @@ class Garment extends Component {
                 )}
               </span>
 
-              <Collapse bordered={false} defaultActiveKey={["1"]}>
+              <Collapse
+                // defaultActiveKey={["1"]}
+                bordered={false}
+              >
                 <Panel header="General Info" key="1">
                   {/* {text} */}
                   <p>Location: {this.props.selectedGarment.location}</p>
@@ -373,8 +388,12 @@ const mapStateToProps = (state, ownProps) => {
   // debugger;
   return {
     selectedGarment: selectedGarment,
-    garments: state.garments
+    garments: state.garments,
+    materials: state.materials
   };
 };
 
-export default connect(mapStateToProps)(Garment);
+export default connect(
+  mapStateToProps,
+  { fetchMaterials }
+)(Garment);

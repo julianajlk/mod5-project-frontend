@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { createGarment } from "../actions/actions";
+import { createGarment, fetchMaterials } from "../actions/actions";
 
 import {
   Form,
@@ -30,18 +30,21 @@ class GarmentForm extends Component {
     location: "",
     status: "",
     fabrication: "",
-    trim_button: 1,
-    trim_label: 1,
-    trim_zipper: 1,
-    trim_hangtag: 1,
+    materialsIds: "",
     sizing: "XS",
     measurement: "",
     fit_comment: "",
     comment: ""
   };
 
+  //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
+  componentDidMount() {
+    this.props.fetchMaterials();
+  }
+
   handleOnSubmit = event => {
-    console.log("submit", this.state.sizing);
+    console.log("submit", this.state.materialsIds);
+    // console.log("submit", this.state.materials);
     event.preventDefault();
     let newGarment = {
       brand_id: 1,
@@ -51,19 +54,19 @@ class GarmentForm extends Component {
       location: this.state.location,
       status: this.state.status,
       fabrication: this.state.fabrication,
-      trim_button: this.state.trim_button,
-      trim_label: this.state.trim_label,
-      trim_zipper: this.state.trim_zipper,
-      trim_hangtag: this.state.trim_hangtag,
+      materialsIds: this.state.materialsIds,
       sizing: this.state.sizing,
       measurement: this.state.measurement,
       fit_comment: this.state.fit_comment,
-      comment: this.state.comment
-    };
-    let file = {
+      comment: this.state.comment,
       file_upload: this.state.file_upload
     };
-    this.props.createGarment(newGarment, file);
+
+    let materialsIdArray = this.state.materialsIds;
+    // let file = {
+    //   file_upload: this.state.file_upload
+    // };
+    this.props.createGarment(newGarment);
     // // this.props.history.push("/garments/" + this.props.garment.id);
     this.setState({
       name: "",
@@ -74,52 +77,46 @@ class GarmentForm extends Component {
       location: "",
       status: "",
       fabrication: "",
-      trim_button: "",
-      trim_label: "",
-      trim_zipper: "",
-      trim_hangtag: "",
       sizing: "",
       measurement: "",
       fit_comment: "",
-      comment: ""
+      comment: "",
+      file_upload: ""
     });
   };
 
   // handleOnSubmit = event => {
   //   console.log("submit", this.state.sizing);
+  //   console.log("submit", this.state.materials);
   //   event.preventDefault();
-  //   this.props.createGarment({
+  //   let newGarment = {
   //     brand_id: 1,
   //     name: this.state.name,
-  //     image_url: this.state.image_url,
   //     category: this.state.category,
   //     season: this.state.season + " " + this.state.year,
   //     location: this.state.location,
   //     status: this.state.status,
   //     fabrication: this.state.fabrication,
-  //     trim_button: this.state.trim_button,
-  //     trim_label: this.state.trim_label,
-  //     trim_zipper: this.state.trim_zipper,
-  //     trim_hangtag: this.state.trim_hangtag,
+  //     materialsIds: this.state.materialsIds,
   //     sizing: this.state.sizing,
   //     measurement: this.state.measurement,
   //     fit_comment: this.state.fit_comment,
   //     comment: this.state.comment
-  //   });
+  //   };
+  //   let file = {
+  //     file_upload: this.state.file_upload
+  //   };
+  //   this.props.createGarment(newGarment, file);
   //   // // this.props.history.push("/garments/" + this.props.garment.id);
   //   this.setState({
   //     name: "",
-  //     image_url: "",
+  //     file_upload: "",
   //     category: "",
   //     season: "Spring",
   //     year: "2019",
   //     location: "",
   //     status: "",
   //     fabrication: "",
-  //     trim_button: "",
-  //     trim_label: "",
-  //     trim_zipper: "",
-  //     trim_hangtag: "",
   //     sizing: "",
   //     measurement: "",
   //     fit_comment: "",
@@ -164,7 +161,7 @@ class GarmentForm extends Component {
       });
     } else if (marks[0] === 0 && marks[1] === 100) {
       this.setState({
-        sizing: "SX-XL"
+        sizing: "XS-XL"
       });
     } else if (marks[0] === 25 && marks[1] === 50) {
       this.setState({
@@ -195,31 +192,6 @@ class GarmentForm extends Component {
         sizing: "XS-XL"
       });
     }
-  };
-
-  //InputNumber doesn't take a name= so need a separate function for each number input
-  handleTrimButton = value => {
-    this.setState({
-      trim_button: value
-    });
-  };
-
-  handleTrimLabel = value => {
-    this.setState({
-      trim_label: value
-    });
-  };
-
-  handleTrimZipper = value => {
-    this.setState({
-      trim_zipper: value
-    });
-  };
-
-  handleTrimHangtag = value => {
-    this.setState({
-      trim_hangtag: value
-    });
   };
 
   handlePictureUpload = event => {
@@ -262,10 +234,42 @@ class GarmentForm extends Component {
     });
   };
 
+  handleMaterialChange = value => {
+    console.log(`selected ${value}`);
+    this.setState({
+      materialsIds: value
+    });
+  };
+
+  //Category selection/search
+  handleCategoryChange = value => {
+    console.log(`selected ${value}`);
+    this.setState({
+      category: value
+    });
+  };
+
+  handleBlur = () => {
+    console.log("blur");
+  };
+
+  handleFocus = () => {
+    console.log("focus");
+  };
+
   render() {
+    console.log("materials", this.props.materials);
+
     const pStyle = {
       marginBottom: 16
     };
+
+    //Materials multiple selection-dropdown values
+    const children = [];
+    let materialNames = this.props.materials.map(material => (
+      <Option key={material.id}>{material.name}</Option>
+    ));
+    children.push(materialNames);
 
     //picture upload Ant Design
     // const props = {
@@ -297,19 +301,35 @@ class GarmentForm extends Component {
             onChange={event => this.handleOnChange(event)}
           />
 
-          {/* <RadioGroup onChange={this.onCategoryChange} value={this.state.value}>
-            <Radio value="tops">Tops</Radio>
-            <Radio value="bottoms">Bottoms</Radio>
-            <Radio value="dresses">Dresses</Radio>
-            <Radio value="outerwear">Outerwear</Radio>
-          </RadioGroup> */}
-          <Input
+          {/* <Input
             name="category"
             value={this.state.category}
             placeholder="Category"
             style={pStyle}
             onChange={event => this.handleOnChange(event)}
-          />
+          /> */}
+          <FormItem label="Category">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select a Category"
+              optionFilterProp="children"
+              onChange={this.handleCategoryChange}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              filterOption={(input, option) =>
+                option.props.children
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              <Option value="Tops">Tops</Option>
+              <Option value="Bottoms">Bottoms</Option>
+              <Option value="Dresses">Dresses</Option>
+              <Option value="Outerwear">Outerwear</Option>
+            </Select>
+          </FormItem>
+
           <FormItem label="Season">
             <InputGroup compact>
               <Select
@@ -383,36 +403,22 @@ class GarmentForm extends Component {
               </Button>
             </Upload> */}
           </FormItem>
-          <FormItem label="Trims">
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={1}
-              onChange={this.handleTrimButton}
-            />
-            <span className="ant-form-text"> buttons</span>
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={1}
-              onChange={this.handleTrimLabel}
-            />
-            <span className="ant-form-text"> labels</span>
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={1}
-              onChange={this.handleTrimZipper}
-            />
-            <span className="ant-form-text"> zippers</span>
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={1}
-              onChange={this.handleTrimHangtag}
-            />
-            <span className="ant-form-text"> hangtags</span>
+
+          <FormItem label="Materials">
+            <Select
+              mode="multiple"
+              style={{ width: "100%" }}
+              placeholder="Select all Materials"
+              // defaultValue={[
+              //   this.props.materials[0].name,
+              //   this.props.materials[1].name
+              // ]}
+              onChange={this.handleMaterialChange}
+            >
+              {children}
+            </Select>
           </FormItem>
+
           <FormItem label="Sizing">
             <Slider
               range
@@ -465,5 +471,5 @@ class GarmentForm extends Component {
 
 export default connect(
   null,
-  { createGarment }
+  { createGarment, fetchMaterials }
 )(GarmentForm);

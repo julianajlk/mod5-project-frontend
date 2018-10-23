@@ -30,8 +30,8 @@ class App extends Component {
                 <Route path="/signup" component={OrganizationsContainer} />
                 <Route path="/login" component={UserLogin} />
                 <Route path="/users" component={UsersContainer} />
-                <Route path="/garments" component={GarmentsContainer} />
                 <Route path="/materials" component={MaterialsContainer} />
+                <Route path="/garments" component={GarmentsContainer} />
               </Switch>
             </Content>
           </Col>

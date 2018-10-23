@@ -37,14 +37,6 @@ class Materials extends Component {
           }}
         />
 
-        {/* <Route exact path="/materials/:materialId">
-          <ul>
-            {this.props.materials ? (
-              <Material materials={this.props.materials} />
-            ) : null}
-          </ul>
-        </Route> */}
-
         {/* <Route
           path="/materials/:materialId"
           render={data => {

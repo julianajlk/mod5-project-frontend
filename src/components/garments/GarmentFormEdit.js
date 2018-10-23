@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateGarment } from "../actions/actions";
-
-// import { showDrawerEdit } from "./Garment";
+import { updateGarment, fetchMaterials } from "../actions/actions";
 
 import {
   Form,
@@ -32,15 +30,17 @@ class GarmentFormEdit extends Component {
     location: this.props.selectedGarment.location,
     status: this.props.selectedGarment.status,
     fabrication: this.props.selectedGarment.fabrication,
-    trim_button: 1,
-    trim_label: 1,
-    trim_zipper: 1,
-    trim_hangtag: 1,
+    materials: this.props.selectedGarment.materials,
     sizing: "XS",
     measurement: this.props.selectedGarment.measurement,
     fit_comment: this.props.selectedGarment.fit_comment,
     comment: this.props.selectedGarment.comment
   };
+
+  //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
+  componentDidMount() {
+    this.props.fetchMaterials();
+  }
 
   handleOnSubmit = event => {
     event.preventDefault();
@@ -52,14 +52,12 @@ class GarmentFormEdit extends Component {
       location: this.state.location,
       status: this.state.status,
       fabrication: this.state.fabrication,
-      trim_button: this.state.trim_button,
-      trim_label: this.state.trim_label,
-      trim_zipper: this.state.trim_zipper,
-      trim_hangtag: this.state.trim_hangtag,
+
       sizing: this.state.sizing,
       measurement: this.state.measurement,
       fit_comment: this.state.fit_comment,
-      comment: this.state.comment
+      comment: this.state.comment,
+      file_upload: this.state.file_upload
     };
 
     // if (this.state.file_upload === "") {
@@ -81,16 +79,16 @@ class GarmentFormEdit extends Component {
     //   const file = null;
     // }
 
-    let file = {
-      file_upload: this.state.file_upload
-    };
+    // let file = {
+    //   file_upload: this.state.file_upload
+    // };
 
     this.props.updateGarment(
       newGarment,
-      this.props.selectedGarment.id,
+      this.props.selectedGarment.id
       // this.props.history.push,
       // this.state.file_upload,
-      file
+      // file
     );
     // // this.props.history.push("/garments/" + this.props.garment.id);
     this.setState({
@@ -102,10 +100,6 @@ class GarmentFormEdit extends Component {
       location: "",
       status: "",
       fabrication: "",
-      trim_button: "",
-      trim_label: "",
-      trim_zipper: "",
-      trim_hangtag: "",
       sizing: "",
       measurement: "",
       fit_comment: "",
@@ -183,31 +177,6 @@ class GarmentFormEdit extends Component {
     }
   };
 
-  //InputNumber doesn't take a name= so need a separate function for each number input
-  handleTrimButton = value => {
-    this.setState({
-      trim_button: value
-    });
-  };
-
-  handleTrimLabel = value => {
-    this.setState({
-      trim_label: value
-    });
-  };
-
-  handleTrimZipper = value => {
-    this.setState({
-      trim_zipper: value
-    });
-  };
-
-  handleTrimHangtag = value => {
-    this.setState({
-      trim_hangtag: value
-    });
-  };
-
   handlePictureUpload = event => {
     console.log("upload", event.target.files, event.target.info);
     if (event.target.files) {
@@ -241,11 +210,43 @@ class GarmentFormEdit extends Component {
     });
   };
 
+  handleMaterialChange = value => {
+    console.log(`selected ${value}`);
+    this.setState({
+      materialsIds: value
+    });
+  };
+
+  //Category selection/search
+  handleCategoryChange = value => {
+    console.log(`selected ${value}`);
+    this.setState({
+      category: value
+    });
+  };
+
+  handleBlur = () => {
+    console.log("blur");
+  };
+
+  handleFocus = () => {
+    console.log("focus");
+  };
+
   render() {
+    console.log("garment edit", this.props.selectedGarment);
+    console.log("materials", this.props.materials);
+
     const pStyle = {
       marginBottom: 16
     };
-    console.log("garment edit", this.props.selectedGarment);
+
+    //Materials multiple selection-dropdown values
+    const children = [];
+    let materialNames = this.props.materials.map(material => (
+      <Option key={material.id}>{material.name}</Option>
+    ));
+    children.push(materialNames);
 
     return (
       <div>
@@ -257,13 +258,28 @@ class GarmentFormEdit extends Component {
             style={pStyle}
             onChange={event => this.handleOnChange(event)}
           />
-          <Input
-            name="category"
-            value={this.state.category}
-            placeholder="Category"
-            style={pStyle}
-            onChange={event => this.handleOnChange(event)}
-          />
+          <FormItem label="Category">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              defaultValue={this.state.category}
+              // placeholder="Select a Category"
+              optionFilterProp="children"
+              onChange={this.handleCategoryChange}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              filterOption={(input, option) =>
+                option.props.children
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              <Option value="Tops">Tops</Option>
+              <Option value="Bottoms">Bottoms</Option>
+              <Option value="Dresses">Dresses</Option>
+              <Option value="Outerwear">Outerwear</Option>
+            </Select>
+          </FormItem>
           <FormItem label="Season">
             <InputGroup compact>
               <Select
@@ -332,36 +348,34 @@ class GarmentFormEdit extends Component {
               </p>
             ) : null}
           </FormItem>
-          <FormItem label="Trims">
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={this.props.selectedGarment.trim_button}
-              onChange={this.handleTrimButton}
-            />
-            <span className="ant-form-text"> buttons</span>
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={this.props.selectedGarment.trim_label}
-              onChange={this.handleTrimLabel}
-            />
-            <span className="ant-form-text"> labels</span>
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={this.props.selectedGarment.trim_zipper}
-              onChange={this.handleTrimZipper}
-            />
-            <span className="ant-form-text"> zippers</span>
-            <InputNumber
-              min={1}
-              max={15}
-              defaultValue={this.props.selectedGarment.trim_hangtag}
-              onChange={this.handleTrimHangtag}
-            />
-            <span className="ant-form-text"> hangtags</span>
+
+          <FormItem label="Materials">
+            {this.props.selectedGarment.materials.map(material => (
+              <Select
+                mode="multiple"
+                style={{ width: "100%" }}
+                // placeholder="Select all Materials"
+                defaultValue={material.name}
+                onChange={this.handleMaterialChange}
+              >
+                {children}
+              </Select>
+            ))}
+            {/* <Select
+              mode="multiple"
+              style={{ width: "100%" }}
+              // placeholder="Select all Materials"
+              defaultValue={[
+                this.props.selectedGarment.materials.map(
+                  material => material.name
+                )
+              ]}
+              onChange={this.handleMaterialChange}
+            >
+              {children}
+            </Select> */}
           </FormItem>
+
           <FormItem label="Sizing">
             <p>{this.props.selectedGarment.sizing}</p>
             <p>Select New Sizing:</p>
@@ -421,7 +435,13 @@ class GarmentFormEdit extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    materials: state.materials
+  };
+};
+
 export default connect(
-  null,
-  { updateGarment }
+  mapStateToProps,
+  { updateGarment, fetchMaterials }
 )(GarmentFormEdit);

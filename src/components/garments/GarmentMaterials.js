@@ -4,7 +4,7 @@ import { Divider, Table, Tag, Icon } from "antd";
 
 class GarmentMaterials extends Component {
   render() {
-    // const { material } = this.props;
+    // const { selectedGarment } = this.props;
 
     const columns = [
       {
@@ -20,8 +20,8 @@ class GarmentMaterials extends Component {
         title: "Item#",
         width: 100,
         dataIndex: "item_number",
-        key: "item_number",
-        fixed: "left"
+        key: "item_number"
+        // fixed: "left"
       },
       {
         title: "Category",
@@ -105,7 +105,15 @@ class GarmentMaterials extends Component {
 
     return (
       <div>
-        <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />
+        <Table
+          columns={columns}
+          dataSource={data}
+          //horizontal scroll only
+          // scroll={{ x: 1300}}
+          scroll={{ x: 1300, y: 300 }}
+          pagination={false}
+          style={{ marginBottom: 40 }}
+        />
       </div>
     );
   }

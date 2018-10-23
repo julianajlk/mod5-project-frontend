@@ -12,7 +12,8 @@ export function fetchMaterials() {
 }
 
 //GARMENTS
-export function updateGarment(newGarment, garmentId, file) {
+export function updateGarment(newGarment, garmentId) {
+  console.log("createGarment", newGarment.file_upload);
   let formData = new FormData();
   formData.append("brand_id", newGarment.brand_id);
   formData.append("name", newGarment.name);
@@ -21,15 +22,14 @@ export function updateGarment(newGarment, garmentId, file) {
   formData.append("location", newGarment.location);
   formData.append("status", newGarment.status);
   formData.append("fabrication", newGarment.fabrication);
-  formData.append("trim_button", newGarment.trim_button);
-  formData.append("trim_label", newGarment.trim_label);
-  formData.append("trim_zipper", newGarment.trim_zipper);
-  formData.append("trim_hangtag", newGarment.trim_hangtag);
   formData.append("sizing", newGarment.sizing);
   formData.append("measurement", newGarment.measurement);
   formData.append("fit_comment", newGarment.fit_comment);
   formData.append("comment", newGarment.comment);
-  formData.append("cover_upload", file.file_upload);
+  if (newGarment.file_upload) {
+    formData.append("cover_upload", newGarment.file_upload);
+  }
+  // formData.append("cover_upload", file.file_upload);
   // console.log(typeof file.file_upload);
 
   return dispatch => {
@@ -45,7 +45,8 @@ export function updateGarment(newGarment, garmentId, file) {
 // .then(garment =>{ addGarment(garment)push(`http://localhost:3000/garments/${garmentId})`});
 
 export function createGarment(newGarment, file) {
-  console.log("createGarment", file, file.file_upload);
+  // console.log("createGarment", newGarment.file_upload);
+
   let formData = new FormData();
   formData.append("brand_id", newGarment.brand_id);
   formData.append("name", newGarment.name);
@@ -54,17 +55,13 @@ export function createGarment(newGarment, file) {
   formData.append("location", newGarment.location);
   formData.append("status", newGarment.status);
   formData.append("fabrication", newGarment.fabrication);
-  formData.append("trim_button", newGarment.trim_button);
-  formData.append("trim_label", newGarment.trim_label);
-  formData.append("trim_zipper", newGarment.trim_zipper);
-  formData.append("trim_hangtag", newGarment.trim_hangtag);
   formData.append("sizing", newGarment.sizing);
   formData.append("measurement", newGarment.measurement);
   formData.append("fit_comment", newGarment.fit_comment);
   formData.append("comment", newGarment.comment);
+  formData.append("cover_upload", newGarment.file_upload);
 
-  formData.append("cover_upload", file.file_upload);
-
+  formData.append("materialsIds", newGarment.materialsIds);
   return dispatch => {
     fetch(`http://localhost:3000/garments`, {
       method: "POST",
@@ -75,6 +72,86 @@ export function createGarment(newGarment, file) {
   };
 }
 
+// export function createGarment(newGarment, file) {
+//   // console.log("createGarment", newGarment.file_upload);
+//
+//   let formData = new FormData();
+//   formData.append("brand_id", newGarment.brand_id);
+//   formData.append("name", newGarment.name);
+//   formData.append("category", newGarment.category);
+//   formData.append("season", newGarment.season);
+//   formData.append("location", newGarment.location);
+//   formData.append("status", newGarment.status);
+//   formData.append("fabrication", newGarment.fabrication);
+//   formData.append("sizing", newGarment.sizing);
+//   formData.append("measurement", newGarment.measurement);
+//   formData.append("fit_comment", newGarment.fit_comment);
+//   formData.append("comment", newGarment.comment);
+//   formData.append("cover_upload", newGarment.file_upload);
+//
+//   // formData.append("materialsIds", newGarment.materialsIds);
+//   return dispatch => {
+//     fetch(`http://localhost:3000/garments`, {
+//       method: "POST",
+//       body: formData
+//     })
+//       .then(response => response.json())
+//       .then(garment => {
+//         let promises = newGarment.materialsIds.forEach(id => {
+//           fetch(`http://localhost:3000/garment_materials`, {
+//             method: "POST",
+//             headers: {
+//               Accept: "application/json",
+//               "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify({ garment_id: newGarment.id, material_id: id })
+//           });
+//         });
+//         Promise.all(promises)
+//           .then(response => {
+//             fetch(`http://localhost:3000/garments/${garment.id}`)
+//               .then(response => response.json())
+//               .then(garment => addGarment(garment));
+//           })
+//           .catch(function(err) {
+//             console.log("A promise failed to resolve", err);
+//           });
+//       });
+//   };
+// }
+
+//create garment_materials (post) for each materialsIds + promise.all
+
+//before adding material_garments join table
+// export function createGarment(newGarment, file) {
+//   console.log("createGarment", file, file.file_upload);
+//   let formData = new FormData();
+//   formData.append("brand_id", newGarment.brand_id);
+//   formData.append("name", newGarment.name);
+//   formData.append("category", newGarment.category);
+//   formData.append("season", newGarment.season);
+//   formData.append("location", newGarment.location);
+//   formData.append("status", newGarment.status);
+//   formData.append("fabrication", newGarment.fabrication);
+//   formData.append("trim_hangtag", newGarment.trim_hangtag);
+//   formData.append("sizing", newGarment.sizing);
+//   formData.append("measurement", newGarment.measurement);
+//   formData.append("fit_comment", newGarment.fit_comment);
+//   formData.append("comment", newGarment.comment);
+//
+//   formData.append("cover_upload", file.file_upload);
+//
+//   return dispatch => {
+//     fetch(`http://localhost:3000/garments`, {
+//       method: "POST",
+//       body: formData
+//     })
+//       .then(response => response.json())
+//       .then(garment => addGarment(garment));
+//   };
+// }
+
+//w/o upload
 // export function createGarment(newGarment) {
 //   console.log(newGarment);
 //   return dispatch => {
