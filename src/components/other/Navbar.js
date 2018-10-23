@@ -14,7 +14,7 @@ class NavBar extends React.Component {
     console.log("click ", e);
     this.setState({
       current: e.key,
-      top: this.state.top + 10
+      top: this.state.top + 1
     });
   };
   render() {

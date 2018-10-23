@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const SubMenu = Menu.SubMenu;
 
-class NavBar extends React.Component {
+class SideMenu extends React.Component {
   // submenu keys of first level
   rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
@@ -141,4 +141,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps)(SideMenu);

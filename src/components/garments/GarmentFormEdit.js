@@ -361,19 +361,6 @@ class GarmentFormEdit extends Component {
                 {children}
               </Select>
             ))}
-            {/* <Select
-              mode="multiple"
-              style={{ width: "100%" }}
-              // placeholder="Select all Materials"
-              defaultValue={[
-                this.props.selectedGarment.materials.map(
-                  material => material.name
-                )
-              ]}
-              onChange={this.handleMaterialChange}
-            >
-              {children}
-            </Select> */}
           </FormItem>
 
           <FormItem label="Sizing">

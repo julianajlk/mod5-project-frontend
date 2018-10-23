@@ -53,22 +53,29 @@ class GarmentList extends Component {
     // debugger;
     return (
       <React.Fragment>
-        <Search
-          value={this.state.search}
-          placeholder="Search"
-          onChange={event => this.handleOnSearch(event)}
-          style={{ width: 200, marginBottom: 20, display: "block" }}
-        />
-        <Select
-          placeholder="Sort by"
-          // defaultValue="lucy"
-          style={{ width: 200, marginBottom: 20, display: "block" }}
-          onChange={this.handleChange}
-        >
-          <Option value="name">Name</Option>
-          <Option value="season">Season</Option>
-          <Option value="category">Category</Option>
-        </Select>
+        <div style={{ display: "block" }}>
+          <Search
+            value={this.state.search}
+            placeholder="Search"
+            onChange={event => this.handleOnSearch(event)}
+            style={{
+              width: 200,
+              marginBottom: 20,
+              marginRight: 15,
+              display: "inline-block"
+            }}
+          />
+          <Select
+            placeholder="Sort by"
+            // defaultValue="lucy"
+            style={{ width: 200, marginBottom: 20, display: "inline-block" }}
+            onChange={this.handleChange}
+          >
+            <Option value="name">Name</Option>
+            <Option value="season">Season</Option>
+            <Option value="category">Category</Option>
+          </Select>
+        </div>
 
         {this.props.garments
           ? this.sortGarments(this.props.garments).map(garment => (

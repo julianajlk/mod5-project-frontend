@@ -20,6 +20,7 @@
   margin-left: 1em;
 }
 
+/* User Profile Pic Page */
 .profile-picture {
   border-radius: 50%;
   float: left;
@@ -50,7 +51,8 @@
   color: #ffa154;
 } */
 
-/* Upload Button: hide <input> styling to follow Ant Button */
+/* Upload Button: */
+/*hide <input> styling to follow Ant Button */
 input[type="file"] {
   display: none !important;
 }
@@ -69,4 +71,23 @@ input[type="file"] {
   color: #fff;
   text-align: center;
   font-size: 16px;
+}
+
+/* Home Page */
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 420px;
+  line-height: 420px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+.home-button-container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

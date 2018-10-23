@@ -12,7 +12,8 @@ import {
   Alert,
   Card,
   Form,
-  Input
+  Input,
+  Avatar
 } from "antd";
 
 import { fetchMaterials } from "../actions/actions";
@@ -184,11 +185,13 @@ class Garment extends Component {
             onClose={this.onClose}
             visible={this.state.visible}
             width={720}
-            // style={{
-            //   height: "calc(100% - 55px)",
-            //   overflow: "auto",
-            //   paddingBottom: 53
-            // }}
+            style={
+              {
+                // height: "calc(100% - 55px)",
+                // overflow: "auto",
+                // paddingBottom: 53
+              }
+            }
           >
             <GarmentForm materials={this.props.materials} />
           </Drawer>
@@ -341,7 +344,9 @@ class Garment extends Component {
                 </Button>
                 {/* </div> */}
               </Form>
+
               <p style={{ display: "block" }}>
+                <Avatar style={{ backgroundColor: "#ffc89c" }} icon="user" />
                 Comment by: Marcela | Date: 24/10/2018{" "}
               </p>
               <Alert

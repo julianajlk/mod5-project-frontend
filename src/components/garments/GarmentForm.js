@@ -409,10 +409,12 @@ class GarmentForm extends Component {
               mode="multiple"
               style={{ width: "100%" }}
               placeholder="Select all Materials"
-              // defaultValue={[
-              //   this.props.materials[0].name,
-              //   this.props.materials[1].name
-              // ]}
+              // defaultValue={
+              //   [
+              //     this.props.materials[0].name,
+              //     this.props.materials[1].name
+              //   ]
+              // }
               onChange={this.handleMaterialChange}
             >
               {children}

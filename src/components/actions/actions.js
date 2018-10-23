@@ -61,7 +61,7 @@ export function createGarment(newGarment, file) {
   formData.append("comment", newGarment.comment);
   formData.append("cover_upload", newGarment.file_upload);
 
-  formData.append("materialsIds", newGarment.materialsIds);
+  formData.append("materialsIds", [newGarment.materialsIds]);
   return dispatch => {
     fetch(`http://localhost:3000/garments`, {
       method: "POST",
