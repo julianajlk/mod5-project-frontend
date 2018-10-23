@@ -41,7 +41,7 @@ class Garment extends Component {
     this.props.fetchMaterials();
   }
 
-  //rate
+  //RATE NOT FUNCTIONAL yet
   handleChange = value => {
     this.setState({ value });
   };
@@ -432,15 +432,21 @@ class Garment extends Component {
                 </Panel>
                 <Panel header="Materials Info" key="2">
                   <p>Fabrication: {this.props.selectedGarment.fabrication}</p>
-                  <p>Trims Quantity: </p>
-                  <li>Buttons - {this.props.selectedGarment.trim_button}</li>
-                  <li>Zippers - {this.props.selectedGarment.trim_zipper}</li>
-                  <li>Labels - {this.props.selectedGarment.trim_label}</li>
-                  <li>Hantags - {this.props.selectedGarment.trim_hangtag}</li>
+                  <GarmentMaterials
+                    selectedGarment={this.props.selectedGarment}
+                  />
                 </Panel>
                 <Panel header="Sizing Info" key="3">
-                  <p>Sizing: {this.props.selectedGarment.sizing}</p>
-                  <p>Measurements: {this.props.selectedGarment.measurement}</p>
+                  <p>
+                    Size Range Available: {this.props.selectedGarment.sizing}
+                  </p>
+
+                  <Table
+                    columns={columns}
+                    dataSource={data}
+                    pagination={false}
+                    scroll={{ x: 350 }}
+                  />
                 </Panel>
                 <Panel header="Comments" key="4">
                   <p>Fit Comments: {this.props.selectedGarment.fit_comment}</p>
