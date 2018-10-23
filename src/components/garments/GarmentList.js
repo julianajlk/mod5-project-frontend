@@ -26,12 +26,23 @@ class GarmentList extends Component {
     });
   };
 
-  //not working yet!!
   sortGarments = garments => {
-    if (this.state.sortBy === "season") {
+    if (this.state.sortBy === "name") {
+      return garments.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (this.state.sortBy === "season") {
       return garments.sort((a, b) => a.season.localeCompare(b.season));
     } else if (this.state.sortBy === "category") {
-      return garments.sort((a, b) => b.category.localeCompare(b.category));
+      return garments.sort((a, b) => a.category.localeCompare(b.category));
+    } else {
+      return this.filterSearch(garments);
+    }
+  };
+
+  filterSearch = garments => {
+    if (this.state.search) {
+      return garments.filter(garment =>
+        garment.name.toLowerCase().includes(this.state.search.toLowerCase())
+      );
     } else {
       return garments;
     }
@@ -54,19 +65,9 @@ class GarmentList extends Component {
           style={{ width: 200, marginBottom: 20, display: "block" }}
           onChange={this.handleChange}
         >
-          <OptGroup label="Season">
-            <Option value="season">season</Option>
-            {/* <Option value="Spring 2019">Spring 2019</Option>
-            <Option value="Fall 2019">Fall 2019</Option>
-            <Option value="Cruise 2020">Cruise 2020</Option>
-            <Option value="Spring 2020">Spring 2020</Option> */}
-          </OptGroup>
-          <OptGroup label="Category">
-            <Option value="category">category</Option>
-            {/* <Option value="Bottoms">Bottoms</Option>
-            <Option value="Outerwear">Outerwear</Option>
-            <Option value="Dresses">Dresses</Option> */}
-          </OptGroup>
+          <Option value="name">Name</Option>
+          <Option value="season">Season</Option>
+          <Option value="category">Category</Option>
         </Select>
 
         {this.props.garments
@@ -117,6 +118,7 @@ class GarmentList extends Component {
             ))
           : null}
 
+        {/* only search bar  */}
         {/* {this.props.garments
           ? this.props.garments
               .filter(garment =>
@@ -170,89 +172,6 @@ class GarmentList extends Component {
                 </Card>
               ))
           : null} */}
-
-        {/* {this.props.garments.map(garment => (
-          <Card
-            // hoverable (changes the cursor to click on hover)
-            key={garment.id}
-            style={{
-              width: 240,
-              marginRight: 20,
-              marginBottom: 20,
-              display: "inline-block"
-            }}
-            cover={
-              <img
-                alt="cover_image"
-                src={garment.url}
-                style={{
-                  width: 200,
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: 20
-                }}
-              />
-            }
-          >
-            <Meta
-              title={garment.name}
-              description={garment.season}
-              style={{ marginBottom: 0 }}
-            />
-            <Link className="item" to={`/garments/${garment.id}`}>
-              <Button
-                type="dashed"
-                size="small"
-                style={{
-                  marginBottom: 5,
-                  marginTop: 10,
-                  color: "#ffa154",
-                  fontSize: "11px"
-                }}
-              >
-                SEE MORE
-                <Icon type="right" />
-              </Button>
-            </Link>
-          </Card>
-        ))} */}
-
-        {/* <Row>
-            <Col span={8}>
-              <Link className="item" to={`/garments/${garment.id}`}>
-                <Button
-                  type="dashed"
-                  size="small"
-                  style={{
-                    marginBottom: 5,
-                    marginTop: 10,
-                    color: "#ffa154",
-                    fontSize: "11px"
-                  }}
-                >
-                  EDIT
-                  <Icon type="edit" theme="outlined" />
-                </Button>
-              </Link>
-            </Col>
-            <Col span={16}>
-              <Link className="item" to={`/garments/${garment.id}`}>
-                <Button
-                  type="dashed"
-                  size="small"
-                  style={{
-                    marginBottom: 5,
-                    marginTop: 10,
-                    color: "#ffa154",
-                    fontSize: "11px"
-                  }}
-                >
-                  SEE MORE
-                  <Icon type="right" />
-                </Button>
-              </Link>
-            </Col>
-          </Row> */}
       </React.Fragment>
     );
   }

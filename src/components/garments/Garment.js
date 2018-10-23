@@ -10,7 +10,9 @@ import {
   Rate,
   Table,
   Alert,
-  Card
+  Card,
+  Form,
+  Input
 } from "antd";
 
 import { fetchMaterials } from "../actions/actions";
@@ -19,8 +21,8 @@ import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
 import GarmentMaterials from "./GarmentMaterials";
 
-// const { Meta } = Card;
 const Panel = Collapse.Panel;
+const { TextArea } = Input;
 
 class Garment extends Component {
   state = {
@@ -28,7 +30,8 @@ class Garment extends Component {
     visibleEdit: false,
     top: 10,
     fullView: false,
-    value: 2
+    value: 2,
+    comment: ""
   };
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
@@ -71,6 +74,23 @@ class Garment extends Component {
   toggleFullView = () => {
     this.setState({
       fullView: !this.state.fullView
+    });
+  };
+
+  //comment/post
+  handleOnSubmit = event => {
+    console.log(event.target);
+    event.preventDefault();
+    this.props.createComment();
+    this.setState({
+      comment: ""
+    });
+  };
+
+  handleComment = event => {
+    console.log(event.target.value);
+    this.setState({
+      comment: event.target.value
     });
   };
 
@@ -277,8 +297,8 @@ class Garment extends Component {
                 scroll={{ x: 350 }}
               />
 
-              <Divider orientation="left">Comments</Divider>
-              <p>Fit Comments:</p>
+              <Divider orientation="left">Observations</Divider>
+              <p>Fit Observations:</p>
               <Alert
                 type="warning"
                 style={{
@@ -289,7 +309,7 @@ class Garment extends Component {
                 message={this.props.selectedGarment.fit_comment}
               />
 
-              <p>Other Comments:</p>
+              <p>Other Observations:</p>
               <Alert
                 type="warning"
                 style={{
@@ -298,6 +318,40 @@ class Garment extends Component {
                   backgroundColor: "#fafafa"
                 }}
                 message={this.props.selectedGarment.comment}
+              />
+
+              {/* post comments not functional yet */}
+              <Divider orientation="left">Comments</Divider>
+              <Form onSubmit={event => this.handleOnSubmit(event)}>
+                <TextArea
+                  name="comment"
+                  rows={4}
+                  value={this.state.comment}
+                  placeholder="Write your comment here..."
+                  style={{ marginBottom: 16 }}
+                  onChange={event => this.handleComment(event)}
+                />
+                {/* <div style={{ marginTop: 16,  }}> */}
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ marginBottom: 30, float: "right" }}
+                >
+                  Post Comment
+                </Button>
+                {/* </div> */}
+              </Form>
+              <p style={{ display: "block" }}>
+                Comment by: Marcela | Date: 24/10/2018{" "}
+              </p>
+              <Alert
+                type="warning"
+                style={{
+                  margin: "16px 0",
+                  border: "1px solid #f5f5f5",
+                  backgroundColor: "#fafafa"
+                }}
+                message={this.props.selectedGarment.fit_comment}
               />
             </React.Fragment>
           ) : (
