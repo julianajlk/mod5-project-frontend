@@ -40,7 +40,7 @@ class GarmentFormEdit extends Component {
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
   componentDidMount() {
     this.props.fetchMaterials();
-    debugger;
+
     this.setState({
       name: this.props.selectedGarment.name,
       file_upload: "",
@@ -446,7 +446,7 @@ const mapStateToProps = (state, ownProps) => {
     garment => garment.id === parseInt(ownProps.garmentId)
   );
   // console.log("selectedGarment", selectedGarment);
-  debugger;
+  // debugger;
   return {
     selectedGarment: selectedGarment,
     garments: state.garments,

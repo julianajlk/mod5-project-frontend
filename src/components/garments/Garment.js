@@ -204,7 +204,7 @@ class Garment extends Component {
             <GarmentForm materials={this.props.materials} />
           </Drawer>
         </React.Fragment>
-        {/* <React.Fragment>
+        <React.Fragment>
           <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
             <Icon type="edit" theme="outlined" />
             Edit This Garment
@@ -217,9 +217,11 @@ class Garment extends Component {
             visible={this.state.visibleEdit}
             width={720}
           >
-            <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
+            {this.props.selectedGarment ? (
+              <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
+            ) : null}
           </Drawer>
-        </React.Fragment> */}
+        </React.Fragment>
 
         {this.props.loading ? (
           <div className="loading-div">
