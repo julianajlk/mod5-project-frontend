@@ -6,7 +6,6 @@ import { createGarment, fetchMaterials } from "../actions/actions";
 import {
   Form,
   Input,
-  InputNumber,
   Slider,
   Button,
   // Upload,

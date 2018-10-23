@@ -22,24 +22,40 @@ const Option = Select.Option;
 
 class GarmentFormEdit extends Component {
   state = {
-    name: this.props.selectedGarment.name,
+    name: "",
     file_upload: "",
-    category: this.props.selectedGarment.category,
+    category: "",
     season: "Spring",
     year: "2019",
-    location: this.props.selectedGarment.location,
-    status: this.props.selectedGarment.status,
-    fabrication: this.props.selectedGarment.fabrication,
-    materials: this.props.selectedGarment.materials,
+    location: "",
+    status: "",
+    fabrication: "",
+    materials: "",
     sizing: "XS",
-    measurement: this.props.selectedGarment.measurement,
-    fit_comment: this.props.selectedGarment.fit_comment,
-    comment: this.props.selectedGarment.comment
+    measurement: "",
+    fit_comment: "",
+    comment: ""
   };
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
   componentDidMount() {
     this.props.fetchMaterials();
+    debugger;
+    this.setState({
+      name: this.props.selectedGarment.name,
+      file_upload: "",
+      category: this.props.selectedGarment.category,
+      season: "Spring",
+      year: "2019",
+      location: this.props.selectedGarment.location,
+      status: this.props.selectedGarment.status,
+      fabrication: this.props.selectedGarment.fabrication,
+      materials: this.props.selectedGarment.materials,
+      sizing: "XS",
+      measurement: this.props.selectedGarment.measurement,
+      fit_comment: this.props.selectedGarment.fit_comment,
+      comment: this.props.selectedGarment.comment
+    });
   }
 
   handleOnSubmit = event => {
@@ -250,180 +266,190 @@ class GarmentFormEdit extends Component {
 
     return (
       <div>
-        <Form onSubmit={event => this.handleOnSubmit(event)}>
-          <Input
-            name="name"
-            value={this.state.name}
-            placeholder="Item Name"
-            style={pStyle}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <FormItem label="Category">
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              defaultValue={this.state.category}
-              // placeholder="Select a Category"
-              optionFilterProp="children"
-              onChange={this.handleCategoryChange}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-              filterOption={(input, option) =>
-                option.props.children
-                  .toLowerCase()
-                  .indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              <Option value="Tops">Tops</Option>
-              <Option value="Bottoms">Bottoms</Option>
-              <Option value="Dresses">Dresses</Option>
-              <Option value="Outerwear">Outerwear</Option>
-            </Select>
-          </FormItem>
-          <FormItem label="Season">
-            <InputGroup compact>
-              <Select
-                name="season"
-                defaultValue={this.props.selectedGarment.season.split(" ")[0]}
-                onChange={this.handleSelectSeason}
-              >
-                <Option value="Spring">Spring</Option>
-                <Option value="Summer">Summer</Option>
-                <Option value="Fall">Fall</Option>
-                <Option value="Winter">Winter</Option>
-                <Option value="Cruise">Cruise</Option>
-              </Select>
-              <Select
-                name="year"
-                defaultValue={this.props.selectedGarment.season.split(" ")[1]}
-                onChange={this.handleSelectYear}
-              >
-                <Option value="2019">2019</Option>
-                <Option value="2020">2020</Option>
-                <Option value="2021">2021</Option>
-                <Option value="2022">2022</Option>
-              </Select>
-            </InputGroup>
-          </FormItem>
-          <Input
-            name="location"
-            value={this.state.location}
-            placeholder="Location"
-            style={pStyle}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <Input
-            name="status"
-            value={this.state.status}
-            placeholder="Status"
-            style={pStyle}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <Input
-            name="fabrication"
-            value={this.state.fabrication}
-            placeholder="Fabrication"
-            style={pStyle}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <FormItem label="Technical Sketch">
-            <Button>
-              <label>
-                <Icon type="upload" />
-                {this.state.file_upload !== ""
-                  ? " Picture Uploaded"
-                  : " Click to Upload"}
-                <input
-                  type="file"
-                  name="avatar"
-                  id="avatar"
-                  onChange={event => this.handlePictureUpload(event)}
-                />
-              </label>
-            </Button>
-            {this.state.file_upload !== "" ? (
-              <p>
-                <Icon type="paper-clip" theme="outlined" />{" "}
-                {this.state.file_upload.name}
-              </p>
-            ) : null}
-          </FormItem>
-
-          <FormItem label="Materials">
-            {this.props.selectedGarment.materials.map(material => (
-              <Select
-                mode="multiple"
-                style={{ width: "100%" }}
-                // placeholder="Select all Materials"
-                defaultValue={material.name}
-                onChange={this.handleMaterialChange}
-              >
-                {children}
-              </Select>
-            ))}
-          </FormItem>
-
-          <FormItem label="Sizing">
-            <p>{this.props.selectedGarment.sizing}</p>
-            <p>Select New Sizing:</p>
-            <Slider
-              range
-              marks={{
-                0: "XS",
-                25: "S",
-                50: "M",
-                75: "L",
-                100: "XL"
-              }}
-              step={25}
-              onChange={this.handleSliderSizing}
+        {this.props.selectedGarment ? (
+          <Form onSubmit={event => this.handleOnSubmit(event)}>
+            <Input
+              name="name"
+              value={this.state.name}
+              placeholder="Item Name"
+              style={pStyle}
+              onChange={event => this.handleOnChange(event)}
             />
-          </FormItem>
-          <TextArea
-            placeholder="Measurements"
-            rows={4}
-            style={pStyle}
-            name="measurement"
-            value={this.state.measurement}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <TextArea
-            placeholder="Fit Comments"
-            rows={4}
-            style={pStyle}
-            name="fit_comment"
-            value={this.state.fit_comment}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <TextArea
-            placeholder="Comments"
-            rows={4}
-            style={pStyle}
-            name="comment"
-            value={this.state.comment}
-            onChange={event => this.handleOnChange(event)}
-          />
-          <div style={{ marginTop: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Save
-            </Button>
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={this.props.showDrawerEdit}
-              style={{ marginLeft: 10 }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </Form>
+            <FormItem label="Category">
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                defaultValue={this.state.category}
+                // placeholder="Select a Category"
+                optionFilterProp="children"
+                onChange={this.handleCategoryChange}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+                filterOption={(input, option) =>
+                  option.props.children
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
+                }
+              >
+                <Option value="Tops">Tops</Option>
+                <Option value="Bottoms">Bottoms</Option>
+                <Option value="Dresses">Dresses</Option>
+                <Option value="Outerwear">Outerwear</Option>
+              </Select>
+            </FormItem>
+            <FormItem label="Season">
+              <InputGroup compact>
+                <Select
+                  name="season"
+                  defaultValue={this.props.selectedGarment.season.split(" ")[0]}
+                  onChange={this.handleSelectSeason}
+                >
+                  <Option value="Spring">Spring</Option>
+                  <Option value="Summer">Summer</Option>
+                  <Option value="Fall">Fall</Option>
+                  <Option value="Winter">Winter</Option>
+                  <Option value="Cruise">Cruise</Option>
+                </Select>
+                <Select
+                  name="year"
+                  defaultValue={this.props.selectedGarment.season.split(" ")[1]}
+                  onChange={this.handleSelectYear}
+                >
+                  <Option value="2019">2019</Option>
+                  <Option value="2020">2020</Option>
+                  <Option value="2021">2021</Option>
+                  <Option value="2022">2022</Option>
+                </Select>
+              </InputGroup>
+            </FormItem>
+            <Input
+              name="location"
+              value={this.state.location}
+              placeholder="Location"
+              style={pStyle}
+              onChange={event => this.handleOnChange(event)}
+            />
+            <Input
+              name="status"
+              value={this.state.status}
+              placeholder="Status"
+              style={pStyle}
+              onChange={event => this.handleOnChange(event)}
+            />
+            <Input
+              name="fabrication"
+              value={this.state.fabrication}
+              placeholder="Fabrication"
+              style={pStyle}
+              onChange={event => this.handleOnChange(event)}
+            />
+            <FormItem label="Technical Sketch">
+              <Button>
+                <label>
+                  <Icon type="upload" />
+                  {this.state.file_upload !== ""
+                    ? " Picture Uploaded"
+                    : " Click to Upload"}
+                  <input
+                    type="file"
+                    name="avatar"
+                    id="avatar"
+                    onChange={event => this.handlePictureUpload(event)}
+                  />
+                </label>
+              </Button>
+              {this.state.file_upload !== "" ? (
+                <p>
+                  <Icon type="paper-clip" theme="outlined" />{" "}
+                  {this.state.file_upload.name}
+                </p>
+              ) : null}
+            </FormItem>
+
+            <FormItem label="Materials">
+              {this.props.selectedGarment.materials.map(material => (
+                <Select
+                  mode="multiple"
+                  style={{ width: "100%" }}
+                  // placeholder="Select all Materials"
+                  defaultValue={material.name}
+                  onChange={this.handleMaterialChange}
+                >
+                  {children}
+                </Select>
+              ))}
+            </FormItem>
+
+            <FormItem label="Sizing">
+              <p>{this.props.selectedGarment.sizing}</p>
+              <p>Select New Sizing:</p>
+              <Slider
+                range
+                marks={{
+                  0: "XS",
+                  25: "S",
+                  50: "M",
+                  75: "L",
+                  100: "XL"
+                }}
+                step={25}
+                onChange={this.handleSliderSizing}
+              />
+            </FormItem>
+            <TextArea
+              placeholder="Measurements"
+              rows={4}
+              style={pStyle}
+              name="measurement"
+              value={this.state.measurement}
+              onChange={event => this.handleOnChange(event)}
+            />
+            <TextArea
+              placeholder="Fit Comments"
+              rows={4}
+              style={pStyle}
+              name="fit_comment"
+              value={this.state.fit_comment}
+              onChange={event => this.handleOnChange(event)}
+            />
+            <TextArea
+              placeholder="Comments"
+              rows={4}
+              style={pStyle}
+              name="comment"
+              value={this.state.comment}
+              onChange={event => this.handleOnChange(event)}
+            />
+            <div style={{ marginTop: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={this.props.showDrawerEdit}
+                style={{ marginLeft: 10 }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Form>
+        ) : null}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  // console.log("Garment", state, state.garments, ownProps, ownProps.garmentId);
+  let selectedGarment = state.garments.find(
+    garment => garment.id === parseInt(ownProps.garmentId)
+  );
+  // console.log("selectedGarment", selectedGarment);
+  debugger;
   return {
+    selectedGarment: selectedGarment,
+    garments: state.garments,
     materials: state.materials
   };
 };

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, Button, Icon, Input, Select, Spin } from "antd";
 
 const { Meta } = Card;
-const { Option, OptGroup } = Select;
+const { Option } = Select;
 const Search = Input.Search;
 
 class GarmentList extends Component {
@@ -40,7 +40,7 @@ class GarmentList extends Component {
         a.category.localeCompare(b.category)
       );
     } else {
-      return garments;
+      return this.filterSearch(garments);
     }
   };
 
@@ -146,61 +146,6 @@ class GarmentList extends Component {
               </Card>
             ))
           : null}
-
-        {/* only search bar  */}
-        {/* {this.props.garments
-          ? this.props.garments
-              .filter(garment =>
-                garment.name
-                  .toLowerCase()
-                  .includes(this.state.search.toLowerCase())
-              )
-              .map(garment => (
-                <Card
-                  // hoverable (changes the cursor to click on hover)
-                  key={garment.id}
-                  style={{
-                    width: 240,
-                    marginRight: 20,
-                    marginBottom: 20,
-                    display: "inline-block"
-                  }}
-                  cover={
-                    <img
-                      alt="cover_image"
-                      src={garment.url}
-                      style={{
-                        width: 200,
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        marginTop: 20
-                      }}
-                    />
-                  }
-                >
-                  <Meta
-                    title={garment.name}
-                    description={garment.season}
-                    style={{ marginBottom: 0 }}
-                  />
-                  <Link className="item" to={`/garments/${garment.id}`}>
-                    <Button
-                      type="dashed"
-                      size="small"
-                      style={{
-                        marginBottom: 5,
-                        marginTop: 10,
-                        color: "#ffa154",
-                        fontSize: "11px"
-                      }}
-                    >
-                      SEE MORE
-                      <Icon type="right" />
-                    </Button>
-                  </Link>
-                </Card>
-              ))
-          : null} */}
       </React.Fragment>
     );
   }

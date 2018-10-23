@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import {
-  Route,
-  Switch
-  // withRouter
-} from "react-router-dom";
-
-import { Icon, Spin } from "antd";
+import { connect } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 
 import GarmentList from "./GarmentList";
 import Garment from "./Garment";
@@ -13,6 +8,8 @@ import GarmentFormEdit from "./GarmentFormEdit";
 
 class Garments extends Component {
   render() {
+    console.log("Garments", this.props.garments);
+
     return (
       <Switch>
         <Route exact path="/garments">
@@ -31,23 +28,10 @@ class Garments extends Component {
           path="/garments/:garmentId"
           render={data => {
             return (
-              <Garment
-                garmentId={data.match.params.garmentId}
-                garments={this.props.garments}
-                materials={this.props.materials}
-                loading={this.props.loading}
-              />
-            );
-          }}
-        />
-        <Route
-          path="/garments/:garmentId"
-          render={data => {
-            return (
-              <GarmentFormEdit
-                garmentId={data.match.params.garmentId}
-                garments={this.props.garments}
-              />
+              <div>
+                <Garment garmentId={data.match.params.garmentId} />
+                <GarmentFormEdit garmentId={data.match.params.garmentId} />
+              </div>
             );
           }}
         />

@@ -10,7 +10,6 @@ import {
   Rate,
   Table,
   Alert,
-  Card,
   Form,
   Input,
   Avatar,
@@ -32,18 +31,25 @@ class Garment extends Component {
     visibleEdit: false,
     top: 10,
     fullView: false,
-    value: 2,
+    rate: 1,
     comment: ""
   };
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
   componentDidMount() {
     this.props.fetchMaterials();
+    // this.setState({ rate: this.props.selectedGarment.rate });
   }
+
+  // setRate = () => {
+  //   if (this.props.selectedGarment) {
+  //     this.setState({ rate: this.props.selectedGarment.rate });
+  //   }
+  // };
 
   //RATE NOT FUNCTIONAL yet
   handleChange = value => {
-    this.setState({ value });
+    this.setState({ rate: value });
   };
 
   //create drawer
@@ -105,9 +111,8 @@ class Garment extends Component {
   // );
 
   render() {
-    // console.log("garment page PROPS", this.props);
-    // debugger;
-    console.log("materials", this.props.materials);
+    // console.log("garment page PROPS", this.props.selectedGarment);
+    // console.log("materials", this.props.materials);
 
     const { value } = this.state;
 
@@ -195,18 +200,11 @@ class Garment extends Component {
             onClose={this.onCloseDrawer}
             visible={this.state.visible}
             width={720}
-            style={
-              {
-                // height: "calc(100% - 55px)",
-                // overflow: "auto",
-                // paddingBottom: 53
-              }
-            }
           >
             <GarmentForm materials={this.props.materials} />
           </Drawer>
         </React.Fragment>
-        <React.Fragment>
+        {/* <React.Fragment>
           <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
             <Icon type="edit" theme="outlined" />
             Edit This Garment
@@ -220,23 +218,6 @@ class Garment extends Component {
             width={720}
           >
             <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
-          </Drawer>
-        </React.Fragment>
-        {/* <React.Fragment>
-          <Button onClick={this.showDrawer}>Garment List</Button>
-          <Drawer
-            title="All Garments"
-            placement={this.state.placement}
-            closable={false}
-            onClose={this.onClose}
-            visible={this.state.visible}
-          >
-            {this.props.garments &&
-              this.props.garments.map(garment => (
-                <ul>
-                  <a href={`/garments/${garment.id}`}>{garment.name} </a>
-                </ul>
-              ))}
           </Drawer>
         </React.Fragment> */}
 
@@ -471,7 +452,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     selectedGarment: selectedGarment,
     garments: state.garments,
-    materials: state.materials
+    materials: state.materials,
+    loading: state.loading
   };
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
-import { Menu, Icon, Affix } from "antd";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Menu, Icon, Affix } from "antd";
 
 const SubMenu = Menu.SubMenu;
 
@@ -51,7 +52,9 @@ class SideMenu extends React.Component {
           >
             {this.props.garments.map(garment => (
               <Menu.Item key={garment.id}>
-                <a href={`/garments/${garment.id}`}>{garment.name}</a>
+                <Link className="item" to={`/garments/${garment.id}`}>
+                  {garment.name}
+                </Link>
               </Menu.Item>
             ))}
           </SubMenu>

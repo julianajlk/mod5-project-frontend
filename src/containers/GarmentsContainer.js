@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { Layout, Row, Col, Icon } from "antd";
+
 import { fetchGarments } from "../components/actions/actions";
 
 import Garments from "../components/garments/Garments";
+import SideMenu from "../components/other/SideMenu";
+
+const { Content } = Layout;
 
 class GarmentsContainer extends Component {
   componentDidMount() {
@@ -13,7 +18,19 @@ class GarmentsContainer extends Component {
   render() {
     return (
       <div>
-        <Garments garments={this.props.garments} loading={this.props.loading} />
+        <Row>
+          <Col span={6}>
+            <SideMenu garments={this.props.garments} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={18}>
+            <Garments
+              garments={this.props.garments}
+              loading={this.props.loading}
+            />
+          </Col>
+        </Row>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Divider, Table, Tag, Icon } from "antd";
+import { Divider, Table, Icon } from "antd";
 
 class GarmentMaterials extends Component {
   render() {
@@ -76,11 +76,11 @@ class GarmentMaterials extends Component {
         width: 100,
         render: () => (
           <span>
-            <a href="javascript:;">
+            <a href="/">
               <Icon type="edit" theme="outlined" />
             </a>
             <Divider type="vertical" />
-            <a href="javascript:;">
+            <a href="/">
               <Icon type="delete" theme="outlined" />
             </a>
           </span>
