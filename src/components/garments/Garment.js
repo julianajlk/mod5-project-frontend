@@ -13,7 +13,8 @@ import {
   Card,
   Form,
   Input,
-  Avatar
+  Avatar,
+  Spin
 } from "antd";
 
 import { fetchMaterials } from "../actions/actions";
@@ -52,7 +53,7 @@ class Garment extends Component {
     });
   };
 
-  onClose = () => {
+  onCloseDrawer = () => {
     this.setState({
       visible: false
     });
@@ -174,6 +175,15 @@ class Garment extends Component {
         ]
       : null;
 
+    const loadingIcon = (
+      <Icon
+        type="loading"
+        theme="outlined"
+        style={{ fontSize: 30, marginBottom: 30 }}
+        spin
+      />
+    );
+
     return (
       <div className="main-div">
         <React.Fragment>
@@ -182,7 +192,7 @@ class Garment extends Component {
             title="New Garment"
             placement="left"
             closable={true}
-            onClose={this.onClose}
+            onClose={this.onCloseDrawer}
             visible={this.state.visible}
             width={720}
             style={
@@ -229,6 +239,13 @@ class Garment extends Component {
               ))}
           </Drawer>
         </React.Fragment> */}
+
+        {this.props.loading ? (
+          <div className="loading-div">
+            <Spin indicator={loadingIcon} />
+            <h4>l o a d i n g ...</h4>
+          </div>
+        ) : null}
 
         {this.props.selectedGarment ? (
           this.state.fullView ? (

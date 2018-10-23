@@ -175,12 +175,17 @@ export function addGarment(garment) {
   return { type: "ADD_GARMENT", garment };
 }
 
+export function fetchingGarments() {
+  return { type: "FETCHING_GARMENTS" };
+}
+
 export function fetchedGarments(garments) {
   return { type: "FETCHED_GARMENTS", garments };
 }
 
 export function fetchGarments() {
   return dispatch => {
+    dispatch(fetchingGarments());
     fetch(`http://localhost:3000/garments`)
       .then(response => response.json())
       .then(garments => dispatch(fetchedGarments(garments)));

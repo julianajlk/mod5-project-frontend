@@ -10,10 +10,7 @@ class SideMenu extends React.Component {
 
   state = {
     openKeys: ["sub1"],
-    left: 50
-    // filterSeason:
-    // filterCategory:
-    // filterLocation:
+    top: 50
   };
 
   onOpenChange = openKeys => {
@@ -31,14 +28,14 @@ class SideMenu extends React.Component {
 
   render() {
     return (
-      <Affix offsetTop={this.state.left}>
+      <Affix offsetTop={this.state.top}>
         <Menu
           mode="inline"
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
           onChange={() => {
             this.setState({
-              left: this.state.left + 10
+              top: this.state.top + 10
             });
           }}
           style={{ width: 256 }}

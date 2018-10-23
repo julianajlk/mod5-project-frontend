@@ -4,7 +4,8 @@ import {
   Switch
   // withRouter
 } from "react-router-dom";
-import { Icon } from "antd";
+
+import { Icon, Spin } from "antd";
 
 import User from "./User";
 import UserProfile from "./UserProfile";
@@ -12,13 +13,25 @@ import UserFormEdit from "./UserFormEdit";
 
 class Users extends Component {
   render() {
+    const loadingIcon = (
+      <Icon
+        type="loading"
+        theme="outlined"
+        style={{ fontSize: 30, marginBottom: 30 }}
+        spin
+      />
+    );
+
     //data comes from route, need a render function to pass in userId as props to UserProfile.
     return (
       <Switch>
         <Route exact path="/users">
           <ul>
             {this.props.loading ? (
-              <Icon type="loading" theme="outlined" />
+              <div className="loading-div">
+                <Spin indicator={loadingIcon} />
+                <h4>l o a d i n g ...</h4>
+              </div>
             ) : null}
             {this.props.users
               ? this.props.users.map(user => <User user={user} key={user.id} />)

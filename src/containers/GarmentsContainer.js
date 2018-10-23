@@ -13,7 +13,7 @@ class GarmentsContainer extends Component {
   render() {
     return (
       <div>
-        <Garments garments={this.props.garments} />
+        <Garments garments={this.props.garments} loading={this.props.loading} />
       </div>
     );
   }
@@ -23,6 +23,7 @@ class GarmentsContainer extends Component {
 const mapStateToProps = state => {
   // console.log("GarmentsContainer", state);
   return {
+    loading: state.loading,
     garments: state.garments
   };
 };

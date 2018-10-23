@@ -3,13 +3,13 @@ import { Route, Switch } from "react-router-dom";
 import { Layout, Row, Col, BackTop, Icon } from "antd";
 
 import "./App.css";
+import NavBar from "./components/other/NavBar";
+import SideMenu from "./components/other/SideMenu";
+import Home from "./components/other/Home";
 import UsersContainer from "./containers/UsersContainer";
 import OrganizationsContainer from "./containers/OrganizationsContainer";
 import GarmentsContainer from "./containers/GarmentsContainer";
 import MaterialsContainer from "./containers/MaterialsContainer";
-import NavBar from "./components/other/NavBar";
-import SideMenu from "./components/other/SideMenu";
-import Home from "./components/other/Home";
 import UserLogin from "./components/users/UserLogin";
 
 const { Content } = Layout;
@@ -31,13 +31,13 @@ class App extends Component {
         <Switch>
           <Route path="/garments">
             <Row>
-              <Col span={6}>
-                <SideMenu />
-              </Col>
+              <Content style={{ marginTop: -60 }}>
+                <Col span={6}>
+                  <SideMenu />
+                </Col>
+              </Content>
               <Col span={18}>
-                <Content
-                // style={{ padding: "0 50px", marginTop: 64 }}
-                >
+                <Content style={{ padding: "0 15px", marginTop: -20 }}>
                   <GarmentsContainer />
                 </Content>
               </Col>

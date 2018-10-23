@@ -5,38 +5,26 @@ import {
   // withRouter
 } from "react-router-dom";
 
-// import { Input } from "antd";
+import { Icon, Spin } from "antd";
 
 import GarmentList from "./GarmentList";
 import Garment from "./Garment";
 import GarmentFormEdit from "./GarmentFormEdit";
 
-// const Search = Input.Search;
-
 class Garments extends Component {
   render() {
-    // console.log("garments", this.props.garments);
-    // console.log("materials", this.props.materials);
     return (
       <Switch>
         <Route exact path="/garments">
           <ul>
-            {/* <Search
-              placeholder="Search"
-              onSearch={value => console.log(value)}
-              style={{ width: 200, marginBottom: 20 }}
-            /> */}
-            <h2 className=".page-title">Garments</h2>
-            {/* {this.props.loading ? <Icon type="loading" theme="outlined" />"Loading, please wait..." : null} */}
+            <h2 className=".page-title">Your Garments</h2>
 
             {this.props.garments ? (
-              <GarmentList garments={this.props.garments} />
+              <GarmentList
+                garments={this.props.garments}
+                loading={this.props.loading}
+              />
             ) : null}
-            {/* {this.props.garments
-              ? this.props.garments.map(garment => (
-                  <GarmentList garment={garment} key={garment.id} />
-                ))
-              : null} */}
           </ul>
         </Route>
         <Route
@@ -47,6 +35,7 @@ class Garments extends Component {
                 garmentId={data.match.params.garmentId}
                 garments={this.props.garments}
                 materials={this.props.materials}
+                loading={this.props.loading}
               />
             );
           }}

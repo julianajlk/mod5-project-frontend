@@ -86,8 +86,13 @@ input[type="file"] {
   color: #fff;
 }
 
-.home-button-container {
+/* .home-button-container {
   display: block;
   margin-left: auto;
   margin-right: auto;
+} */
+
+/* loading Spin  */
+.loading-div {
+  margin: 3em 0;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Card, Button, Icon, Input, Select } from "antd";
+import { Card, Button, Icon, Input, Select, Spin } from "antd";
 
 const { Meta } = Card;
 const { Option, OptGroup } = Select;
@@ -28,13 +28,19 @@ class GarmentList extends Component {
 
   sortGarments = garments => {
     if (this.state.sortBy === "name") {
-      return garments.sort((a, b) => a.name.localeCompare(b.name));
+      return this.filterSearch(garments).sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
     } else if (this.state.sortBy === "season") {
-      return garments.sort((a, b) => a.season.localeCompare(b.season));
+      return this.filterSearch(garments).sort((a, b) =>
+        a.season.localeCompare(b.season)
+      );
     } else if (this.state.sortBy === "category") {
-      return garments.sort((a, b) => a.category.localeCompare(b.category));
+      return this.filterSearch(garments).sort((a, b) =>
+        a.category.localeCompare(b.category)
+      );
     } else {
-      return this.filterSearch(garments);
+      return garments;
     }
   };
 
@@ -49,8 +55,17 @@ class GarmentList extends Component {
   };
 
   render() {
-    console.log(this.props.garments);
-    // debugger;
+    // console.log(this.props.garments);
+
+    const loadingIcon = (
+      <Icon
+        type="loading"
+        theme="outlined"
+        style={{ fontSize: 30, marginBottom: 30 }}
+        spin
+      />
+    );
+
     return (
       <React.Fragment>
         <div style={{ display: "block" }}>
@@ -76,6 +91,13 @@ class GarmentList extends Component {
             <Option value="category">Category</Option>
           </Select>
         </div>
+
+        {this.props.loading ? (
+          <div className="loading-div">
+            <Spin indicator={loadingIcon} />
+            <h4>l o a d i n g ...</h4>
+          </div>
+        ) : null}
 
         {this.props.garments
           ? this.sortGarments(this.props.garments).map(garment => (

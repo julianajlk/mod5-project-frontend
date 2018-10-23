@@ -61,8 +61,23 @@ const usersReducer = (state = [], action) => {
   }
 };
 
+// const loadingReducer = (state = false, action) => {
+//   switch (action.type) {
+//     case "FETCHING_USERS":
+//       return true;
+//     case "FETCHED_USERS":
+//       return false;
+//     default:
+//       return state;
+//   }
+// };
+
 const loadingReducer = (state = false, action) => {
   switch (action.type) {
+    case "FETCHING_GARMENTS":
+      return true;
+    case "FETCHED_GARMENTS":
+      return false;
     case "FETCHING_USERS":
       return true;
     case "FETCHED_USERS":
