@@ -12,6 +12,23 @@ export function fetchMaterials() {
 }
 
 //GARMENTS
+export function updateGarmentRate(garmentId, rate) {
+  return dispatch => {
+    fetch(`http://localhost:3000/garments/${garmentId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        rate: rate
+      }),
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(user => addGarment(user));
+  };
+}
+
 export function updateGarment(newGarment, garmentId) {
   console.log("createGarment", newGarment.file_upload);
   let formData = new FormData();

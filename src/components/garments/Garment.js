@@ -16,7 +16,7 @@ import {
   Spin
 } from "antd";
 
-import { fetchMaterials } from "../actions/actions";
+import { fetchMaterials, updateGarmentRate } from "../actions/actions";
 
 import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
@@ -31,25 +31,21 @@ class Garment extends Component {
     visibleEdit: false,
     top: 10,
     fullView: false,
-    rate: 1,
+    value: this.props.selectedGarment.rate,
     comment: ""
   };
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
   componentDidMount() {
     this.props.fetchMaterials();
-    // this.setState({ rate: this.props.selectedGarment.rate });
+    // this.setState({ value: this.props.selectedGarment.rate });
   }
 
-  // setRate = () => {
-  //   if (this.props.selectedGarment) {
-  //     this.setState({ rate: this.props.selectedGarment.rate });
-  //   }
-  // };
-
-  //RATE NOT FUNCTIONAL yet
+  //FIX when click to undo, rate goes to zero
   handleChange = value => {
-    this.setState({ rate: value });
+    this.setState({ value });
+    console.log(this.props.selectedGarment.id, value);
+    this.props.updateGarmentRate(this.props.selectedGarment.id, value);
   };
 
   //create drawer
@@ -85,7 +81,7 @@ class Garment extends Component {
     });
   };
 
-  //comment/post
+  //comment/post NOT FUNCTIONAL
   handleOnSubmit = event => {
     console.log(event.target);
     event.preventDefault();
@@ -111,8 +107,10 @@ class Garment extends Component {
   // );
 
   render() {
-    // console.log("garment page PROPS", this.props.selectedGarment);
+    // console.log("garment page PROPS", this.props.selectedGarment.rate);
     // console.log("materials", this.props.materials);
+
+    const garmentId = parseInt(window.location.href.split("/")[4]);
 
     const { value } = this.state;
 
@@ -452,6 +450,7 @@ const mapStateToProps = (state, ownProps) => {
   // console.log("selectedGarment", selectedGarment);
   // debugger;
   return {
+    garmentId: ownProps.garmentId,
     selectedGarment: selectedGarment,
     garments: state.garments,
     materials: state.materials,
@@ -461,5 +460,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { fetchMaterials }
+  { fetchMaterials, updateGarmentRate }
 )(Garment);

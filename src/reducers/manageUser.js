@@ -17,6 +17,8 @@ const garmentsReducer = (state = [], action) => {
       const garment = action.garment;
       console.log(action, action.garment);
       return [...state, garment];
+    case "UPDATE_GARMENT":
+      return action.garment;
     default:
       return state;
   }

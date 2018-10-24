@@ -18,19 +18,7 @@ class GarmentsContainer extends Component {
   render() {
     return (
       <div>
-        <Row>
-          <Col span={6}>
-            <SideMenu garments={this.props.garments} />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={18}>
-            <Garments
-              garments={this.props.garments}
-              loading={this.props.loading}
-            />
-          </Col>
-        </Row>
+        <Garments garments={this.props.garments} loading={this.props.loading} />
       </div>
     );
   }
