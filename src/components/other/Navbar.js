@@ -27,7 +27,7 @@ class NavBar extends React.Component {
             mode="horizontal"
           >
             <Menu.Item>
-              <Link to="/users" className="logo">
+              <Link to="/" className="logo">
                 APParel
               </Link>
             </Menu.Item>

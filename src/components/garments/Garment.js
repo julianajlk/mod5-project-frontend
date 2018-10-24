@@ -27,11 +27,12 @@ const { TextArea } = Input;
 
 class Garment extends Component {
   state = {
+    editing: false,
     visible: false,
     visibleEdit: false,
     top: 10,
     fullView: false,
-    value: this.props.selectedGarment.rate,
+    value: 1,
     comment: ""
   };
 
@@ -46,6 +47,13 @@ class Garment extends Component {
     this.setState({ value });
     console.log(this.props.selectedGarment.id, value);
     this.props.updateGarmentRate(this.props.selectedGarment.id, value);
+  };
+
+  //editing TESTING
+  toggleEditing = () => {
+    this.setState({
+      editing: !this.state.editing
+    });
   };
 
   // //create drawer
@@ -190,6 +198,15 @@ class Garment extends Component {
     return (
       <div className="main-div">
         <React.Fragment>
+          {/* <Button onClick={this.toggleEditing} style={{ marginLeft: 15 }}>
+            <Icon type="edit" theme="outlined" />
+            Edit This Garment
+          </Button> */}
+
+          {/* {this.state.editing ? (
+            <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
+          ) : null} */}
+
           <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
             <Icon type="edit" theme="outlined" />
             Edit This Garment
@@ -208,7 +225,7 @@ class Garment extends Component {
           </Drawer>
         </React.Fragment>
 
-        {this.props.loading ? (
+        {this.props && this.props.loading ? (
           <div className="loading-div">
             <Spin indicator={loadingIcon} />
             <h4>l o a d i n g ...</h4>

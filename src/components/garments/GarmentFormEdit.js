@@ -39,23 +39,26 @@ class GarmentFormEdit extends Component {
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
   componentDidMount() {
-    this.props.fetchMaterials();
+    //if condition fixes "this.props is undefined" on load of garment/id page
+    if (this.props.selectedGarment) {
+      this.setState({
+        name: this.props.selectedGarment.name,
+        file_upload: "",
+        category: this.props.selectedGarment.category,
+        season: "Spring",
+        year: "2019",
+        location: this.props.selectedGarment.location,
+        status: this.props.selectedGarment.status,
+        fabrication: this.props.selectedGarment.fabrication,
+        materials: this.props.selectedGarment.materials,
+        sizing: "XS",
+        measurement: this.props.selectedGarment.measurement,
+        fit_comment: this.props.selectedGarment.fit_comment,
+        comment: this.props.selectedGarment.comment
+      });
+    }
 
-    this.setState({
-      name: this.props.selectedGarment.name,
-      file_upload: "",
-      category: this.props.selectedGarment.category,
-      season: "Spring",
-      year: "2019",
-      location: this.props.selectedGarment.location,
-      status: this.props.selectedGarment.status,
-      fabrication: this.props.selectedGarment.fabrication,
-      materials: this.props.selectedGarment.materials,
-      sizing: "XS",
-      measurement: this.props.selectedGarment.measurement,
-      fit_comment: this.props.selectedGarment.fit_comment,
-      comment: this.props.selectedGarment.comment
-    });
+    this.props.fetchMaterials();
   }
 
   handleOnSubmit = event => {
