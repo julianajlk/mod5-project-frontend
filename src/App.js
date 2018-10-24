@@ -7,6 +7,7 @@ import UsersContainer from "./containers/UsersContainer";
 import OrganizationsContainer from "./containers/OrganizationsContainer";
 import GarmentsContainer from "./containers/GarmentsContainer";
 import MaterialsContainer from "./containers/MaterialsContainer";
+import SuppliersContainer from "./containers/SuppliersContainer";
 import NavBar from "./components/other/NavBar";
 import SideMenu from "./components/other/SideMenu";
 import Home from "./components/other/Home";
@@ -23,6 +24,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={UserLogin} />
           <Route path="/signup" component={OrganizationsContainer} />
+          <Route path="/suppliers" component={SuppliersContainer} />
           <Route path="/users" component={UsersContainer} />
           <Row>
             <Route path="/garments">

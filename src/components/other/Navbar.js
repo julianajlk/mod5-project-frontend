@@ -44,6 +44,12 @@ class NavBar extends React.Component {
                 Materials
               </NavLink>
             </Menu.Item>
+            <Menu.Item key="suppliers">
+              <NavLink to={`/suppliers`}>
+                <Icon type="team" theme="outlined" />
+                Suppliers
+              </NavLink>
+            </Menu.Item>
             <Menu.Item key="signup" style={{ float: "right" }}>
               <NavLink to="/signup">
                 <Icon type="form" theme="outlined" />

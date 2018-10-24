@@ -11,9 +11,6 @@ import {
   Avatar
 } from "antd";
 
-// import MaterialForm from "./MaterialForm";
-// import MaterialFormEdit from "./MaterialFormEdit";
-
 class Material extends Component {
   render() {
     // let materialIdFromUrl = parseInt(window.location.href.split("/")[4]);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { updateGarment, fetchMaterials } from "../actions/actions";
 
 import {
@@ -71,7 +72,6 @@ class GarmentFormEdit extends Component {
       location: this.state.location,
       status: this.state.status,
       fabrication: this.state.fabrication,
-
       sizing: this.state.sizing,
       measurement: this.state.measurement,
       fit_comment: this.state.fit_comment,
@@ -105,7 +105,6 @@ class GarmentFormEdit extends Component {
     this.props.updateGarment(
       newGarment,
       this.props.selectedGarment.id
-      // this.props.history.push,
       // this.state.file_upload,
       // file
     );
@@ -457,7 +456,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { updateGarment, fetchMaterials }
-)(GarmentFormEdit);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { updateGarment, fetchMaterials }
+  )(GarmentFormEdit)
+);

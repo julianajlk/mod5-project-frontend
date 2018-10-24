@@ -81,14 +81,16 @@ class UserProfile extends Component {
                 />
               </Col>
               <Col span={16}>
-                <h2 className="page-title">User Profile</h2>
+                <h2 className="page-title" style={{ marginRight: 10 }}>
+                  {this.props.selectedUser.name}
+                </h2>
 
                 {/* Route to switch from <UserProfile/> to <UserFormEdit/> is on <Users/> */}
                 <Link to={`/users/${this.props.selectedUser.id}/edit`}>
                   <Icon type="edit" theme="outlined" />
                 </Link>
 
-                <h3>Name: {this.props.selectedUser.name}</h3>
+                <h3>About: {this.props.selectedUser.about}</h3>
               </Col>
             </Row>
             <Divider />

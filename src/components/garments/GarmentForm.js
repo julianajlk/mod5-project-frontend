@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { createGarment, fetchMaterials } from "../actions/actions";
 
 import {
@@ -65,8 +66,8 @@ class GarmentForm extends Component {
     // let file = {
     //   file_upload: this.state.file_upload
     // };
-    this.props.createGarment(newGarment);
-    // // this.props.history.push("/garments/" + this.props.garment.id);
+    this.props.createGarment(this.props.history.push, newGarment);
+
     this.setState({
       name: "",
       file_upload: "",
@@ -288,7 +289,7 @@ class GarmentForm extends Component {
     //     }
     //   }
     // };
-
+    debugger;
     return (
       <div>
         <Form onSubmit={event => this.handleOnSubmit(event)}>
@@ -470,7 +471,9 @@ class GarmentForm extends Component {
   }
 }
 
-export default connect(
-  null,
-  { createGarment, fetchMaterials }
-)(GarmentForm);
+export default withRouter(
+  connect(
+    null,
+    { createGarment, fetchMaterials }
+  )(GarmentForm)
+);

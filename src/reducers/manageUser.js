@@ -76,6 +76,10 @@ const usersReducer = (state = [], action) => {
 
 const loadingReducer = (state = false, action) => {
   switch (action.type) {
+    case "FETCHING_SUPPLIERS":
+      return true;
+    case "FETCHED_SUPPLIERS":
+      return false;
     case "FETCHING_GARMENTS":
       return true;
     case "FETCHED_GARMENTS":

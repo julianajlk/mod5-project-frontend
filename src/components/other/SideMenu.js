@@ -45,7 +45,8 @@ class SideMenu extends React.Component {
   };
 
   render() {
-    console.log(this.props.materials);
+    // console.log(this.props.materials);
+
     return (
       <Affix offsetTop={this.state.top}>
         <Menu

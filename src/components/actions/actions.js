@@ -61,8 +61,8 @@ export function updateGarment(newGarment, garmentId) {
 
 // .then(garment =>{ addGarment(garment)push(`http://localhost:3000/garments/${garmentId})`});
 
-export function createGarment(newGarment, file) {
-  // console.log("createGarment", newGarment.file_upload);
+export function createGarment(redirectPush, newGarment) {
+  console.log("createGarment", newGarment);
 
   let formData = new FormData();
   formData.append("brand_id", newGarment.brand_id);
@@ -85,7 +85,10 @@ export function createGarment(newGarment, file) {
       body: formData
     })
       .then(response => response.json())
-      .then(garment => addGarment(garment));
+      .then(garment => {
+        redirectPush(`/garments/${garment.id}`);
+        addGarment(garment);
+      });
   };
 }
 
@@ -210,6 +213,10 @@ export function fetchGarments() {
 }
 
 // SUPPLIERS
+export function fetchingSuppliers() {
+  return { type: "FETCHING_SUPPLIERS" };
+}
+
 export function fetchedSuppliers(suppliers) {
   return { type: "FETCHED_SUPPLIERS", suppliers };
 }
@@ -241,6 +248,7 @@ export function updateUser(newUser, userId, file) {
   let formData = new FormData();
   formData.append("name", newUser.name);
   formData.append("email", newUser.email);
+  formData.append("about", newUser.about);
   formData.append("dob", newUser.dob);
   formData.append("phone", newUser.phone);
   formData.append("location", newUser.location);
@@ -258,10 +266,11 @@ export function updateUser(newUser, userId, file) {
   };
 }
 
-export function createUser(newUser, file) {
+export function createUser(redirectPush, newUser, file) {
   let formData = new FormData();
   formData.append("name", newUser.name);
   formData.append("email", newUser.email);
+  formData.append("about", newUser.about);
   formData.append("dob", newUser.dob);
   formData.append("phone", newUser.phone);
   formData.append("location", newUser.location);
@@ -277,7 +286,10 @@ export function createUser(newUser, file) {
       body: formData
     })
       .then(response => response.json())
-      .then(user => addUser(user));
+      .then(user => {
+        redirectPush(`/users/${user.id}`);
+        addUser(user);
+      });
   };
 }
 

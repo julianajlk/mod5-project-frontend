@@ -9,10 +9,22 @@ const FormItem = Form.Item;
 
 class UserFormEdit extends Component {
   //like DOM content loaded
+  state = {
+    name: "",
+    email: "",
+    about: "",
+    file_upload: "",
+    dob: "",
+    phone: "",
+    location: "",
+    position: "",
+    department: ""
+  };
   componentDidMount() {
     this.setState({
       name: this.props.selectedUser.name,
       email: this.props.selectedUser.email,
+      about: this.props.selectedUser.about,
       file_upload: "",
       dob: this.props.selectedUser.dob,
       phone: this.props.selectedUser.phone,
@@ -27,6 +39,7 @@ class UserFormEdit extends Component {
     let newUser = {
       name: this.state.name,
       email: this.state.email,
+      about: this.state.about,
       dob: this.state.dob,
       phone: this.state.phone,
       location: this.state.location,
@@ -42,6 +55,7 @@ class UserFormEdit extends Component {
     this.setState({
       name: "",
       email: "",
+      about: "",
       dob: "",
       phone: "",
       location: "",
@@ -146,7 +160,19 @@ class UserFormEdit extends Component {
                   onChange={event => this.handleOnChange(event)}
                 />
               </FormItem>
-
+              <FormItem
+                label="About"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 12 }}
+              >
+                <Input
+                  placeholder="About"
+                  type="text"
+                  name="about"
+                  value={this.state.about}
+                  onChange={event => this.handleOnChange(event)}
+                />
+              </FormItem>
               <FormItem
                 label="DOB"
                 labelCol={{ span: 5 }}

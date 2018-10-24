@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   Form,
   Input,
@@ -22,6 +23,7 @@ class UserForm extends Component {
   state = {
     name: "",
     email: "",
+    about: "",
     file_upload: "",
     dob: "",
     phone: "",
@@ -37,6 +39,7 @@ class UserForm extends Component {
     event.preventDefault();
     let newUser = {
       name: this.state.name,
+      about: this.state.about,
       email: this.state.email,
       dob: this.state.dob,
       phone: this.state.phone,
@@ -49,11 +52,12 @@ class UserForm extends Component {
     let file = {
       file_upload: this.state.file_upload
     };
-    this.props.createUser(newUser, file);
+    //Redirect on Submit: this.props.history is available when you use withRouter. Will use this function on actions.js to push the /users/:userId into the url
+    this.props.createUser(this.props.history.push, newUser, file);
 
-    // this.props.history.push("/users/" + this.props.user.id);
     this.setState({
       name: "",
+      about: "",
       email: "",
       dob: "",
       phone: "",
@@ -84,8 +88,8 @@ class UserForm extends Component {
     // document.getElementsByClassName("ant-radio-button").style.color = "#58ff1f";
 
     this.setState({
-      radio_id: event.target.value[0],
-      organization: event.target.value[1]
+      radio_id: event.target.value
+      // organization: event.target.value[1]
     });
   };
 
@@ -142,6 +146,19 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
+            // label="Name"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
+          >
+            <Input
+              placeholder="About"
+              type="text"
+              name="about"
+              value={this.state.about}
+              onChange={event => this.handleOnChange(event)}
+            />
+          </FormItem>
+          <FormItem
             // label="Profile Pic"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
@@ -178,7 +195,10 @@ class UserForm extends Component {
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
-            <DatePicker onChange={this.handleDateChange} />
+            <DatePicker
+              placeceholder="Date of Birth"
+              onChange={this.handleDateChange}
+            />
           </FormItem>
           <FormItem
             // label="Phone"
@@ -251,20 +271,14 @@ class UserForm extends Component {
               {this.state.organizationable_type === "Brand"
                 ? this.props.brands &&
                   this.props.brands.map(brand => (
-                    <RadioButton
-                      id="radio-button"
-                      value={[brand.id, brand.name]}
-                    >
+                    <RadioButton id="radio-button" value={brand.id}>
                       {brand.name}
                     </RadioButton>
                   ))
                 : this.state.organizationable_type === "Supplier"
                   ? this.props.suppliers &&
                     this.props.suppliers.map(supplier => (
-                      <RadioButton
-                        id="radio-button"
-                        value={[supplier.id, supplier.name]}
-                      >
+                      <RadioButton id="radio-button" value={supplier.id}>
                         {supplier.name}
                       </RadioButton>
                     ))
@@ -284,7 +298,9 @@ class UserForm extends Component {
   }
 }
 
-export default connect(
-  null,
-  { createUser }
-)(UserForm);
+export default withRouter(
+  connect(
+    null,
+    { createUser }
+  )(UserForm)
+);
