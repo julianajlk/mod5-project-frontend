@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-// import { connect } from "react-redux";
 import { Form, Input, Button, Icon, Checkbox } from "antd";
 
 const FormItem = Form.Item;
@@ -29,16 +29,16 @@ class UserLogin extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Login</h3>
+      <div style={{ marginTop: 54, padding: "0 80px" }}>
+        <h3 className="form-title">Login</h3>
         <Form
           onSubmit={event => this.handleOnSubmit(event)}
           className="login-form"
         >
           <FormItem
-            label="Name"
-            // labelCol={{ span: 5 }}
-            // wrapperCol={{ span: 12 }}
+            // label="Name"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -50,9 +50,9 @@ class UserLogin extends Component {
             />
           </FormItem>
           <FormItem
-            label="Password"
-            // labelCol={{ span: 5 }}
-            // wrapperCol={{ span: 12 }}
+            // label="Password"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -64,16 +64,14 @@ class UserLogin extends Component {
             />
           </FormItem>
 
-          <FormItem>
+          {/* <FormItem>
             <Checkbox>Remember me</Checkbox>
             <a className="login-form-forgot" href="/">
               Forgot password
             </a>
-          </FormItem>
+          </FormItem> */}
 
-          <FormItem
-          // wrapperCol={{ span: 12, offset: 5 }}
-          >
+          <FormItem wrapperCol={{ span: 8, offset: 0 }}>
             <Button
               type="primary"
               htmlType="submit"
@@ -82,7 +80,7 @@ class UserLogin extends Component {
             >
               Login
             </Button>
-            Or <a href="/signup">register now!</a>
+            Or <Link to="/signup">register now!</Link>
           </FormItem>
         </Form>
       </div>

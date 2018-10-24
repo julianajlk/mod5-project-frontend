@@ -12,7 +12,7 @@ class MaterialsContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: 54, padding: "0 50px" }}>
         <Materials materials={this.props.materials} />
       </div>
     );

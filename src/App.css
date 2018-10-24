@@ -20,7 +20,14 @@
   margin-left: 1em;
 }
 
-/* User Profile Pic Page */
+/* FORMS TITLE  */
+.form-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* USER PROFILE PAGE */
 .profile-picture {
   border-radius: 50%;
   float: left;
@@ -46,18 +53,13 @@
   display: inline-block;
 }
 
-/* Garment list: card more button */
-/* .ant-btn-dashed {
-  color: #ffa154;
-} */
-
-/* Upload Button: */
+/* CUSTOM UPLOAD */
 /*hide <input> styling to follow Ant Button */
 input[type="file"] {
   display: none !important;
 }
 
-/* Back to top */
+/* BACK TO TOP */
 .ant-back-top {
   bottom: 15px;
   right: 4px;
@@ -73,7 +75,7 @@ input[type="file"] {
   font-size: 16px;
 }
 
-/* Home Page */
+/* HOME PAGE */
 .ant-carousel .slick-slide {
   text-align: center;
   height: 420px;
@@ -92,7 +94,13 @@ input[type="file"] {
   margin-right: auto;
 } */
 
-/* loading Spin  */
+/* LOADING SPIN */
 .loading-div {
   margin: 3em 0;
+}
+
+/* SIDE MENU  */
+.sidemenu-category {
+  text-transform: uppercase;
+  font-weight: 600;
 }

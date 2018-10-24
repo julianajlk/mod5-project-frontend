@@ -81,7 +81,8 @@ class UserForm extends Component {
 
   handleRadioChange = event => {
     console.log(`radio checked:${event.target.value}`);
-    // console.log("radio", event.target.value[0], event.target.value[1]);
+    // document.getElementsByClassName("ant-radio-button").style.color = "#58ff1f";
+
     this.setState({
       radio_id: event.target.value[0],
       organization: event.target.value[1]
@@ -109,42 +110,15 @@ class UserForm extends Component {
     });
   };
 
-  //Handle when using input from Ant Design
-  // handlePictureUpload = info => {
-  //   console.log("Upload", info, info.fileList[0]);
-  //   this.setState({
-  //     picture: info.fileList[0]
-  //   });
-  // };
-
   render() {
-    //picture upload Ant Design
-    // const props = {
-    //   name: "file",
-    //   action: "//jsonplaceholder.typicode.com/posts/",
-    //   headers: {
-    //     authorization: "authorization-text"
-    //   },
-    //   onChange(info) {
-    //     if (info.file.status !== "uploading") {
-    //       console.log(info.file, info.file.name, info.fileList);
-    //     }
-    //     if (info.file.status === "done") {
-    //       message.success(`${info.file.name} file uploaded successfully`);
-    //     } else if (info.file.status === "error") {
-    //       message.error(`${info.file.name} file upload failed.`);
-    //     }
-    //   }
-    // };
-
     return (
       <div>
-        <h2 className="page-title">Sign Up</h2>
+        <h3 className="form-title">Sign Up</h3>
         <form onSubmit={event => this.handleOnSubmit(event)}>
           <FormItem
-            label="Name"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Name"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               placeholder="Name"
@@ -155,9 +129,9 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            label="Email"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Email"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               placeholder="Email"
@@ -168,16 +142,16 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            label="Profile Picture"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Profile Pic"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Button>
               <label>
                 <Icon type="upload" />
                 {this.state.file_upload !== ""
                   ? " Picture Uploaded"
-                  : " Click to Upload"}
+                  : " Upload Profile Picture"}
                 <input
                   type="file"
                   name="avatar"
@@ -200,16 +174,16 @@ class UserForm extends Component {
             </Upload> */}
           </FormItem>
           <FormItem
-            label="DOB"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="DOB"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <DatePicker onChange={this.handleDateChange} />
           </FormItem>
           <FormItem
-            label="Phone"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Phone"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               placeholder="Phone"
@@ -220,9 +194,9 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            label="Location"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Location"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               placeholder="Location"
@@ -233,9 +207,9 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            label="Position"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Position"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               placeholder="Position"
@@ -246,9 +220,9 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            label="Department"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Department"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Input
               placeholder="Department"
@@ -259,9 +233,9 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            label="Company Type"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 12 }}
+            // label="Company"
+            labelCol={{ span: 2 }}
+            wrapperCol={{ span: 8 }}
           >
             <Select
               placeholder="Select Company Type"
@@ -277,23 +251,24 @@ class UserForm extends Component {
               {this.state.organizationable_type === "Brand"
                 ? this.props.brands &&
                   this.props.brands.map(brand => (
-                    <RadioButton value={[brand.id, brand.name]}>
+                    <RadioButton
+                      id="radio-button"
+                      value={[brand.id, brand.name]}
+                    >
                       {brand.name}
                     </RadioButton>
                   ))
                 : this.state.organizationable_type === "Supplier"
                   ? this.props.suppliers &&
                     this.props.suppliers.map(supplier => (
-                      <RadioButton value={[supplier.id, supplier.name]}>
+                      <RadioButton
+                        id="radio-button"
+                        value={[supplier.id, supplier.name]}
+                      >
                         {supplier.name}
                       </RadioButton>
                     ))
                   : null}
-            </RadioGroup>
-
-            <RadioGroup defaultValue="a">
-              <RadioButton value="a">Hello</RadioButton>
-              <RadioButton value="b">Goodbye</RadioButton>
             </RadioGroup>
           </div>
           <div style={{ marginTop: 16 }}>

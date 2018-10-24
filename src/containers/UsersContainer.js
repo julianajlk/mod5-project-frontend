@@ -12,7 +12,7 @@ class UsersContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: 54, padding: "0 50px" }}>
         <Users users={this.props.users} loading={this.props.loading} />
       </div>
     );

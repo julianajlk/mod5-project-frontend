@@ -18,7 +18,7 @@ import {
 
 import { fetchMaterials, updateGarmentRate } from "../actions/actions";
 
-import GarmentForm from "./GarmentForm";
+// import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
 import GarmentMaterials from "./GarmentMaterials";
 
@@ -48,18 +48,18 @@ class Garment extends Component {
     this.props.updateGarmentRate(this.props.selectedGarment.id, value);
   };
 
-  //create drawer
-  showDrawer = () => {
-    this.setState({
-      visible: true
-    });
-  };
-
-  onCloseDrawer = () => {
-    this.setState({
-      visible: false
-    });
-  };
+  // //create drawer
+  // showDrawer = () => {
+  //   this.setState({
+  //     visible: true
+  //   });
+  // };
+  //
+  // onCloseDrawer = () => {
+  //   this.setState({
+  //     visible: false
+  //   });
+  // };
 
   //edit drawer
   showDrawerEdit = () => {
@@ -189,19 +189,6 @@ class Garment extends Component {
 
     return (
       <div className="main-div">
-        <React.Fragment>
-          <Button onClick={this.showDrawer}>Create New Garment</Button>
-          <Drawer
-            title="New Garment"
-            placement="left"
-            closable={true}
-            onClose={this.onCloseDrawer}
-            visible={this.state.visible}
-            width={720}
-          >
-            <GarmentForm materials={this.props.materials} />
-          </Drawer>
-        </React.Fragment>
         <React.Fragment>
           <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
             <Icon type="edit" theme="outlined" />

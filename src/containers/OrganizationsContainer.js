@@ -12,7 +12,7 @@ class OrganizationsContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: 54, padding: "0 80px" }}>
         <UserForm brands={this.props.brands} suppliers={this.props.suppliers} />
       </div>
     );

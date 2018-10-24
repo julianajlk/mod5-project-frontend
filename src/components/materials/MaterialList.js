@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { List, Avatar } from "antd";
 
 const MaterialList = props => {
@@ -20,9 +20,7 @@ const MaterialList = props => {
         itemLayout="horizontal"
         dataSource={data}
         renderItem={item => (
-          <List.Item
-            actions={[<a>edit</a>, <a href={`/materials/${item.id}`}>more</a>]}
-          >
+          <List.Item actions={[<Link to={`/materials/${item.id}`}>more</Link>]}>
             <List.Item.Meta
               avatar={
                 <Avatar shape="square" size={64} icon="question" />
@@ -31,7 +29,7 @@ const MaterialList = props => {
                 //   src="https://api.meleven.de/out/unionknopf/h_355,w_355,m_limit,o_resize/63.68.74.001800100996111.png"
                 // />
               }
-              title={<a href={`/materials/${item.id}`}>{item.title}</a>}
+              title={<Link to={`/materials/${item.id}`}>{item.title}</Link>}
               description={item.subtitle}
             />
             <div>Item# {item.number}</div>

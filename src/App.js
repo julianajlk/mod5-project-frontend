@@ -19,26 +19,27 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <Route exact path="/" component={Home} />
-        <Row>
-          <Route path="/garments">
-            <Col span={6}>
-              <SideMenu />
-            </Col>
-          </Route>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={UserLogin} />
+          <Route path="/signup" component={OrganizationsContainer} />
+          <Route path="/users" component={UsersContainer} />
+          <Row>
+            <Route path="/garments">
+              <Col span={6}>
+                <SideMenu />
+              </Col>
+            </Route>
 
-          <Col span={18}>
-            <Content style={{ padding: "0 50px", marginTop: 84 }}>
+            <Col span={18}>
               <Switch>
-                <Route path="/signup" component={OrganizationsContainer} />
-                <Route path="/login" component={UserLogin} />
-                <Route path="/users" component={UsersContainer} />
                 <Route path="/materials" component={MaterialsContainer} />
                 <Route path="/garments" component={GarmentsContainer} />
               </Switch>
-            </Content>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </Switch>
+
         <BackTop>
           <div className="ant-back-top-inner">
             <Icon type="up" theme="outlined" />

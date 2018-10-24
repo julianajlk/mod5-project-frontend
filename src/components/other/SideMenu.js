@@ -1,7 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Menu, Icon, Affix } from "antd";
+
+import GarmentForm from "../garments/GarmentForm";
+
+import { Menu, Icon, Affix, Drawer, Button } from "antd";
 
 const SubMenu = Menu.SubMenu;
 
@@ -11,7 +14,8 @@ class SideMenu extends React.Component {
 
   state = {
     openKeys: ["sub1"],
-    top: 50
+    top: 50,
+    visible: false
   };
 
   onOpenChange = openKeys => {
@@ -27,7 +31,21 @@ class SideMenu extends React.Component {
     }
   };
 
+  //create drawer
+  showDrawer = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  onCloseDrawer = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
+    console.log(this.props.materials);
     return (
       <Affix offsetTop={this.state.top}>
         <Menu
@@ -41,12 +59,31 @@ class SideMenu extends React.Component {
           }}
           style={{ width: 256 }}
         >
+          <React.Fragment>
+            <Button
+              onClick={this.showDrawer}
+              style={{ marginLeft: 40, marginTop: 20, marginBottom: 10 }}
+            >
+              Create New Garment
+            </Button>
+            <Drawer
+              title="New Garment"
+              placement="left"
+              closable={true}
+              onClose={this.onCloseDrawer}
+              visible={this.state.visible}
+              width={720}
+            >
+              <GarmentForm materials={this.props.materials} />
+            </Drawer>
+          </React.Fragment>
+
           <SubMenu
             key="sub1"
             title={
-              <span>
+              <span className="sidemenu-category">
                 <Icon type="ordered-list" theme="outlined" />
-                <span>Garment List</span>
+                <span>Your Garments</span>
               </span>
             }
           >
@@ -61,73 +98,45 @@ class SideMenu extends React.Component {
           <SubMenu
             key="sub2"
             title={
-              <span>
-                <Icon type="schedule" theme="outlined" />
-                <span>Season</span>
+              <span className="sidemenu-category">
+                <Icon type="pushpin" theme="outlined" />
+                <span>Your Materials</span>
               </span>
             }
           >
-            <Menu.Item>
-              <a href={`/garments/`}>Cruise 2019</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Spring 2019</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Fall 2019</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Cruise 2020</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Spring 2020</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Fall 2020</a>
-            </Menu.Item>
-
-            {/* fix later: unique method */}
-            {/* const sampleValues = [1, 4, 5, 2, 'a', 'e', 'b', 'e', 2, 2, 4];
-const uniqueValues = [...new Set(sampleValues)];  */}
-            {/* {this.props.garments.filter(garment => garment.season).map(g => (
-              <Menu.Item key={g.id}>
-                {" "}
-                <a href={`/garments/${g.id}`}>{g.season}</a>
+            {this.props.garments.map(garment =>
+              garment.materials.map(material => (
+                <Menu.Item key={material.id}>
+                  <Link className="item" to={`/materials/${material.id}`}>
+                    {material.name}
+                  </Link>
+                </Menu.Item>
+              ))
+            )}
+            {/* {this.props.materials.map(material => (
+              <Menu.Item key={material.id}>
+                <Link className="item" to={`/materials/${material.id}`}>
+                  {material.name}
+                </Link>
               </Menu.Item>
             ))} */}
-
-            {/* <SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="7">Option 7</Menu.Item>
-              <Menu.Item key="8">Option 8</Menu.Item>
-            </SubMenu> */}
           </SubMenu>
           <SubMenu
             key="sub4"
             title={
-              <span>
-                <Icon type="tag" theme="outlined" />
-                <span>Category</span>
+              <span className="sidemenu-category">
+                <Icon type="team" theme="outlined" />
+                <span>Your Suppliers</span>
               </span>
             }
           >
-            <Menu.Item>
-              <a href={`/garments/`}>Tops</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Bottoms</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Dresses</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a href={`/garments/`}>Outerwear</a>
-            </Menu.Item>
-            {/* {this.props.garments.filter(garment => garment.category).map(g => (
-              <Menu.Item key={g.id}>
-                {" "}
-                <a href={`/garments/${g.id}`}>{g.category}</a>
+            {this.props.materials.map(material => (
+              <Menu.Item key={material.id}>
+                <Link className="item" to={`/materials/${material.id}`}>
+                  {material.supplier.name}
+                </Link>
               </Menu.Item>
-            ))} */}
+            ))}
           </SubMenu>
         </Menu>
       </Affix>
@@ -137,7 +146,8 @@ const uniqueValues = [...new Set(sampleValues)];  */}
 
 const mapStateToProps = state => {
   return {
-    garments: state.garments
+    garments: state.garments,
+    materials: state.materials
   };
 };
 

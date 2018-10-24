@@ -17,7 +17,7 @@ class GarmentsContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: 60, padding: "0 80px" }}>
         <Garments garments={this.props.garments} loading={this.props.loading} />
       </div>
     );
