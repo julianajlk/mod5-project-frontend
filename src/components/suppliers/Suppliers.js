@@ -32,6 +32,7 @@ class Suppliers extends Component {
                 <h4>l o a d i n g ...</h4>
               </div>
             ) : null}
+            <h2 className=".page-title">Suppliers</h2>
             {this.props.suppliers
               ? this.props.suppliers.map(supplier => (
                   <SupplierList supplier={supplier} key={supplier.id} />

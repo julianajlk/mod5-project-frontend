@@ -28,13 +28,17 @@ class MaterialList extends Component {
   };
 
   sortMaterials = materials => {
-    if (this.state.sortBy === "trim") {
+    if (this.state.sortBy === "category") {
       return this.filterSearch(materials).sort((a, b) =>
-        a.trim.localeCompare(b.trim)
+        a.category.localeCompare(b.category)
       );
-    } else if (this.state.sortBy === "fabric") {
+    } else if (this.state.sortBy === "price") {
       return this.filterSearch(materials).sort((a, b) =>
-        a.fabric.localeCompare(b.fabric)
+        a.price.localeCompare(b.price)
+      );
+    } else if (this.state.sortBy === "supplier") {
+      return this.filterSearch(materials).sort((a, b) =>
+        a.supplier.name.localeCompare(b.supplier.name)
       );
     } else {
       return this.filterSearch(materials);
@@ -52,8 +56,6 @@ class MaterialList extends Component {
   };
 
   render() {
-    const { materials } = this.props;
-
     return (
       <React.Fragment>
         <div style={{ display: "block" }}>
@@ -69,17 +71,18 @@ class MaterialList extends Component {
             }}
           />
           <Select
-            placeholder="Sort by type"
+            placeholder="Sort by"
             style={{ width: 200, marginBottom: 20, display: "inline-block" }}
             onChange={this.handleChange}
           >
-            <Option value="trim">Trim</Option>
-            <Option value="fabric">Fabric</Option>
+            <Option value="category">Category</Option>
+            <Option value="price">Price</Option>
+            <Option value="supplier">Supplier</Option>
           </Select>
         </div>
 
-        {materials
-          ? materials.map(material => (
+        {this.props.materials
+          ? this.sortMaterials(this.props.materials).map(material => (
               <Card
                 title={material.name}
                 extra={<Link to={`/materials/${material.id}`}>More</Link>}
@@ -92,18 +95,29 @@ class MaterialList extends Component {
               >
                 <Meta
                   avatar={
-                    <Avatar
-                      style={{
-                        color: "#f56a00",
-                        backgroundColor: "#fde3cf"
-                      }}
-                    >
-                      {material.name.charAt(0)}
-                    </Avatar>
+                    <Avatar shape="square" size={64} src={material.image_url} />
+                    // <Avatar
+                    //   style={{
+                    //     color: "#f56a00",
+                    //     backgroundColor: "#fde3cf"
+                    //   }}
+                    // >
+                    //   {material.name.charAt(0)}
+                    // </Avatar>
                   }
-                  title={material.category}
-                  description={material.supplier.name}
+                  title={material.supplier.name}
+                  description={material.supplier.location}
                 />
+                <p
+                  style={{
+                    marginTop: 10,
+                    marginLeft: 10,
+                    color: "rgba(0, 0, 0, 0.45)",
+                    fontSize: "14px"
+                  }}
+                >
+                  {material.category}
+                </p>
               </Card>
             ))
           : null}

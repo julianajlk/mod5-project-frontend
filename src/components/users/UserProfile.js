@@ -143,7 +143,13 @@ class UserProfile extends Component {
                   <DescriptionItem
                     title="Company Name"
                     content={
-                      this.props.selectedUser.organizationable.brand.name
+                      <Link
+                        to={`/brands/${
+                          this.props.selectedUser.organizationable.brand.id
+                        }`}
+                      >
+                        {this.props.selectedUser.organizationable.brand.name}
+                      </Link>
                     }
                   />
                 </Col>
@@ -152,7 +158,13 @@ class UserProfile extends Component {
                   <DescriptionItem
                     title="Company Name"
                     content={
-                      this.props.selectedUser.organizationable.supplier.name
+                      <Link
+                        to={`/suppliers/${
+                          this.props.selectedUser.organizationable.supplier.id
+                        }`}
+                      >
+                        {this.props.selectedUser.organizationable.supplier.name}
+                      </Link>
                     }
                   />
                 </Col>

@@ -16,6 +16,11 @@ class Supplier extends Component {
 
     return (
       <div className="main-div">
+        <Link to={`/suppliers`}>
+          <p>
+            <Icon type="left" theme="outlined" /> All Suppliers
+          </p>
+        </Link>
         {this.props.selectedSupplier ? (
           <React.Fragment>
             <Row>
@@ -36,6 +41,10 @@ class Supplier extends Component {
 
                 <h2>Supplier: {this.props.selectedSupplier.name}</h2>
                 <h3>Location: {this.props.selectedSupplier.location}</h3>
+                <p>
+                  Category:
+                  {this.props.selectedSupplier.category}
+                </p>
 
                 <Divider orientation="left">General Info</Divider>
                 <p>Phone: {this.props.selectedSupplier.phone}</p>
@@ -47,7 +56,7 @@ class Supplier extends Component {
                 <p>
                   Employees:{" "}
                   {this.props.selectedSupplier.users.map(user => (
-                    <Link to={`/suppliers/${user.id}`}>{user.name}</Link>
+                    <Link to={`/users/${user.id}`}>{user.name}</Link>
                   ))}
                 </p>
                 <Divider orientation="left">Materials Available</Divider>

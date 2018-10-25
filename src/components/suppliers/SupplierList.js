@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, Meta, Avatar } from "antd";
+import { Card, Meta, Avatar, List } from "antd";
 
 const SupplierList = props => {
   const { supplier } = props;
@@ -11,35 +11,46 @@ const SupplierList = props => {
     material => material.category
   );
 
-  // removeDuplicates = array => {
-  //   [...new Set(array)];
-  // };
+  const data = [
+    {
+      id: supplier.id,
+      title: supplier.name,
+      subtitle: supplier.location,
+      category: supplier.category
+    }
+  ];
 
   return (
-    <Card
-      title={supplier.name}
-      extra={<Link to={`/suppliers/${supplier.id}`}>More</Link>}
-      style={{ width: 300, marginBottom: 20 }}
-    >
-      <Meta
-        avatar={
-          <Avatar
-            style={{
-              color: "#f56a00",
-              backgroundColor: "#fde3cf"
-            }}
-          >
-            {supplier.name.charAt(0)}
-          </Avatar>
-        }
-        title={supplier.location}
-        description={[...new Set(materialsCategoryArray)]}
+    <React.Fragment>
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={item => (
+          <List.Item actions={[<Link to={`/suppliers/${item.id}`}>more</Link>]}>
+            <List.Item.Meta
+              avatar={
+                <Link to={`/suppliers/${item.id}`}>
+                  <Avatar
+                    shape="square"
+                    size={80}
+                    style={{
+                      color: "#f56a00",
+                      backgroundColor: "#fde3cf",
+                      marginBottom: 20
+                    }}
+                  >
+                    {item.title.charAt(0)}
+                  </Avatar>
+                </Link>
+              }
+              title={<Link to={`/suppliers/${item.id}`}>{item.title}</Link>}
+              description={item.subtitle}
+            />
+            <div>Category: {item.category}</div>
+          </List.Item>
+        )}
       />
-      {/* Materials:
-      {supplier.materials.map(material => (
-        <p>{material.name}</p>
-      ))} */}
-    </Card>
+    </React.Fragment>
   );
 };
 

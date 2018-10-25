@@ -70,16 +70,16 @@ class GarmentMaterials extends Component {
       //   )
       // },
       {
-        title: "Edit/Remove",
+        title: "Remove",
         key: "operation",
         fixed: "right",
         width: 100,
         render: () => (
           <span>
-            <a href="/">
+            {/* <a href="/">
               <Icon type="edit" theme="outlined" />
             </a>
-            <Divider type="vertical" />
+            <Divider type="vertical" /> */}
             <a href="/">
               <Icon type="delete" theme="outlined" />
             </a>

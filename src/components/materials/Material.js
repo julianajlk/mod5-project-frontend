@@ -22,6 +22,12 @@ class Material extends Component {
 
     return (
       <div className="main-div">
+        <Link to={`/materials`}>
+          <p>
+            <Icon type="left" theme="outlined" /> All Materials
+          </p>
+        </Link>
+
         {this.props.selectedMaterial ? (
           <React.Fragment>
             <img

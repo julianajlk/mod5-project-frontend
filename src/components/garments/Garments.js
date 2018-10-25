@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import GarmentList from "./GarmentList";
 import Garment from "./Garment";
@@ -14,7 +15,8 @@ class Garments extends Component {
       <Switch>
         <Route exact path="/garments">
           <ul>
-            <h4>Welcome, Marcela!</h4>
+            <h4>Welcome, {<Link to={`users/1`}>Marcela</Link>}!</h4>
+
             <h2 className=".page-title">Your Garments</h2>
 
             {this.props.garments ? (

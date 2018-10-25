@@ -268,6 +268,7 @@ class GarmentFormEdit extends Component {
 
     return (
       <div>
+        <h3 style={{ marginTop: 20, marginBottom: 10 }}>Edit this Garment</h3>
         {this.props.selectedGarment ? (
           <Form onSubmit={event => this.handleOnSubmit(event)}>
             <Input
@@ -281,7 +282,7 @@ class GarmentFormEdit extends Component {
               <Select
                 showSearch
                 style={{ width: 200 }}
-                defaultValue={this.state.category}
+                value={this.state.category}
                 // placeholder="Select a Category"
                 optionFilterProp="children"
                 onChange={this.handleCategoryChange}
