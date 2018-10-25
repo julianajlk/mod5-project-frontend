@@ -12,12 +12,12 @@ export function fetchMaterials() {
 }
 
 //GARMENTS
-export function updateGarmentRate(garmentId, rate) {
+export function updateGarmentApproval(garmentId, approved) {
   return dispatch => {
     fetch(`http://localhost:3000/garments/${garmentId}`, {
       method: "PATCH",
       body: JSON.stringify({
-        rate: rate
+        approved: approved
       }),
       headers: {
         "Content-type": "application/json",

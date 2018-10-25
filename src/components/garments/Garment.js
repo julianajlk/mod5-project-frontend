@@ -17,7 +17,7 @@ import {
   Progress
 } from "antd";
 
-import { fetchMaterials, updateGarmentRate } from "../actions/actions";
+import { fetchMaterials, updateGarmentApproval } from "../actions/actions";
 
 // import GarmentForm from "./GarmentForm";
 import GarmentFormEdit from "./GarmentFormEdit";
@@ -28,12 +28,11 @@ const { TextArea } = Input;
 
 class Garment extends Component {
   state = {
-    editing: false,
     visible: false,
     visibleEdit: false,
     top: 10,
     fullView: false,
-
+    approved: "",
     comment: ""
   };
 
@@ -41,22 +40,18 @@ class Garment extends Component {
   componentDidMount() {
     this.props.fetchMaterials();
     if (this.props.selectedGarment) {
-      this.setState({ value: this.props.selectedGarment.rate });
+      this.setState({ approved: this.props.selectedGarment.approved });
     }
   }
 
-  //FIX when click to undo, rate goes to zero
-  handleChange = value => {
-    this.setState({ value });
-    console.log(this.props.selectedGarment.id, value);
-    this.props.updateGarmentRate(this.props.selectedGarment.id, value);
-  };
-
-  //editing TESTING
-  toggleEditing = () => {
-    this.setState({
-      editing: !this.state.editing
-    });
+  handleApprovalChange = event => {
+    console.log(event.target);
+    this.setState({ approved: !this.state.approved });
+    console.log(this.props.selectedGarment.id, this.state.approved);
+    this.props.updateGarmentApproval(
+      this.props.selectedGarment.id,
+      this.state.approved
+    );
   };
 
   // //create drawer
@@ -118,7 +113,6 @@ class Garment extends Component {
   // );
 
   render() {
-    // console.log("garment page PROPS", this.props.selectedGarment.rate);
     // console.log("materials", this.props.materials);
 
     const garmentId = parseInt(window.location.href.split("/")[4]);
@@ -201,15 +195,6 @@ class Garment extends Component {
     return (
       <div className="main-div">
         <React.Fragment>
-          {/* <Button onClick={this.toggleEditing} style={{ marginLeft: 15 }}>
-            <Icon type="edit" theme="outlined" />
-            Edit This Garment
-          </Button> */}
-
-          {/* {this.state.editing ? (
-            <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
-          ) : null} */}
-
           <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
             <Icon type="edit" theme="outlined" />
             Edit This Garment
@@ -249,17 +234,40 @@ class Garment extends Component {
                 display: "block"
               }}
             />
+            <h2>Item Name: {this.props.selectedGarment.name}</h2>
             <span>
-              {this.props.selectedGarment.rate}
-              <Rate
-                onChange={this.handleChange}
-                value={value}
-                character={<Icon type="check-circle" theme="outlined" />}
-                allowClear
-              />
-              {value && (
-                <span className="ant-rate-text">{value} samples approved </span>
-              )}
+              {this.props.selectedGarment ? (
+                <h3>
+                  Sample Approved?{" "}
+                  {this.state.approved === true ? (
+                    <div onClick={event => this.handleApprovalChange(event)}>
+                      <Icon
+                        type="smile"
+                        theme="twoTone"
+                        twoToneColor="#52c41a"
+                      />{" "}
+                      <Icon
+                        type="frown"
+                        theme="twoTone"
+                        twoToneColor="#c7c7c7"
+                      />
+                    </div>
+                  ) : (
+                    <div onClick={event => this.handleApprovalChange(event)}>
+                      <Icon
+                        type="smile"
+                        theme="twoTone"
+                        twoToneColor="#c7c7c7"
+                      />{" "}
+                      <Icon
+                        type="frown"
+                        theme="twoTone"
+                        twoToneColor="#ff3333"
+                      />
+                    </div>
+                  )}
+                </h3>
+              ) : null}
             </span>
           </React.Fragment>
         ) : null}
@@ -279,9 +287,7 @@ class Garment extends Component {
                 Collapse View
                 <Icon type="minus" theme="outlined" />
               </Button>
-              <h2>Item Name: {this.props.selectedGarment.name}</h2>
-
-              <h3>Season: {this.props.selectedGarment.season}</h3>
+              <p>Season: {this.props.selectedGarment.season}</p>
               <p>Brand: {this.props.selectedGarment.brand.name}</p>
 
               <Divider orientation="left">General Info</Divider>
@@ -382,8 +388,7 @@ class Garment extends Component {
                 Expand All
                 <Icon type="plus" theme="outlined" />
               </Button>
-              <h2>Item Name: {this.props.selectedGarment.name}</h2>
-              <h3>Season: {this.props.selectedGarment.season}</h3>
+              <p>Season: {this.props.selectedGarment.season}</p>
               <p>Brand: {this.props.selectedGarment.brand.name}</p>
 
               <Collapse
@@ -444,5 +449,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { fetchMaterials, updateGarmentRate }
+  { fetchMaterials, updateGarmentApproval }
 )(Garment);

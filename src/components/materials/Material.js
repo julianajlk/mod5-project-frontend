@@ -24,12 +24,16 @@ class Material extends Component {
       <div className="main-div">
         {this.props.selectedMaterial ? (
           <React.Fragment>
-            <Avatar
+            <img
+              src={this.props.selectedMaterial.image_url}
+              style={{ width: 250, marginBottom: 20 }}
+            />
+            {/* <Avatar
               shape="square"
               size={100}
               icon="question"
               style={{ marginBottom: 10 }}
-            />
+            /> */}
             <h2>Material: {this.props.selectedMaterial.name}</h2>
             <h3>Category: {this.props.selectedMaterial.category}</h3>
             <h3>
