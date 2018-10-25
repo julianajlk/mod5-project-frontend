@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { Menu, Icon, Affix } from "antd";
+import logo from "../../images/apparel_logo.png";
 
 class NavBar extends React.Component {
   //use NavLink vs. Link to have "active" instead of setting the key to state
@@ -14,7 +15,7 @@ class NavBar extends React.Component {
     console.log("click ", e);
     this.setState({
       current: e.key,
-      top: this.state.top + 1
+      top: this.state.top
     });
   };
   render() {
@@ -27,9 +28,12 @@ class NavBar extends React.Component {
             mode="horizontal"
           >
             <Menu.Item>
-              <Link to="/" className="logo">
-                APParel
+              <Link to="/">
+                <img src={logo} alt="logo" style={{ width: "10em" }} />
               </Link>
+              {/* <Link to="/" className="logo">
+                APParel
+              </Link> */}
             </Menu.Item>
 
             <Menu.Item key="garments">

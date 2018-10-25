@@ -289,7 +289,7 @@ class GarmentForm extends Component {
     //     }
     //   }
     // };
-    debugger;
+
     return (
       <div>
         <Form onSubmit={event => this.handleOnSubmit(event)}>

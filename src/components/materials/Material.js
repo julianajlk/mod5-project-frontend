@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import {
   Divider,
@@ -31,8 +32,15 @@ class Material extends Component {
             />
             <h2>Material: {this.props.selectedMaterial.name}</h2>
             <h3>Category: {this.props.selectedMaterial.category}</h3>
-            <h3>Supplier: {this.props.selectedMaterial.supplier.name}</h3>
-            <Button
+            <h3>
+              Supplier:{" "}
+              <Link
+                to={`/suppliers/${this.props.selectedMaterial.supplier.id}`}
+              >
+                {this.props.selectedMaterial.supplier.name}
+              </Link>
+            </h3>
+            {/* <Button
               size="small"
               style={{
                 color: "#ffa154",
@@ -45,7 +53,7 @@ class Material extends Component {
             >
               <Icon type="plus-circle" theme="outlined" />
               Add to My Garment
-            </Button>
+            </Button> */}
 
             <Divider orientation="left">General Info</Divider>
             <p>Price: {this.props.selectedMaterial.price}</p>

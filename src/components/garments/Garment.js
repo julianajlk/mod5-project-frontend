@@ -13,7 +13,8 @@ import {
   Form,
   Input,
   Avatar,
-  Spin
+  Spin,
+  Progress
 } from "antd";
 
 import { fetchMaterials, updateGarmentRate } from "../actions/actions";
@@ -32,14 +33,16 @@ class Garment extends Component {
     visibleEdit: false,
     top: 10,
     fullView: false,
-    value: 1,
+
     comment: ""
   };
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
   componentDidMount() {
     this.props.fetchMaterials();
-    // this.setState({ value: this.props.selectedGarment.rate });
+    if (this.props.selectedGarment) {
+      this.setState({ value: this.props.selectedGarment.rate });
+    }
   }
 
   //FIX when click to undo, rate goes to zero
@@ -233,21 +236,37 @@ class Garment extends Component {
         ) : null}
 
         {this.props.selectedGarment ? (
+          <React.Fragment>
+            <img
+              alt="example"
+              src={this.props.selectedGarment.url}
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginTop: 30,
+                marginBottom: 30,
+                width: 300,
+                display: "block"
+              }}
+            />
+            <span>
+              {this.props.selectedGarment.rate}
+              <Rate
+                onChange={this.handleChange}
+                value={value}
+                character={<Icon type="check-circle" theme="outlined" />}
+                allowClear
+              />
+              {value && (
+                <span className="ant-rate-text">{value} samples approved </span>
+              )}
+            </span>
+          </React.Fragment>
+        ) : null}
+        {this.props.selectedGarment ? (
           this.state.fullView ? (
             //full view
             <React.Fragment>
-              <img
-                alt="example"
-                src={this.props.selectedGarment.url}
-                style={{
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: 30,
-                  marginBottom: 30,
-                  width: 300,
-                  display: "block"
-                }}
-              />
               <Button
                 size="small"
                 style={{
@@ -264,19 +283,6 @@ class Garment extends Component {
 
               <h3>Season: {this.props.selectedGarment.season}</h3>
               <p>Brand: {this.props.selectedGarment.brand.name}</p>
-              <span>
-                <Rate
-                  onChange={this.handleChange}
-                  value={value}
-                  character={<Icon type="check-circle" theme="outlined" />}
-                  allowClear
-                />
-                {value && (
-                  <span className="ant-rate-text">
-                    {value} samples approved{" "}
-                  </span>
-                )}
-              </span>
 
               <Divider orientation="left">General Info</Divider>
               <p>Location: {this.props.selectedGarment.location}</p>
@@ -364,18 +370,6 @@ class Garment extends Component {
           ) : (
             // collapsed view
             <React.Fragment>
-              <img
-                alt="example"
-                src={this.props.selectedGarment.url}
-                style={{
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: 30,
-                  marginBottom: 30,
-                  width: 300,
-                  display: "block"
-                }}
-              />
               <Button
                 size="small"
                 style={{
@@ -391,20 +385,6 @@ class Garment extends Component {
               <h2>Item Name: {this.props.selectedGarment.name}</h2>
               <h3>Season: {this.props.selectedGarment.season}</h3>
               <p>Brand: {this.props.selectedGarment.brand.name}</p>
-
-              <span>
-                <Rate
-                  onChange={this.handleChange}
-                  value={value}
-                  character={<Icon type="check-circle" theme="outlined" />}
-                  allowClear
-                />
-                {value && (
-                  <span className="ant-rate-text">
-                    {value} samples approved{" "}
-                  </span>
-                )}
-              </span>
 
               <Collapse
                 // defaultActiveKey={["1"]}

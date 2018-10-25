@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Map from "../other/Map.js";
 
@@ -37,9 +38,23 @@ class Supplier extends Component {
                 <h3>Location: {this.props.selectedSupplier.location}</h3>
 
                 <Divider orientation="left">General Info</Divider>
-                <h4>Materials available: </h4>
+                <p>Phone: {this.props.selectedSupplier.phone}</p>
+                <p>
+                  Number of Employees: {this.props.selectedSupplier.employees}{" "}
+                  employees
+                </p>
+                <p>Established: {this.props.selectedSupplier.established}</p>
+                <p>
+                  Employees:{" "}
+                  {this.props.selectedSupplier.users.map(user => (
+                    <Link to={`/suppliers/${user.id}`}>{user.name}</Link>
+                  ))}
+                </p>
+                <Divider orientation="left">Materials Available</Divider>
                 {this.props.selectedSupplier.materials.map(material => (
-                  <p>{material.name}</p>
+                  <Link to={`/materials/${material.id}`}>
+                    <p>{material.name}</p>
+                  </Link>
                 ))}
               </Col>
               <Col span={8}>

@@ -16,12 +16,15 @@ class Materials extends Component {
         <Route exact path="/materials">
           <ul>
             <h2 className=".page-title">Materials</h2>
+
+            <MaterialList materials={this.props.materials} />
+
             {/* {this.props.loading ? <Icon type="loading" theme="outlined" />"Loading, please wait..." : null} */}
-            {this.props.materials
+            {/* {this.props.materials
               ? this.props.materials.map(material => (
                   <MaterialList material={material} key={material.id} />
                 ))
-              : null}
+              : null} */}
           </ul>
         </Route>
 

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { fetchGarments } from "../actions/actions";
 import GarmentForm from "../garments/GarmentForm";
 
 import { Menu, Icon, Affix, Drawer, Button } from "antd";
@@ -17,6 +18,11 @@ class SideMenu extends React.Component {
     top: 50,
     visible: false
   };
+
+  //mapStateToProps + fetch to access garments in all material pages
+  componentDidMount() {
+    this.props.fetchGarments();
+  }
 
   onOpenChange = openKeys => {
     const latestOpenKey = openKeys.find(
@@ -152,4 +158,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(SideMenu);
+export default connect(
+  mapStateToProps,
+  { fetchGarments }
+)(SideMenu);

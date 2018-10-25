@@ -14,6 +14,7 @@ class Garments extends Component {
       <Switch>
         <Route exact path="/garments">
           <ul>
+            <h4>Welcome, Marcela!</h4>
             <h2 className=".page-title">Your Garments</h2>
 
             {this.props.garments ? (
