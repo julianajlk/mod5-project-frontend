@@ -33,7 +33,9 @@ class Garments extends Component {
             return (
               <div>
                 <Garment garmentId={data.match.params.garmentId} />
-                <GarmentFormEdit garmentId={data.match.params.garmentId} />
+                <div ref="garmentEditForm">
+                  <GarmentFormEdit garmentId={data.match.params.garmentId} />
+                </div>
               </div>
             );
           }}

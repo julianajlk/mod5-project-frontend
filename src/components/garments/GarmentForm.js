@@ -4,16 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createGarment, fetchMaterials } from "../actions/actions";
 
-import {
-  Form,
-  Input,
-  Slider,
-  Button,
-  // Upload,
-  message,
-  Icon,
-  Select
-} from "antd";
+import { Form, Input, Slider, Button, message, Icon, Select } from "antd";
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
@@ -67,7 +58,6 @@ class GarmentForm extends Component {
     //   file_upload: this.state.file_upload
     // };
     this.props.createGarment(this.props.history.push, newGarment);
-
     this.setState({
       name: "",
       file_upload: "",
@@ -85,44 +75,44 @@ class GarmentForm extends Component {
     });
   };
 
-  // handleOnSubmit = event => {
-  //   console.log("submit", this.state.sizing);
-  //   console.log("submit", this.state.materials);
-  //   event.preventDefault();
-  //   let newGarment = {
-  //     brand_id: 1,
-  //     name: this.state.name,
-  //     category: this.state.category,
-  //     season: this.state.season + " " + this.state.year,
-  //     location: this.state.location,
-  //     status: this.state.status,
-  //     fabrication: this.state.fabrication,
-  //     materialsIds: this.state.materialsIds,
-  //     sizing: this.state.sizing,
-  //     measurement: this.state.measurement,
-  //     fit_comment: this.state.fit_comment,
-  //     comment: this.state.comment
-  //   };
-  //   let file = {
-  //     file_upload: this.state.file_upload
-  //   };
-  //   this.props.createGarment(newGarment, file);
-  //   // // this.props.history.push("/garments/" + this.props.garment.id);
-  //   this.setState({
-  //     name: "",
-  //     file_upload: "",
-  //     category: "",
-  //     season: "Spring",
-  //     year: "2019",
-  //     location: "",
-  //     status: "",
-  //     fabrication: "",
-  //     sizing: "",
-  //     measurement: "",
-  //     fit_comment: "",
-  //     comment: ""
-  //   });
-  // };
+  handleOnSubmit = event => {
+    console.log("submit", this.state.sizing);
+    console.log("submit", this.state.materials);
+    event.preventDefault();
+    let newGarment = {
+      brand_id: 1,
+      name: this.state.name,
+      category: this.state.category,
+      season: this.state.season + " " + this.state.year,
+      location: this.state.location,
+      status: this.state.status,
+      fabrication: this.state.fabrication,
+      materialsIds: this.state.materialsIds,
+      sizing: this.state.sizing,
+      measurement: this.state.measurement,
+      fit_comment: this.state.fit_comment,
+      comment: this.state.comment
+    };
+    let file = {
+      file_upload: this.state.file_upload
+    };
+    this.props.createGarment(newGarment, file);
+    // // this.props.history.push("/garments/" + this.props.garment.id);
+    this.setState({
+      name: "",
+      file_upload: "",
+      category: "",
+      season: "Spring",
+      year: "2019",
+      location: "",
+      status: "",
+      fabrication: "",
+      sizing: "",
+      measurement: "",
+      fit_comment: "",
+      comment: ""
+    });
+  };
 
   handleSliderSizing = marks => {
     console.log(marks);
@@ -460,7 +450,11 @@ class GarmentForm extends Component {
             onChange={event => this.handleOnChange(event)}
           />
           <div style={{ marginTop: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={this.props.onClose}
+            >
               Save
             </Button>
           </div>

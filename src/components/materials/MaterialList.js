@@ -47,8 +47,14 @@ class MaterialList extends Component {
 
   filterSearch = materials => {
     if (this.state.search) {
-      return materials.filter(material =>
-        material.name.toLowerCase().includes(this.state.search.toLowerCase())
+      return materials.filter(
+        material =>
+          material.name
+            .toLowerCase()
+            .includes(this.state.search.toLowerCase()) ||
+          material.category
+            .toLowerCase()
+            .includes(this.state.search.toLowerCase())
       );
     } else {
       return materials;

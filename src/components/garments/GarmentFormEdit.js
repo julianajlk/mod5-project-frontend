@@ -10,7 +10,9 @@ import {
   InputNumber,
   Slider,
   Button,
-  // Upload,
+  Checkbox,
+  Row,
+  Col,
   message,
   Icon,
   Select
@@ -35,7 +37,8 @@ class GarmentFormEdit extends Component {
     sizing: "XS",
     measurement: "",
     fit_comment: "",
-    comment: ""
+    comment: "",
+    materialsIds: ""
   };
 
   //need to fetch materials in order for garment to have access to it. Cannot just send materials from MaterialsComponent (/materials)
@@ -76,6 +79,7 @@ class GarmentFormEdit extends Component {
       measurement: this.state.measurement,
       fit_comment: this.state.fit_comment,
       comment: this.state.comment,
+      materialsIds: this.state.materialsIds,
       file_upload: this.state.file_upload
     };
 
@@ -228,8 +232,9 @@ class GarmentFormEdit extends Component {
     });
   };
 
+  //Material checkboxes
   handleMaterialChange = value => {
-    console.log(`selected ${value}`);
+    console.log("checked = ", value);
     this.setState({
       materialsIds: value
     });
@@ -259,16 +264,15 @@ class GarmentFormEdit extends Component {
       marginBottom: 16
     };
 
-    //Materials multiple selection-dropdown values
-    const children = [];
-    let materialNames = this.props.materials.map(material => (
-      <Option key={material.id}>{material.name}</Option>
-    ));
-    children.push(materialNames);
+    const radioStyle = {
+      display: "block",
+      height: "30px",
+      lineHeight: "30px"
+    };
 
     return (
       <div>
-        <h3 style={{ marginTop: 20, marginBottom: 10 }}>Edit this Garment</h3>
+        <h2 style={{ marginTop: 30, marginBottom: 10 }}>Edit this Garment</h2>
         {this.props.selectedGarment ? (
           <Form onSubmit={event => this.handleOnSubmit(event)}>
             <Input
@@ -370,17 +374,18 @@ class GarmentFormEdit extends Component {
             </FormItem>
 
             <FormItem label="Materials">
-              {this.props.selectedGarment.materials.map(material => (
-                <Select
-                  mode="multiple"
-                  style={{ width: "100%" }}
-                  // placeholder="Select all Materials"
-                  defaultValue={material.name}
-                  onChange={this.handleMaterialChange}
-                >
-                  {children}
-                </Select>
-              ))}
+              <Checkbox.Group
+                style={{ width: "100%" }}
+                onChange={this.handleMaterialChange}
+              >
+                <Row>
+                  {this.props.selectedGarment.materials.map(material => (
+                    <Col span={8}>
+                      <Checkbox value={material.name}>{material.name}</Checkbox>
+                    </Col>
+                  ))}
+                </Row>
+              </Checkbox.Group>
             </FormItem>
 
             <FormItem label="Sizing">
@@ -431,7 +436,7 @@ class GarmentFormEdit extends Component {
                 type="primary"
                 htmlType="submit"
                 onClick={this.props.showDrawerEdit}
-                style={{ marginLeft: 10 }}
+                style={{ marginLeft: 10, marginBottom: 20 }}
               >
                 Cancel
               </Button>

@@ -16,12 +16,18 @@ class SideMenu extends React.Component {
   state = {
     openKeys: ["sub1"],
     top: 50,
-    visible: false
+    visible: false,
+    materialsList: []
   };
 
   //mapStateToProps + fetch to access garments in all material pages
   componentDidMount() {
     this.props.fetchGarments();
+
+    //find unique
+    // this.setState({
+    //   materialsList:
+    // })
   }
 
   onOpenChange = openKeys => {
@@ -45,6 +51,7 @@ class SideMenu extends React.Component {
   };
 
   onCloseDrawer = () => {
+    console.log("onCloseDrawer");
     this.setState({
       visible: false
     });
@@ -81,7 +88,11 @@ class SideMenu extends React.Component {
               visible={this.state.visible}
               width={720}
             >
-              <GarmentForm materials={this.props.materials} />
+              <GarmentForm
+                materials={this.props.materials}
+                showDrawer={this.showDrawer}
+                onClose={this.onCloseDrawer}
+              />
             </Drawer>
           </React.Fragment>
 

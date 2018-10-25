@@ -28,7 +28,7 @@ const { TextArea } = Input;
 
 class Garment extends Component {
   state = {
-    visible: false,
+    // visible: false,
     visibleEdit: false,
     top: 10,
     fullView: false,
@@ -42,6 +42,7 @@ class Garment extends Component {
     if (this.props.selectedGarment) {
       this.setState({ approved: this.props.selectedGarment.approved });
     }
+    // this.refs.garmentEditForm.scrollIntoView()
   }
 
   handleApprovalChange = event => {
@@ -195,22 +196,16 @@ class Garment extends Component {
     return (
       <div className="main-div">
         <React.Fragment>
-          <Button onClick={this.showDrawerEdit} style={{ marginLeft: 15 }}>
+          <Button
+            onClick={() => this.refs.garmentEditForm.scrollIntoView()}
+            style={{ marginLeft: 15 }}
+          >
             <Icon type="edit" theme="outlined" />
             Edit This Garment
           </Button>
-          <Drawer
-            title="Update Garment"
-            placement="left"
-            closable={true}
-            onClose={this.onCloseEdit}
-            visible={this.state.visibleEdit}
-            width={720}
-          >
-            {this.props.selectedGarment ? (
-              <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
-            ) : null}
-          </Drawer>
+          {/* <div ref="garmentEditForm">
+            <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
+          </div> */}
         </React.Fragment>
 
         {this.props && this.props.loading ? (

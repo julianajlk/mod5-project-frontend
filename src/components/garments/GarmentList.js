@@ -47,8 +47,12 @@ class GarmentList extends Component {
 
   filterSearch = garments => {
     if (this.state.search) {
-      return garments.filter(garment =>
-        garment.name.toLowerCase().includes(this.state.search.toLowerCase())
+      return garments.filter(
+        garment =>
+          garment.name
+            .toLowerCase()
+            .includes(this.state.search.toLowerCase()) ||
+          garment.season.toLowerCase().includes(this.state.search.toLowerCase())
       );
     } else {
       return garments;
