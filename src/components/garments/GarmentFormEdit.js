@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateGarment, fetchMaterials } from "../actions/actions";
@@ -66,6 +66,7 @@ class GarmentFormEdit extends Component {
   }
 
   handleOnSubmit = event => {
+    console.log("clicked");
     event.preventDefault();
     let newGarment = {
       brand_id: 1,
@@ -107,6 +108,7 @@ class GarmentFormEdit extends Component {
     // };
 
     this.props.updateGarment(
+      this.props.history.push,
       newGarment,
       this.props.selectedGarment.id
       // this.state.file_upload,
@@ -429,17 +431,19 @@ class GarmentFormEdit extends Component {
               onChange={event => this.handleOnChange(event)}
             />
             <div style={{ marginTop: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Save
-              </Button>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={this.props.showDrawerEdit}
-                style={{ marginLeft: 10, marginBottom: 20 }}
-              >
-                Cancel
-              </Button>
+              <Link to={`/garments/${this.props.selectedGarment.id}`}>
+                <Button type="primary" htmlType="submit">
+                  Save
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  // onClick={this.props.showDrawerEdit}
+                  style={{ marginLeft: 10, marginBottom: 20 }}
+                >
+                  Cancel
+                </Button>
+              </Link>
             </div>
           </Form>
         ) : null}

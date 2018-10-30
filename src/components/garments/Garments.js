@@ -9,13 +9,13 @@ import GarmentFormEdit from "./GarmentFormEdit";
 
 class Garments extends Component {
   render() {
-    console.log("Garments", this.props.garments);
+    // console.log("Garments", this.props.garments);
 
     return (
       <Switch>
         <Route exact path="/garments">
           <ul>
-            <h4>Welcome, {<Link to={`users/1`}>Marcela</Link>}!</h4>
+            <h4>Welcome, {<Link to={`users/9`}>Felipe</Link>}!</h4>
 
             <h2 className=".page-title">Your Garments</h2>
 
@@ -33,13 +33,17 @@ class Garments extends Component {
             return (
               <div>
                 <Garment garmentId={data.match.params.garmentId} />
-                <div ref="garmentEditForm">
-                  <GarmentFormEdit garmentId={data.match.params.garmentId} />
-                </div>
+                <GarmentFormEdit garmentId={data.match.params.garmentId} />
               </div>
             );
           }}
         />
+        {/* <Route
+          path="/garments/:garmentId/edit"
+          render={data => {
+            return <GarmentFormEdit garmentId={data.match.params.garmentId} />;
+          }}
+        /> */}
       </Switch>
     );
   }

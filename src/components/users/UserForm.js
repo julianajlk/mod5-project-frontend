@@ -120,7 +120,7 @@ class UserForm extends Component {
         <h3 className="form-title">Sign Up</h3>
         <form onSubmit={event => this.handleOnSubmit(event)}>
           <FormItem
-            // label="Name"
+            label="Name"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -133,7 +133,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Email"
+            label="Email"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -146,7 +146,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Name"
+            label="About"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -159,7 +159,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Profile Pic"
+            label="Profile Pic"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -183,25 +183,15 @@ class UserForm extends Component {
                 {this.state.file_upload.name}
               </p>
             ) : null}
-
-            {/* <Upload {...props} onChange={this.handlePictureUpload}>
-              <Button>
-                <Icon type="upload" /> Click to Upload
-              </Button>
-            </Upload> */}
           </FormItem>
-          <FormItem
-            // label="DOB"
-            labelCol={{ span: 2 }}
-            wrapperCol={{ span: 8 }}
-          >
+          <FormItem label="DOB" labelCol={{ span: 2 }} wrapperCol={{ span: 8 }}>
             <DatePicker
               placeceholder="Date of Birth"
               onChange={this.handleDateChange}
             />
           </FormItem>
           <FormItem
-            // label="Phone"
+            label="Phone"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -214,7 +204,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Location"
+            label="Location"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -227,7 +217,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Position"
+            label="Position"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -240,7 +230,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Department"
+            label="Department"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >
@@ -253,7 +243,7 @@ class UserForm extends Component {
             />
           </FormItem>
           <FormItem
-            // label="Company"
+            label="Company"
             labelCol={{ span: 2 }}
             wrapperCol={{ span: 8 }}
           >

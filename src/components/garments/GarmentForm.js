@@ -75,45 +75,6 @@ class GarmentForm extends Component {
     });
   };
 
-  handleOnSubmit = event => {
-    console.log("submit", this.state.sizing);
-    console.log("submit", this.state.materials);
-    event.preventDefault();
-    let newGarment = {
-      brand_id: 1,
-      name: this.state.name,
-      category: this.state.category,
-      season: this.state.season + " " + this.state.year,
-      location: this.state.location,
-      status: this.state.status,
-      fabrication: this.state.fabrication,
-      materialsIds: this.state.materialsIds,
-      sizing: this.state.sizing,
-      measurement: this.state.measurement,
-      fit_comment: this.state.fit_comment,
-      comment: this.state.comment
-    };
-    let file = {
-      file_upload: this.state.file_upload
-    };
-    this.props.createGarment(newGarment, file);
-    // // this.props.history.push("/garments/" + this.props.garment.id);
-    this.setState({
-      name: "",
-      file_upload: "",
-      category: "",
-      season: "Spring",
-      year: "2019",
-      location: "",
-      status: "",
-      fabrication: "",
-      sizing: "",
-      measurement: "",
-      fit_comment: "",
-      comment: ""
-    });
-  };
-
   handleSliderSizing = marks => {
     console.log(marks);
     //REFACTOR THIS LATER
@@ -198,13 +159,6 @@ class GarmentForm extends Component {
     });
   };
 
-  // handlePictureUpload = info => {
-  //   console.log("Upload", info, info.file.name);
-  //   this.setState({
-  //     image_url: info.file.name
-  //   });
-  // };
-
   handleOnChange = event => {
     // console.log(event.target.name, event.target.value);
     this.setState({
@@ -261,25 +215,6 @@ class GarmentForm extends Component {
     ));
     children.push(materialNames);
 
-    //picture upload Ant Design
-    // const props = {
-    //   name: "file",
-    //   action: "//jsonplaceholder.typicode.com/posts/",
-    //   headers: {
-    //     authorization: "authorization-text"
-    //   },
-    //   onChange(info) {
-    //     if (info.file.status !== "uploading") {
-    //       console.log(info.file, info.file.name, info.fileList);
-    //     }
-    //     if (info.file.status === "done") {
-    //       message.success(`${info.file.name} file uploaded successfully`);
-    //     } else if (info.file.status === "error") {
-    //       message.error(`${info.file.name} file upload failed.`);
-    //     }
-    //   }
-    // };
-
     return (
       <div>
         <Form onSubmit={event => this.handleOnSubmit(event)}>
@@ -291,13 +226,6 @@ class GarmentForm extends Component {
             onChange={event => this.handleOnChange(event)}
           />
 
-          {/* <Input
-            name="category"
-            value={this.state.category}
-            placeholder="Category"
-            style={pStyle}
-            onChange={event => this.handleOnChange(event)}
-          /> */}
           <FormItem label="Category">
             <Select
               showSearch
@@ -387,11 +315,6 @@ class GarmentForm extends Component {
                 {this.state.file_upload.name}
               </p>
             ) : null}
-            {/* <Upload {...props} onChange={this.handlePictureUpload}>
-              <Button>
-                <Icon type="upload" /> Click to Upload
-              </Button>
-            </Upload> */}
           </FormItem>
 
           <FormItem label="Materials">
@@ -421,7 +344,6 @@ class GarmentForm extends Component {
                 100: "XL"
               }}
               step={25}
-              // value={value}
               onChange={this.handleSliderSizing}
             />
           </FormItem>

@@ -2,6 +2,7 @@ import React from "react";
 import { Carousel, Button } from "antd";
 import sliderImg1 from "../../images/slider_1.jpg";
 import sliderImg2 from "../../images/slider_2.jpg";
+import sliderImg3 from "../../images/slider_3.jpg";
 import apparelLogoGif from "../../images/apparelogo.gif";
 
 const Home = () => {
@@ -15,6 +16,9 @@ const Home = () => {
           </div>
           <div>
             <img src={sliderImg2} alt="img" />
+          </div>
+          <div>
+            <img src={sliderImg3} alt="img" />
           </div>
         </Carousel>
       </React.Fragment>

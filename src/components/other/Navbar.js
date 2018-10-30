@@ -60,16 +60,16 @@ class NavBar extends React.Component {
                 Sign Up
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="login" style={{ float: "right" }}>
+            {/* <Menu.Item key="login" style={{ float: "right" }}>
               <NavLink to="/login">
                 <Icon type="user" theme="outlined" />
                 Login
               </NavLink>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="user" style={{ float: "right" }}>
               <NavLink to={`/users/1`}>
                 <Icon type="smile" theme="twoTone" twoToneColor="#ffa154" />
-                User 1
+                User
               </NavLink>
             </Menu.Item>
           </Menu>

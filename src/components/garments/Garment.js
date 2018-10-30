@@ -88,23 +88,6 @@ class Garment extends Component {
     });
   };
 
-  //comment/post NOT FUNCTIONAL
-  handleOnSubmit = event => {
-    console.log(event.target);
-    event.preventDefault();
-    this.props.createComment();
-    this.setState({
-      comment: ""
-    });
-  };
-
-  handleComment = event => {
-    console.log(event.target.value);
-    this.setState({
-      comment: event.target.value
-    });
-  };
-
   //   const text = (
   //   <p style={{ paddingLeft: 24 }}>
   //     A dog is a type of domesticated animal.
@@ -196,13 +179,13 @@ class Garment extends Component {
     return (
       <div className="main-div">
         <React.Fragment>
-          <Button
+          {/* <Button
             onClick={() => this.refs.garmentEditForm.scrollIntoView()}
             style={{ marginLeft: 15 }}
           >
             <Icon type="edit" theme="outlined" />
             Edit This Garment
-          </Button>
+          </Button> */}
           {/* <div ref="garmentEditForm">
             <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
           </div> */}
@@ -330,42 +313,6 @@ class Garment extends Component {
                   backgroundColor: "#fafafa"
                 }}
                 message={this.props.selectedGarment.comment}
-              />
-
-              {/* post comments not functional yet */}
-              <Divider orientation="left">Comments</Divider>
-              <Form onSubmit={event => this.handleOnSubmit(event)}>
-                <TextArea
-                  name="comment"
-                  rows={4}
-                  value={this.state.comment}
-                  placeholder="Write your comment here..."
-                  style={{ marginBottom: 16 }}
-                  onChange={event => this.handleComment(event)}
-                />
-                {/* <div style={{ marginTop: 16,  }}> */}
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ marginBottom: 30, float: "right" }}
-                >
-                  Post Comment
-                </Button>
-                {/* </div> */}
-              </Form>
-
-              <p style={{ display: "block" }}>
-                <Avatar style={{ backgroundColor: "#ffc89c" }} icon="user" />
-                Comment by: Marcela | Date: 24/10/2018{" "}
-              </p>
-              <Alert
-                type="warning"
-                style={{
-                  margin: "16px 0",
-                  border: "1px solid #f5f5f5",
-                  backgroundColor: "#fafafa"
-                }}
-                message={this.props.selectedGarment.fit_comment}
               />
             </React.Fragment>
           ) : (

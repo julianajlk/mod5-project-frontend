@@ -56,7 +56,9 @@ class Supplier extends Component {
                 <p>
                   Employees:{" "}
                   {this.props.selectedSupplier.users.map(user => (
-                    <Link to={`/users/${user.id}`}>{user.name}</Link>
+                    <li>
+                      <Link to={`/users/${user.id}`}>{user.name} </Link>
+                    </li>
                   ))}
                 </p>
                 <Divider orientation="left">Materials Available</Divider>

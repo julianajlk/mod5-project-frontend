@@ -72,7 +72,7 @@ class GarmentMaterials extends Component {
       {
         title: "Remove",
         key: "operation",
-        fixed: "right",
+        // fixed: "right",
         width: 100,
         render: () => (
           <span>

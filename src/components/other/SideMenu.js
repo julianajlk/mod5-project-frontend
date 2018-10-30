@@ -17,17 +17,27 @@ class SideMenu extends React.Component {
     openKeys: ["sub1"],
     top: 50,
     visible: false,
-    materialsList: []
+    uniqueMaterials: []
   };
 
   //mapStateToProps + fetch to access garments in all material pages
   componentDidMount() {
     this.props.fetchGarments();
-
-    //find unique
-    // this.setState({
-    //   materialsList:
-    // })
+    //find unique materials
+    console.log("0", this.props.garments);
+    if (this.props.garments) {
+      const garmentMaterialArray = this.props.garments.map(garment =>
+        garment.materials.map(material => material.name)
+      );
+      console.log("1", garmentMaterialArray);
+      const materialArray = garmentMaterialArray.flat();
+      console.log("2", materialArray);
+      let unique = [...new Set(materialArray)];
+      console.log("3", unique);
+      this.setState({
+        uniqueMaterials: unique
+      });
+    }
   }
 
   onOpenChange = openKeys => {
@@ -58,7 +68,7 @@ class SideMenu extends React.Component {
   };
 
   render() {
-    // console.log(this.props.materials);
+    console.log("unique", this.state.uniqueMaterials);
 
     return (
       <Affix offsetTop={this.state.top}>
@@ -122,15 +132,14 @@ class SideMenu extends React.Component {
               </span>
             }
           >
-            {this.props.garments.map(garment =>
-              garment.materials.map(material => (
-                <Menu.Item key={material.id}>
-                  <Link className="item" to={`/materials/${material.id}`}>
-                    {material.name}
-                  </Link>
-                </Menu.Item>
-              ))
-            )}
+            {this.state.uniqueMaterials.map(material => (
+              <Menu.Item key={material.id}>
+                <Link className="item" to={`/materials/${material.id}`}>
+                  {material.name}
+                </Link>
+              </Menu.Item>
+            ))}
+
             {/* {this.props.materials.map(material => (
               <Menu.Item key={material.id}>
                 <Link className="item" to={`/materials/${material.id}`}>

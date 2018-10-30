@@ -29,7 +29,7 @@ export function updateGarmentApproval(garmentId, approved) {
   };
 }
 
-export function updateGarment(newGarment, garmentId) {
+export function updateGarment(redirectPush, newGarment, garmentId) {
   console.log("createGarment", newGarment.file_upload);
   let formData = new FormData();
   formData.append("brand_id", newGarment.brand_id);
@@ -55,11 +55,12 @@ export function updateGarment(newGarment, garmentId) {
       body: formData
     })
       .then(response => response.json())
-      .then(garment => addGarment(garment));
+      .then(garment => {
+        dispatch(addGarment(garment));
+        redirectPush(`/garments/${garment.id}`);
+      });
   };
 }
-
-// .then(garment =>{ addGarment(garment)push(`http://localhost:3000/garments/${garmentId})`});
 
 export function createGarment(redirectPush, newGarment) {
   console.log("createGarment", newGarment);
@@ -86,61 +87,11 @@ export function createGarment(redirectPush, newGarment) {
     })
       .then(response => response.json())
       .then(garment => {
+        dispatch(addGarment(garment));
         redirectPush(`/garments/${garment.id}`);
-        addGarment(garment);
       });
   };
 }
-
-// export function createGarment(newGarment, file) {
-//   // console.log("createGarment", newGarment.file_upload);
-//
-//   let formData = new FormData();
-//   formData.append("brand_id", newGarment.brand_id);
-//   formData.append("name", newGarment.name);
-//   formData.append("category", newGarment.category);
-//   formData.append("season", newGarment.season);
-//   formData.append("location", newGarment.location);
-//   formData.append("status", newGarment.status);
-//   formData.append("fabrication", newGarment.fabrication);
-//   formData.append("sizing", newGarment.sizing);
-//   formData.append("measurement", newGarment.measurement);
-//   formData.append("fit_comment", newGarment.fit_comment);
-//   formData.append("comment", newGarment.comment);
-//   formData.append("cover_upload", newGarment.file_upload);
-//
-//   // formData.append("materialsIds", newGarment.materialsIds);
-//   return dispatch => {
-//     fetch(`http://localhost:3000/garments`, {
-//       method: "POST",
-//       body: formData
-//     })
-//       .then(response => response.json())
-//       .then(garment => {
-//         let promises = newGarment.materialsIds.forEach(id => {
-//           fetch(`http://localhost:3000/garment_materials`, {
-//             method: "POST",
-//             headers: {
-//               Accept: "application/json",
-//               "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({ garment_id: newGarment.id, material_id: id })
-//           });
-//         });
-//         Promise.all(promises)
-//           .then(response => {
-//             fetch(`http://localhost:3000/garments/${garment.id}`)
-//               .then(response => response.json())
-//               .then(garment => addGarment(garment));
-//           })
-//           .catch(function(err) {
-//             console.log("A promise failed to resolve", err);
-//           });
-//       });
-//   };
-// }
-
-//create garment_materials (post) for each materialsIds + promise.all
 
 //before adding material_garments join table
 // export function createGarment(newGarment, file) {
@@ -243,7 +194,7 @@ export function fetchBrands() {
 }
 
 // USERS
-export function updateUser(newUser, userId, file) {
+export function updateUser(redirectPush, newUser, userId, file) {
   console.log("update", newUser, userId, file);
   let formData = new FormData();
   formData.append("name", newUser.name);
@@ -262,7 +213,10 @@ export function updateUser(newUser, userId, file) {
       body: formData
     })
       .then(response => response.json())
-      .then(user => addUser(user));
+      .then(user => {
+        redirectPush(`/users/${user.id}`);
+        addGarment(user);
+      });
   };
 }
 

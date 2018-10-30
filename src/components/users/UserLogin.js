@@ -57,9 +57,9 @@ class UserLogin extends Component {
             <Input
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Password"
-              type="text"
+              type="password"
               name="password"
-              value={this.state.email}
+              value={this.state.password}
               onChange={event => this.handleOnChange(event)}
             />
           </FormItem>
@@ -72,14 +72,16 @@ class UserLogin extends Component {
           </FormItem> */}
 
           <FormItem wrapperCol={{ span: 8, offset: 0 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              style={{ marginRight: 10 }}
-            >
-              Login
-            </Button>
+            <Link to={`/users/1`}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                style={{ marginRight: 10 }}
+              >
+                Login
+              </Button>
+            </Link>
             Or <Link to="/signup">register now!</Link>
           </FormItem>
         </Form>

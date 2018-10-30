@@ -25,6 +25,7 @@ class UserFormEdit extends Component {
       name: this.props.selectedUser.name,
       email: this.props.selectedUser.email,
       about: this.props.selectedUser.about,
+      url: this.props.selectedUser.url,
       file_upload: "",
       dob: this.props.selectedUser.dob,
       phone: this.props.selectedUser.phone,
@@ -49,9 +50,13 @@ class UserFormEdit extends Component {
     let file = {
       file_upload: this.state.file_upload
     };
-    this.props.updateUser(newUser, this.props.selectedUser.id, file);
+    this.props.updateUser(
+      this.props.history.push,
+      newUser,
+      this.props.selectedUser.id,
+      file
+    );
 
-    // this.props.history.push("/users/" + this.props.user.id);
     this.setState({
       name: "",
       email: "",
@@ -100,11 +105,12 @@ class UserFormEdit extends Component {
           <React.Fragment>
             <Row>
               <Col span={8}>
-                {/* <img
-                className="profile-picture-edit"
-                alt="Profile Avatar"
-                src={this.props.selectedUser.url}
-              /> */}
+                <img
+                  className="profile-picture-edit"
+                  alt="Profile Avatar"
+                  src={this.state.url}
+                  style={{ marginRight: 20, float: "right" }}
+                />
               </Col>
               <Col span={16}>
                 <h2 className="page-title">Edit Profile</h2>
