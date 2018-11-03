@@ -272,6 +272,15 @@ class GarmentFormEdit extends Component {
       lineHeight: "30px"
     };
 
+    //Materials multiple selection-dropdown values
+    const children = [];
+    if (this.props.selectedGarment) {
+      let selectedMaterialNames = this.props.selectedGarment.materials.map(
+        material => <Option key={material.id}>{material.name}</Option>
+      );
+      children.push(selectedMaterialNames);
+    }
+
     return (
       <div id="edit-garment">
         <h2 style={{ marginTop: 30, marginBottom: 10 }}>Edit this Garment</h2>
@@ -376,6 +385,27 @@ class GarmentFormEdit extends Component {
             </FormItem>
 
             <FormItem label="Materials">
+              <Select
+                mode="multiple"
+                style={{ width: "100%" }}
+                defaultValue={children
+                  .map(child =>
+                    child.map(grandchild => grandchild.props.children)
+                  )
+                  .flat()}
+                placeholder="Search or Select Materials"
+                onChange={this.handleMaterialChange}
+                filterOption={(input, option) =>
+                  option.props.children
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
+                }
+              >
+                {children}
+              </Select>
+            </FormItem>
+
+            {/* <FormItem label="Materials">
               <Checkbox.Group
                 style={{ width: "100%" }}
                 onChange={this.handleMaterialChange}
@@ -388,7 +418,7 @@ class GarmentFormEdit extends Component {
                   ))}
                 </Row>
               </Checkbox.Group>
-            </FormItem>
+            </FormItem> */}
 
             <FormItem label="Sizing">
               <p>{this.props.selectedGarment.sizing}</p>

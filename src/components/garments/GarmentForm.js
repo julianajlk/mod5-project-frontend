@@ -321,7 +321,7 @@ class GarmentForm extends Component {
             <Select
               mode="multiple"
               style={{ width: "100%" }}
-              placeholder="Select all Materials"
+              placeholder="Search or Select Materials"
               onChange={this.handleMaterialChange}
               filterOption={(input, option) =>
                 option.props.children
