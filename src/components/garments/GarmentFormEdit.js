@@ -273,7 +273,7 @@ class GarmentFormEdit extends Component {
     };
 
     return (
-      <div>
+      <div id="edit-garment">
         <h2 style={{ marginTop: 30, marginBottom: 10 }}>Edit this Garment</h2>
         {this.props.selectedGarment ? (
           <Form onSubmit={event => this.handleOnSubmit(event)}>
@@ -431,19 +431,19 @@ class GarmentFormEdit extends Component {
               onChange={event => this.handleOnChange(event)}
             />
             <div style={{ marginTop: 16 }}>
-              <Link to={`/garments/${this.props.selectedGarment.id}`}>
-                <Button type="primary" htmlType="submit">
-                  Save
-                </Button>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  // onClick={this.props.showDrawerEdit}
-                  style={{ marginLeft: 10, marginBottom: 20 }}
-                >
-                  Cancel
-                </Button>
-              </Link>
+              {/* <Link to={`/garments/${this.props.selectedGarment.id}`}> */}
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                // onClick={this.props.showDrawerEdit}
+                style={{ marginLeft: 10, marginBottom: 20 }}
+              >
+                Cancel
+              </Button>
+              {/* </Link> */}
             </div>
           </Form>
         ) : null}

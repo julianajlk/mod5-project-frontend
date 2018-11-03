@@ -9,7 +9,7 @@
 _See the video demo <a href="https://vimeo.com/297743976
 ">here</a>_
 
-### Built with
+### Built with:
 
 - [React](https://github.com/facebook/create-react-app)
 

@@ -88,13 +88,15 @@ class Garment extends Component {
     });
   };
 
-  //   const text = (
-  //   <p style={{ paddingLeft: 24 }}>
-  //     A dog is a type of domesticated animal.
-  //     Known for its loyalty and faithfulness,
-  //     it can be found as a welcome guest in many households across the world.
-  //   </p>
-  // );
+  scrollToEdit = () => {
+    const formDiv = document.querySelector("#edit-garment");
+    const formPosition = formDiv.getBoundingClientRect();
+    const offsetTop = formPosition.top - 60;
+    window.scrollTo({
+      top: offsetTop,
+      behavior: "smooth"
+    });
+  };
 
   render() {
     // console.log("materials", this.props.materials);
@@ -179,13 +181,13 @@ class Garment extends Component {
     return (
       <div className="main-div">
         <React.Fragment>
-          {/* <Button
-            onClick={() => this.refs.garmentEditForm.scrollIntoView()}
+          <Button
+            onClick={() => this.scrollToEdit()}
             style={{ marginLeft: 15 }}
           >
             <Icon type="edit" theme="outlined" />
             Edit This Garment
-          </Button> */}
+          </Button>
           {/* <div ref="garmentEditForm">
             <GarmentFormEdit selectedGarment={this.props.selectedGarment} />
           </div> */}
